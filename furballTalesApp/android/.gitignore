@@ -13,3 +13,6 @@ key.properties
 #firebase config file
 app/google-services.json
 furballTalesApp/android/app/google-services.json
+
+#DS Store 
+.DS_Store
