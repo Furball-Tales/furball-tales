@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import './ItemCard.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
+void main() => runApp(MaterialApp(home: Homepage()));
 
-class MyApp extends StatefulWidget {
+class Homepage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -26,7 +26,7 @@ class ItemNameInputField extends TextInputFormatter {
   }
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<Homepage> {
   List<Widget> list = <Widget>[
     Container(child: ItemCard()),
   ];
