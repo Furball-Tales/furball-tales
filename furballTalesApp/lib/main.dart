@@ -1,11 +1,97 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:firebase_auth/firebase_auth.dart'; // firebase auth plagin system
+import 'package:flutter/material.dart';
+//import 'package:google_sign_in/google_sign_in.dart'; // plagin from google for sign in
+import 'login_page.dart';
 
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Login',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
+    );
+  }
+}
+// Ayuimi files
+
+// -------------------------------------------
 // void main() {
-//   runApp(MaterialApp(
-//     home: HomePage(),
-//   ));
+//   runApp(MaterialApp(home:HomePage(),));
+// }
+
+// class HomePage extends StatefulWidget {
+//   @override
+//   _HomePageState createState() => _HomePageState();
+// }
+
+// final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+// final GoogleSignIn googleSignIn = GoogleSignIn();
+
+// class _HomePageState extends State<HomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Colors.black,
+//         title: Text('Welcome'),),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget> [
+//             FlatButton(child:Padding (
+//               padding: const EdgeInsets.all(8.0),
+//               child: Text('Sign-in with Google', style: TextStyle(color: Colors.white, fontSize:24),),
+//       ),onPressed: _signInWithGoogle,
+//       color: Colors.black,
+//             )
+//           ],)
+//         ),
+//       );
+//     }
+
+//   _signInWithGoogle() async {
+
+//     final GoogleSignInAccount googleUser = await googleSignIn.signIn();
+//     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+//     final AuthCredential credential = GoogleAuthProvider.getCredential(idToken: googleAuth.idToken, accessToken:googleAuth.accessToken);
+
+//     final FirebaseUser user = (await firebaseAuth.signInWithCredential(credential)).user;
+//   }
+// }
+
+//----------------------------------------------------------
+
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         // This is the theme of your application.
+//         //
+//         // Try running your application with "flutter run". You'll see the
+//         // application has a blue toolbar. Then, without quitting the app, try
+//         // changing the primarySwatch below to Colors.green and then invoke
+//         // "hot reload" (press "r" in the console where you ran "flutter run",
+//         // or simply save your changes to "hot reload" in a Flutter IDE).
+//         // Notice that the counter didn't reset back to zero; the application
+//         // is not restarted.
+//         primarySwatch: Colors.blue,
+//         // This makes the visual density adapt to the platform that you run
+//         // the app on. For desktop platforms, the controls will be smaller and
+//         // closer together (more dense) than on mobile platforms.
+//         visualDensity: VisualDensity.adaptivePlatformDensity,
+//       ),
+//       home: MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
 // }
 
 // class HomePage extends StatefulWidget {

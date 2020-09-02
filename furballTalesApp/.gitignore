@@ -45,3 +45,7 @@ app.*.map.json
 
 #Google service
 android/app/google-services.json
+
+# Firebase
+google-services.json
+
