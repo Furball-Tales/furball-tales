@@ -1,51 +1,72 @@
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart'; // firebase auth plagin system
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:google_sign_in/google_sign_in.dart'; // plagin from google for sign in
+import 'login_page.dart';
 
-void main() {
-  runApp(MaterialApp(home:HomePage(),));
-}
+void main() => runApp(MyApp());
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-final GoogleSignIn googleSignIn = GoogleSignIn();
-
-class _HomePageState extends State<HomePage> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('Welcome'),),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            FlatButton(child:Padding (
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Sign-in with Google', style: TextStyle(color: Colors.white, fontSize:24),),
-      ),onPressed: _signInWithGoogle,
-      color: Colors.black,
-            )
-          ],)
-        ),
-      );
-    }
-
-  _signInWithGoogle() async {
-
-    final GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(idToken: googleAuth.idToken, accessToken:googleAuth.accessToken);
-
-    final FirebaseUser user = (await firebaseAuth.signInWithCredential(credential)).user;
+    return MaterialApp(
+      title: 'Flutter Login',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
+    );
   }
 }
+// Ayuimi files
+
+// -------------------------------------------
+// void main() {
+//   runApp(MaterialApp(home:HomePage(),));
+// }
+
+// class HomePage extends StatefulWidget {
+//   @override
+//   _HomePageState createState() => _HomePageState();
+// }
+
+// final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+// final GoogleSignIn googleSignIn = GoogleSignIn();
+
+// class _HomePageState extends State<HomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Colors.black,
+//         title: Text('Welcome'),),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget> [
+//             FlatButton(child:Padding (
+//               padding: const EdgeInsets.all(8.0),
+//               child: Text('Sign-in with Google', style: TextStyle(color: Colors.white, fontSize:24),),
+//       ),onPressed: _signInWithGoogle,
+//       color: Colors.black,
+//             )
+//           ],)
+//         ),
+//       );
+//     }
+
+//   _signInWithGoogle() async {
+
+//     final GoogleSignInAccount googleUser = await googleSignIn.signIn();
+//     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+//     final AuthCredential credential = GoogleAuthProvider.getCredential(idToken: googleAuth.idToken, accessToken:googleAuth.accessToken);
+
+//     final FirebaseUser user = (await firebaseAuth.signInWithCredential(credential)).user;
+//   }
+// }
+
+//----------------------------------------------------------
+
 // class MyApp extends StatelessWidget {
 //   // This widget is the root of your application.
 //   @override
