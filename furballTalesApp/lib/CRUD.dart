@@ -3,9 +3,6 @@ import 'package:firebase_database/firebase_database.dart';
 
 class FirstScreen extends StatelessWidget {
 
-  final String id;
-  FirstScreen({Key key, this.id}) : super(key:key);
-
 //getting the id passed to here?
   final databaseReference = FirebaseDatabase.instance.reference().child('id');
 
