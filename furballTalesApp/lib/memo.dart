@@ -1,29 +1,125 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import './memo_edit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Memo {
-  String id;
-  String text;
-  DateTime date;
-
-  Memo({
-    @required this.id,
-    @required this.text,
-    @required this.date,
-  });
+class MemoList extends StatefulWidget {
+  @override
+  MemoListState createState() => MemoListState();
 }
 
-class MemoData {
-  final List<Memo> memos = [
-    Memo(
-      id: 'm1',
-      text: 'New Shoes',
-      date: DateTime.now(),
-    ),
-    Memo(
-      id: 'm2',
-      text: 'Weekly Groceries',
-      date: DateTime.now(),
-    ),
-  ];
+class MemoListState extends State<MemoList> {
+  var _memoList = new List<String>();
+  var _currentIndex = -1;
+  bool _loading = true;
+  final _biggerFont = const TextStyle(fontSize: 18.0);
+
+  @override
+  void initState() {
+    super.initState();
+    this.loadMemoList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_loading) {
+      return Scaffold(body: CircularProgressIndicator());
+    }
+    return Scaffold(
+      body: _buildList(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addMemo,
+        tooltip: 'New Memo',
+        backgroundColor: Colors.cyanAccent[400],
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  void loadMemoList() {
+    SharedPreferences.getInstance().then((prefs) {
+      const key = "memo-list";
+      if (prefs.containsKey(key)) {
+        _memoList = prefs.getStringList(key);
+      }
+      setState(() {
+        _loading = false;
+      });
+    });
+  }
+
+  void _addMemo() {
+    setState(() {
+      _memoList.add("");
+      _currentIndex = _memoList.length - 1;
+      storeMemoList();
+      Navigator.of(context).push(MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return new MemoEdit(_memoList[_currentIndex], _onChanged);
+        },
+      ));
+    });
+  }
+
+  void _onChanged(String text) {
+    setState(() {
+      _memoList[_currentIndex] = text;
+      storeMemoList();
+    });
+  }
+
+  void storeMemoList() async {
+    final prefs = await SharedPreferences.getInstance();
+    const key = "memo-list";
+    final success = await prefs.setStringList(key, _memoList);
+    if (!success) {
+      debugPrint("Failed to store value");
+    }
+  }
+
+  Widget _buildList() {
+    final itemCount = _memoList.length == 0 ? 0 : _memoList.length * 2 - 1;
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: itemCount,
+        itemBuilder: /*1*/ (context, i) {
+          if (i.isOdd) return Divider(height: 2);
+          final index = (i / 2).floor();
+          final memo = _memoList[index];
+          return _buildWrappedRow(memo, index);
+        });
+  }
+
+  Widget _buildWrappedRow(String content, int index) {
+    return Dismissible(
+      background: Container(color: Colors.red),
+      key: Key(content),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        setState(() {
+          _memoList.removeAt(index);
+          storeMemoList();
+        });
+      },
+      child: _buildRow(content, index),
+    );
+  }
+
+  Widget _buildRow(String content, int index) {
+    return ListTile(
+      title: Text(
+        content,
+        style: _biggerFont,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      onTap: () {
+        _currentIndex = index;
+        Navigator.of(context)
+            .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+          return new MemoEdit(_memoList[_currentIndex], _onChanged);
+        }));
+      },
+    );
+  }
 }

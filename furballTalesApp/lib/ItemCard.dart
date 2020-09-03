@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './memo.dart';
 
 class ItemCard extends StatelessWidget {
   @override
