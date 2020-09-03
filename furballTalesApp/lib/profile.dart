@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'sign_in.dart';
+import 'login_page.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -83,9 +85,11 @@ class Profile extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Tap'),
-                  ));
+                  signOutGoogle();
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }), ModalRoute.withName('/'));
                 },
                 child: Card(
                   color: Colors.white,
