@@ -54,14 +54,18 @@ class _DashboardState extends State<Dashboard> {
           showDialog(
               context: context,
               builder: (_) => AlertDialog(
-                    title: Text('Please input your AWESOME new item 🤣'),
+                    title: Text(
+                      'Please input new notes😊',
+                      style: TextStyle(fontSize: 15),
+                    ),
                     content: TextField(
                       autofocus: true,
                       inputFormatters: [ItemNameInputField()],
                     ),
                     actions: [
-                      RaisedButton(
+                      FlatButton(
                         onPressed: addCardButtonPressed,
+                        textColor: Colors.cyan[400],
                         child: const Text('Send'),
                       ),
                     ],
