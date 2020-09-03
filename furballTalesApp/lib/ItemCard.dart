@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'sign_in.dart';
-import 'login_page.dart';
 
 class ItemCard extends StatelessWidget {
   @override
@@ -24,17 +22,6 @@ class ItemCard extends StatelessWidget {
                 FlatButton(
                   child: const Text('DELETE'),
                   onPressed: () {/* ... */},
-                ),
-                FlatButton.icon(
-                  icon: Icon(Icons.person),
-                  label: const Text('LOGOUT'),
-                  onPressed: () {
-                    signOutGoogle();
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) {
-                      return LoginPage();
-                    }), ModalRoute.withName('/'));
-                  },
                 ),
               ],
             ),
