@@ -49,3 +49,7 @@ android/app/google-services.json
 # Firebase
 google-services.json
 
+#IOS
+/ios/
+
+
