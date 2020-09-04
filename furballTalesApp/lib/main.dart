@@ -1,7 +1,11 @@
 //import 'package:firebase_auth/firebase_auth.dart'; // firebase auth plagin system
 import 'package:flutter/material.dart';
+import 'package:furballTalesApp/donation.dart';
 //import 'package:google_sign_in/google_sign_in.dart'; // plagin from google for sign in
 import 'login_page.dart';
+import 'about.dart';
+import 'profile.dart';
+import 'donation.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +18,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginPage(),
+      routes: {
+        '/about': (context) => About(),
+        '/profile': (context) => Profile(),
+        '/donation': (context) => Donation(),
+      },
     );
   }
 }
