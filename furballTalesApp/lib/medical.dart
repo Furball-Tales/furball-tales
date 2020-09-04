@@ -1,4 +1,27 @@
 
+import 'package:flutter/material.dart';
+
+void main()=> runApp(MyApp());
+
+class Medical extends StatefulWidget {
+  @override
+  _MedicalState createState() => _MedicalState();
+}
+
+class _MedicalState extends State<Medical> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Medical History",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light().copyWith(
+        accentColor: Colors.blueGrey,
+        ),
+        home: medicalui(),
+        );
+  }
+}
+
 // import 'package:flutter/material.dart';
 // import 'package:rapido/rapido.dart';
 
