@@ -14,5 +14,21 @@ key.properties
 app/google-services.json
 furballTalesApp/android/app/google-services.json
 
+#local properties
+app/local.properties
+furballTalesApp/android/app/local.properties
+
+#gradlew.bat
+app/gradlew.bat
+furballTalesApp/android/app/gradlew.bat
+
+#gradlew
+app/gradlew
+furballTalesApp/android/app/gradlew
+
+#gradle wrapper properties
+app/gradle/wrapper/gradle-wrapper.properties
+furballTalesApp/android/app/gradle/wrapper/gradle-wrapper.properties
+
 #DS Store 
 .DS_Store
