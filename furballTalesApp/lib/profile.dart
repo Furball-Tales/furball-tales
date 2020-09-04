@@ -3,8 +3,6 @@ import 'sign_in.dart';
 import 'login_page.dart';
 
 class Profile extends StatelessWidget {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

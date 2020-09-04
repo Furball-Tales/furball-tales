@@ -2,13 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 
-
 // These variables will pull from Google
 String name;
 String email;
 String image;
 String id;
-
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -36,12 +34,12 @@ Future<String> signInWithGoogle() async {
 
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
- 
+
   return 'signInWithGoogle succeeded: $currentUser';
 }
 
 void signOutGoogle() async {
+  print("this is my name $name");
   await googleSignIn.signOut();
   print("User Sign Out");
 }
-

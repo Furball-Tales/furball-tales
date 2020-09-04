@@ -1,10 +1,12 @@
 // import 'package:flutter/material.dart';
 // import 'package:firebase_database/firebase_database.dart';
 
+
 // class FirstScreen extends StatelessWidget {
 
 // //getting the id passed to here?
 //   final databaseReference = FirebaseDatabase.instance.reference().child('id');
+
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -12,6 +14,7 @@
 
 //     //check if it's working
 //     print('this is $id');
+
 
 //     return Scaffold(
 //         appBar: AppBar(
