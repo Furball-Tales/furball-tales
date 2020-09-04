@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import 'dashboard.dart';
+import 'medical.dart';
 import 'profile.dart';
 
 void main() => runApp(MaterialApp(home: Homepage()));
@@ -15,7 +16,7 @@ class _MyAppState extends State<Homepage> {
   final List<Widget> _children = [
     Dashboard(),
     PlaceholderWidget(Colors.deepOrange),
-    PlaceholderWidget(Colors.green),
+    Medical(),
     Profile()
   ];
 
