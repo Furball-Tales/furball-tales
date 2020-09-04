@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/material.dart';
+import 'profile.dart';
 
-// Add these three variables to store the info
-// retrieved from the FirebaseUser
+// These variables will pull from Google
 String name;
 String email;
-String imageUrl;
+String image;
+String id;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -23,16 +25,24 @@ Future<String> signInWithGoogle() async {
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
 
+  name = user.displayName;
+  email = user.email;
+  image = user.photoUrl;
+  id = user.uid;
+
+  print("this is my name $name");
+
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
 
-  return 'signInWithGoogle succeeded: $user';
+  return 'signInWithGoogle succeeded: $currentUser';
 }
 
 void signOutGoogle() async {
+  print("this is my name $name");
   await googleSignIn.signOut();
   print("User Sign Out");
 }
