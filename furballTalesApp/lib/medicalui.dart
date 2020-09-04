@@ -9,7 +9,9 @@ class _medicaluiState extends State<medicalui> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+        title: Text()
+      )
     );
   }
 }
