@@ -14,7 +14,7 @@ class _MyAppState extends State<Homepage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     Dashboard(),
-    PlaceholderWidget(Colors.deepOrange),
+    PlaceholderWidget(Colors.blue),
     PlaceholderWidget(Colors.green),
     Profile()
   ];

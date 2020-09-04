@@ -17,14 +17,14 @@ class Profile extends StatelessWidget {
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxDoD5caxFUy_dn0w6wl01m882CeJHNVOCRg&usqp=CAU'),
               ),
               Text(
-                '<Username from Google>',
+                '$name',
                 style: TextStyle(
                   fontFamily: 'SourceSansPro',
                   fontSize: 25,
                 ),
               ),
               Text(
-                '<email from google?>',
+                '$email',
                 style: TextStyle(
                   fontSize: 20,
                   fontFamily: 'SourceSansPro',
