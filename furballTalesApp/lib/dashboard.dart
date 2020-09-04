@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './ItemCard.dart';
 import 'package:flutter/services.dart';
+import './memo.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -49,28 +50,32 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (_) => AlertDialog(
-                    title: Text('Please input your AWESOME new item 🤣'),
-                    content: TextField(
-                      autofocus: true,
-                      inputFormatters: [ItemNameInputField()],
-                    ),
-                    actions: [
-                      RaisedButton(
-                        onPressed: addCardButtonPressed,
-                        child: const Text('Send'),
-                      ),
-                    ],
-                  ));
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-        backgroundColor: Colors.cyanAccent[400],
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     showDialog(
+      //         context: context,
+      //         builder: (_) => AlertDialog(
+      //               title: Text(
+      //                 'Please input new notes😊',
+      //                 style: TextStyle(fontSize: 15),
+      //               ),
+      //               content: TextField(
+      //                 autofocus: true,
+      //                 inputFormatters: [ItemNameInputField()],
+      //               ),
+      //               actions: [
+      //                 FlatButton(
+      //                   onPressed: addCardButtonPressed,
+      //                   textColor: Colors.cyan[400],
+      //                   child: const Text('Send'),
+      //                 ),
+      //               ],
+      //             ));
+      //   },
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.add),
+      //   backgroundColor: Colors.cyanAccent[400],
+      // ),
       body: Column(
         children: [
           Row(
@@ -126,14 +131,15 @@ class _DashboardState extends State<Dashboard> {
               ),
             ],
           ),
-          ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return _items[index];
-            },
-            itemCount: _items.length,
-          ),
+          Expanded(child: MemoList())
+          // ListView.builder(
+          //   scrollDirection: Axis.vertical,
+          //   shrinkWrap: true,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     return _items[index];
+          //   },
+          //   itemCount: _items.length,
+          // ),
         ],
       ),
     );
