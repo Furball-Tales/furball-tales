@@ -3,8 +3,12 @@ import 'placeholder_widget.dart';
 import 'dashboard.dart';
 import 'medical.dart';
 import 'profile.dart';
+import 'about.dart';
 
-void main() => runApp(MaterialApp(home: Homepage()));
+void main() => runApp(MaterialApp(
+      home: Homepage(),
+      
+    ));
 
 class Homepage extends StatefulWidget {
   @override
