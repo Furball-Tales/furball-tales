@@ -3,9 +3,11 @@ import 'main.dart';
 
 class DetailPage extends StatelessWidget {
   String heroTag;
+  String photo;
 
-  DetailPage(String heroTag) {
+  DetailPage(String heroTag, String photo) {
     this.heroTag = heroTag;
+    this.photo = photo;
   }
 
   @override
@@ -39,7 +41,7 @@ class DetailPage extends StatelessWidget {
                 ))));
   }
 
-  // 画像Widget
+  // Image Widget
   Widget imageContents(BuildContext context) {
     double statusBarHeight = MediaQuery.of(context).padding.top;
     return Container(
@@ -48,9 +50,11 @@ class DetailPage extends StatelessWidget {
         child: Container(
             child: Stack(
           children: <Widget>[
-            Image.asset(
-              'assets/logo.png',
-              fit: BoxFit.cover,
+            Center(
+              child: Image.asset(
+                photo,
+                fit: BoxFit.cover,
+              ),
             ),
             Column(
               verticalDirection: VerticalDirection.down,
@@ -58,8 +62,7 @@ class DetailPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: statusBarHeight),
                   child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, // これで両端に寄せる
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(),
                         Container(

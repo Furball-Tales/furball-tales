@@ -3,24 +3,28 @@ import 'detail_page.dart';
 
 class CustomCard extends StatefulWidget {
   String heroTag;
+  String photo;
 
-  CustomCard(String heroTag) {
+  CustomCard(String heroTag, String photo) {
     this.heroTag = heroTag;
+    this.photo = photo;
   }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return CustomCardState(heroTag);
+    return CustomCardState(heroTag, photo);
   }
 }
 
 class CustomCardState extends State<CustomCard> {
   String heroTag;
+  String photo;
   var _hasPadding = false;
 
-  CustomCardState(String heroTag) {
+  CustomCardState(String heroTag, String photo) {
     this.heroTag = heroTag;
+    this.photo = photo;
   }
 
   @override
@@ -54,7 +58,7 @@ class CustomCardState extends State<CustomCard> {
               context,
               PageRouteBuilder(
                 transitionDuration: Duration(milliseconds: 500),
-                pageBuilder: (_, __, ___) => DetailPage(heroTag),
+                pageBuilder: (_, __, ___) => DetailPage(heroTag, photo),
               ));
         },
         onTapCancel: () {
@@ -69,9 +73,9 @@ class CustomCardState extends State<CustomCard> {
           ),
           child: Align(
             alignment: Alignment.topCenter,
-            child: Image.asset('assets/logo.png', fit: BoxFit.fill),
+            child: Image.asset(photo, fit: BoxFit.fill),
           ),
-          elevation: 10,
+          elevation: 11,
         ),
       ),
     );

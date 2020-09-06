@@ -9,6 +9,15 @@ class GridDashboard extends StatefulWidget {
 }
 
 class _GridDashboardState extends State<GridDashboard> {
+  var itemList = ['one', 'two', 'three', 'for', 'five'];
+  var photoList = [
+    'assets/top_image.png',
+    'assets/logo.png',
+    'assets/google_logo.png',
+    'assets/login_background.png',
+    'assets/top_image.png',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,15 +28,17 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
+          MyItems(Icons.graphic_eq, "Food", 0xffed622b),
           cardPageView(),
           MyItems(Icons.graphic_eq, "Walk", 0xffed622b),
-          MyItems(Icons.graphic_eq, "Food", 0xffed622b),
+          MyItems(Icons.graphic_eq, "Goods", 0xffed622b),
           MyItems(Icons.graphic_eq, "Clothes", 0xffed622b),
           // Memo(),
         ],
         staggeredTiles: [
           StaggeredTile.fit(2),
-          StaggeredTile.extent(2, 200),
+          StaggeredTile.extent(1, 200),
+          StaggeredTile.extent(1, 220),
           StaggeredTile.extent(2, 140),
           StaggeredTile.extent(1, 130),
           StaggeredTile.extent(1, 130),
@@ -153,11 +164,12 @@ class _GridDashboardState extends State<GridDashboard> {
         // store this controller in a State to save the carousel scroll position
         controller: PageController(viewportFraction: 0.8),
         children: <Widget>[
-          Container(
-            // 間隔が狭くなるので若干marginを付けてあげる
-            margin: EdgeInsets.only(right: 10, bottom: 20),
-            child: CustomCard("first"),
-          )
+          for (var i = 0; i < itemList.length; i++)
+            Container(
+              // 間隔が狭くなるので若干marginを付けてあげる
+              margin: EdgeInsets.only(right: 10, bottom: 20),
+              child: CustomCard(itemList[i], photoList[i]),
+            )
         ],
       ),
     );
