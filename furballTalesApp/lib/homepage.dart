@@ -3,8 +3,13 @@ import 'placeholder_widget.dart';
 import 'dashboard.dart';
 import 'medical.dart';
 import 'profile.dart';
+import 'grid_dashboard.dart';
+import 'package:flutter/services.Dart';
 
-void main() => runApp(MaterialApp(home: Homepage()));
+void main() => {
+      runApp(MaterialApp(home: Homepage())),
+      SystemChrome.setEnabledSystemUIOverlays([])
+    };
 
 class Homepage extends StatefulWidget {
   @override
@@ -16,7 +21,7 @@ class _MyAppState extends State<Homepage> {
   final List<Widget> _children = [
     Dashboard(),
     PlaceholderWidget(Colors.deepOrange),
-    Medical(),
+    GridDashboard(),
     Profile()
   ];
 
