@@ -17,11 +17,11 @@ class _FourthNavState extends State<FourthNav> {
   void initState() {
     super.initState();
 
-    items4.add(Nav4ItemClass(true, 'assets/svg/home4.svg', 'Home', 0));
-    items4.add(Nav4ItemClass(false, 'assets/svg/codepen.svg', 'Codepen', 1));
-    items4.add(Nav4ItemClass(false, 'assets/svg/edit.svg', 'Edit', 2));
-    items4.add(Nav4ItemClass(false, 'assets/svg/folder.svg', 'Folder', 3));
-    items4.add(Nav4ItemClass(false, 'assets/svg/man.svg', 'Profile', 4));
+    items4.add(Nav4ItemClass(true, Icons.home, 'Home', 0));
+    items4.add(Nav4ItemClass(false, Icons.perm_media, 'Codepen', 1));
+    items4.add(Nav4ItemClass(false, Icons.local_hospital, 'Edit', 2));
+    items4.add(Nav4ItemClass(false, Icons.perm_identity, 'Folder', 3));
+    items4.add(Nav4ItemClass(false, Icons.home, 'Profile', 4));
   }
 
   @override
@@ -125,7 +125,7 @@ class _FourthNavState extends State<FourthNav> {
 
 class Nav4ItemClass {
   bool isOpen;
-  String icon;
+  IconData icon;
   String title;
   int pos;
 
@@ -135,8 +135,9 @@ class Nav4ItemClass {
 class Nav4Item extends StatelessWidget {
   final double w;
   final Nav4ItemClass item;
+  final IconData icon;
 
-  const Nav4Item({Key key, this.w, this.item}) : super(key: key);
+  const Nav4Item({Key key, this.w, this.item, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -150,12 +151,10 @@ class Nav4Item extends StatelessWidget {
             duration: Duration(milliseconds: 300),
             width: item.isOpen ? 30 : 24,
             height: item.isOpen ? 30 : 24,
-            child: Container(
-              child: NeumorphicIcon(
-                Icons.home,
-                size: 30,
-              ),
-              color: item.isOpen ? Colors.white : Colors.grey,
+            color: item.isOpen ? Colors.white : Colors.grey,
+            child: NeumorphicIcon(
+              Icons.home,
+              size: 30,
             ),
           ),
           item.isOpen
