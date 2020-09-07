@@ -7,7 +7,6 @@ import 'about.dart';
 
 void main() => runApp(MaterialApp(
       home: Homepage(),
-      
     ));
 
 class Homepage extends StatefulWidget {
@@ -20,6 +19,7 @@ class _MyAppState extends State<Homepage> {
   final List<Widget> _children = [
     Dashboard(),
     PlaceholderWidget(Colors.deepOrange),
+    // PlaceholderWidget(Colors.red),
     Medical(),
     Profile()
   ];

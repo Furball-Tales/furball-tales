@@ -18,11 +18,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginPage(),
-      routes: {
-        '/about': (context) => About(),
-        '/profile': (context) => Profile(),
-        '/donation': (context) => Donation(),
-      },
     );
   }
 }
