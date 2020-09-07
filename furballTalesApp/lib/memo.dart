@@ -30,7 +30,7 @@ class MemoListState extends State<MemoList> {
       floatingActionButton: FloatingActionButton(
         onPressed: _addMemo,
         tooltip: 'New Memo',
-        backgroundColor: Colors.cyanAccent[400],
+        backgroundColor: Color(0xff00b8d4),
         child: Icon(Icons.add),
       ),
     );
