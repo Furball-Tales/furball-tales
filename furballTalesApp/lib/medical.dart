@@ -23,7 +23,7 @@ class _MedicalState extends State<Medical> {
   final databaseReference = FirebaseDatabase.instance.reference().child('$id').child('vetinfos');
 
   List history = List();
-  String dateValue = "Not set";
+  String _date = "Not set";
   String hospital = "";
   String veterinarian = "";
   String vaccinations = "";
@@ -33,19 +33,19 @@ class _MedicalState extends State<Medical> {
   
   addHistory(){
    //Map
-   Map<String, String> history = {
-     "Date": dateValue,
-     "Hospital": hospital,
-     "Veterinarian": veterinarian,
-     "Vaccinations": vaccinations,
-     "Medications": medications,
-     "Weight": weight,
-     "Notes": notes
-   };
+    Map<String, String> history = {
+      "Date": _date,
+      "Hospital": hospital,
+      "Veterinarian": veterinarian,
+      "Vaccinations": vaccinations,
+      "Medications": medications,
+      "Weight": weight,
+      "Notes": notes
+    };
 
-   databaseReference.push().set(history).whenComplete(() {
-     print("Medical history created");
-   });
+    databaseReference.push().set(history).whenComplete(() {
+      print("Medical history created");
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -75,25 +75,27 @@ class _MedicalState extends State<Medical> {
                 overflow: Overflow.visible,
                 children: <Widget>[
                   Positioned(
-                    right: -50.0,
+                    right: -10.0,
                     top: -50.0,
-                    child: InkResponse(
+                    child: InkResponse( 
                       onTap: () {
                       Navigator.of(context).pop();
                       },
-                      child: CircleAvatar(
-                      child: Icon(Icons.close),
+                      child: CircleAvatar(child: Icon (
+                        Icons.close,
+                        color: Colors.white,
+                      ),
+                      backgroundColor: Colors.blue,
+                      maxRadius: 18.0,)
                     ),
-                  ),
-                ),
-                
+                  ), 
                 Form(
                   child: SingleChildScrollView(
                       child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Padding(
-                            padding: const EdgeInsets.all(16.0), 
+                            padding: const EdgeInsets.all(5.0), 
                             child: RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -101,13 +103,13 @@ class _MedicalState extends State<Medical> {
                               onPressed: () {
                                   DatePicker.showDatePicker(context,
                                   theme: DatePickerTheme(
-                                    containerHeight:210.0,
+                                    containerHeight:250.0,
                                   ),
                                     showTitleActions: true, 
                                     minTime: DateTime(2000, 1, 1),
                                     maxTime: DateTime(2050,12,31), onConfirm: (date) {
-                                      dateValue = '${date.year} - ${date.month} - ${date.day}';
-                                      print('this is the dateValue $dateValue');
+                                      _date = '${date.year}-${date.month}-${date.day}';
+                                      print('this is the dateValue $_date');
                                       setState((){});
                                     }, currentTime: DateTime.now(), locale: LocaleType.en);
                                   },
@@ -124,27 +126,27 @@ class _MedicalState extends State<Medical> {
                                                 children: <Widget>[
                                                   Icon(
                                                     Icons.date_range,
-                                                    size: 13.0,
+                                                    size: 15.0,
                                                     color: Colors.grey,
                                                   ),
                                                   Text(
-                                                    "$dateValue",
+                                                    "$_date",
                                                     style: TextStyle(
                                                       color: Colors.grey,
                                                       fontWeight: FontWeight.bold,
-                                                      fontSize: 13.0),
+                                                      fontSize: 15.0),
                                                     ),
-                                                ]
-                                              )
+                                                ],
+                                              ),
                                             )
-                                          ]
+                                          ],
                                         ),
                                         Text(
-                                          " x ",
+                                          "Change",
                                           style: TextStyle(
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 13.0),
+                                            fontSize: 15.0),
                                           ),
                                       ],
                                     ),
@@ -153,7 +155,7 @@ class _MedicalState extends State<Medical> {
                           ),
                         ),
                         Padding(
-                          padding:EdgeInsets.all(8.0),
+                          padding:EdgeInsets.all(5.0),
                           child:TextFormField(
                             onChanged: (String hospitalValue) {
                               hospital = hospitalValue;
@@ -164,7 +166,7 @@ class _MedicalState extends State<Medical> {
                           ),
                         ),
                         Padding(
-                          padding:EdgeInsets.all(8.0),
+                          padding:EdgeInsets.all(5.0),
                           child: TextFormField(
                             onChanged: (String veterinarianValue) {
                               veterinarian = veterinarianValue;
@@ -175,7 +177,7 @@ class _MedicalState extends State<Medical> {
                           )
                         ),
                         Padding(
-                          padding:EdgeInsets.all(8.0),
+                          padding:EdgeInsets.all(5.0),
                           child: TextFormField(
                             onChanged: (String vaccinationValue) {
                               vaccinations = vaccinationValue;
@@ -186,7 +188,7 @@ class _MedicalState extends State<Medical> {
                           )
                         ),
                         Padding(
-                          padding:EdgeInsets.all(8.0),
+                          padding:EdgeInsets.all(5.0),
                           child: TextFormField(
                             onChanged: (String medicationValue) {
                               medications = medicationValue;
@@ -197,7 +199,7 @@ class _MedicalState extends State<Medical> {
                           )
                         ),
                           Padding(
-                          padding:EdgeInsets.all(8.0),
+                          padding:EdgeInsets.all(5.0),
                           child: TextFormField(
                             onChanged: (String weightValue) {
                               weight = weightValue;
@@ -208,7 +210,7 @@ class _MedicalState extends State<Medical> {
                           )
                         ),
                         Padding(
-                          padding:EdgeInsets.all(8.0),
+                          padding:EdgeInsets.all(5.0),
                           child: TextFormField(
                             onChanged:(String notesValue){
                               notes = notesValue;
@@ -227,38 +229,6 @@ class _MedicalState extends State<Medical> {
           }
         );
       },
-  // @override
-  // Widget build(BuildContext context) {
-  //   // getData();
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text("Medical History")
-  //     ),
-  //     floatingActionButton: FloatingActionButton(onPressed: () {
-  //       showDialog(
-  //         context: context, 
-  //         builder:(BuildContext context) {
-  //           return AlertDialog(
-  //             shape: RoundedRectangleBorder(
-  //               borderRadius: BorderRadius.circular(8)),
-  //             title: Text("Add History"),
-  //             content: TextField(
-  //               onChanged:(String value){
-  //                 input = value;
-  //               },
-  //             ),
-  //             actions:<Widget>[
-  //               FlatButton(
-  //                 onPressed:(){
-  //                   addHistory();
-  //                   Navigator.of(context).pop();
-  //                 },
-  //                 child: Text("Add"))
-  //             ],
-  //           );
-  //       });
-  //     },
-
       child: Icon(
         Icons.add,
         color: Colors.white,
@@ -297,48 +267,3 @@ class _MedicalState extends State<Medical> {
     );
   }
 }
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:rapido/rapido.dart';
-
-// class Medical extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: MedicalField(),
-//     );
-//   }
-// }
-
-// class MedicalField extends StatefulWidget {
-//   @override
-//   _MedicalFieldState createState() => _MedicalFieldState();
-// }
-
-// class _MedicalFieldState extends State<MedicalField> {
-//   final DocumentList documentList = DocumentList(
-//     "task list",
-//     labels: {
-//       "Date": "date",
-//       "Title": "title",
-//       "Weight": "pri count",
-//       "Vet": "vet",
-//       "Hospital": "hospital",
-//       "Vaccination": "vaccination",
-//       "Other notes": "other",
-//     },
-//   );
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return DocumentListScaffold(
-//       documentList,
-//       title: "Medical Histories",
-//     );
-//   }
-// }
-
-
-
