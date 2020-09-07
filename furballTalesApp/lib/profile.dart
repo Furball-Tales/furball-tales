@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
+import 'about.dart';
+import 'donation.dart';
 
 class Profile extends StatelessWidget {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,17 +35,17 @@ class Profile extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20.0,
+                height: 50.0,
                 width: 200,
                 child: Divider(
                   color: Colors.teal[200],
                 ),
               ),
+              //   this is about page-----------------------------------------
               InkWell(
                 onTap: () {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Tap'),
-                  ));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => About()));
                 },
                 child: Card(
                     color: Colors.white,
@@ -65,9 +65,8 @@ class Profile extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Tap'),
-                  ));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Donation()));
                 },
                 child: Card(
                   color: Colors.white,
