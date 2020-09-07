@@ -8,6 +8,7 @@ import 'albums.dart';
 import 'grid_dashboard.dart';
 import 'package:flutter/services.Dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'fourth_nav.dart';
 
 void main() => {runApp(MyApp()), SystemChrome.setEnabledSystemUIOverlays([])};
 
@@ -50,6 +51,9 @@ class _MyAppState extends State<Homepage> {
     Profile()
   ];
 
+  double get w => MediaQuery.of(context).size.width;
+  double get h => MediaQuery.of(context).size.height;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -58,31 +62,51 @@ class _MyAppState extends State<Homepage> {
           title: Text('Furball Tales'),
           backgroundColor: Colors.cyanAccent[400],
         ),
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.grey[300],
         body: _children[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: onTabTapped,
-          currentIndex: _currentIndex,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.perm_media),
-              title: Text('Photos'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.local_hospital),
-              title: Text('Medical'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.perm_identity),
-              title: Text('Profile'),
-            ),
-          ],
-          selectedItemColor: Color(0xff00b8d4),
-          unselectedItemColor: Colors.grey[600],
+        bottomNavigationBar: Container(
+          child: Container(
+            width: w,
+            height: h / 4,
+            color: Colors.grey[300],
+            child: FourthNav(w: w),
+          ),
+          // BottomNavigationBar(
+          //   onTap: onTabTapped,
+          //   currentIndex: _currentIndex,
+          //   items: <BottomNavigationBarItem>[
+          //     BottomNavigationBarItem(
+          //       icon: NeumorphicIcon(
+          //         Icons.home,
+          //         size: 30,
+          //       ),
+          //       title: Container(height: 12.0),
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: NeumorphicIcon(
+          //         Icons.perm_media,
+          //         size: 30,
+          //       ),
+          //       title: Container(height: 12.0),
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: NeumorphicIcon(
+          //         Icons.local_hospital,
+          //         size: 30,
+          //       ),
+          //       title: Container(height: 12.0),
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: NeumorphicIcon(
+          //         Icons.perm_identity,
+          //         size: 30,
+          //       ),
+          //       title: Container(height: 12.0),
+          //     ),
+          //   ],
+          //   selectedItemColor: Color(0xff00b8d4),
+          //   unselectedItemColor: Colors.grey[600],
+          // ),
         ),
       ),
     );

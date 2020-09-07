@@ -28,6 +28,7 @@ class MemoListState extends State<MemoList> {
     }
     return Scaffold(
       body: _buildList(),
+      backgroundColor: Colors.grey[300],
       floatingActionButton: FloatingActionButton(
         onPressed: _addMemo,
         tooltip: 'New Memo',

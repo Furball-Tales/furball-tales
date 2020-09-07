@@ -129,9 +129,9 @@ class CustomCardState extends State<FoodCard> {
                             child: Stack(
                               children: <Widget>[
                                 Positioned(
-                                  left: 3.0,
+                                  right: 0.5,
                                   top: 8.0,
-                                  child: Icon(icon, color: Colors.grey[700]),
+                                  child: Icon(icon, color: Colors.grey[600]),
                                 ),
                                 Icon(
                                   icon,

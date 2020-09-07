@@ -109,9 +109,9 @@ class _GridDashboardState extends State<GridDashboard> {
                         child: Stack(
                           children: <Widget>[
                             Positioned(
-                              left: 3.0,
-                              top: 8.0,
-                              child: Icon(icon, color: Colors.grey[700]),
+                              right: 0.5,
+                              top: 6.0,
+                              child: Icon(icon, color: Colors.grey[600]),
                             ),
                             Icon(
                               icon,
@@ -223,7 +223,7 @@ class _GridDashboardState extends State<GridDashboard> {
         children: <Widget>[
           for (var i = 0; i < itemList.length; i++)
             Container(
-              // 間隔が狭くなるので若干marginを付けてあげる
+              // giving some mergin
               margin: EdgeInsets.only(right: 10, bottom: 20),
               child: CustomCard(itemList[i], photoList[i]),
             )
