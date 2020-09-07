@@ -35,11 +35,11 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
-          FoodCard(Icons.graphic_eq, "Food", accentBlue),
+          FoodCard(Icons.fastfood, "Food", accentBlue),
           cardPageView(),
-          MyItems(Icons.graphic_eq, "Walk", accentPink),
-          MyItems(Icons.graphic_eq, "Goods", accentYellow),
-          MyItems(Icons.graphic_eq, "Clothes", accentYellow),
+          MyItems(Icons.directions_run, "Walk", accentPink),
+          MyItems(Icons.color_lens, "Goods", accentYellow),
+          MyItems(Icons.wb_sunny, "Clothes", accentYellow),
           // Memo(),
         ],
         staggeredTiles: [
@@ -83,18 +83,46 @@ class _GridDashboardState extends State<GridDashboard> {
                       ),
                     ),
                   ),
-                  Material(
-                    color: Color(color),
-                    borderRadius: BorderRadius.circular(24),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Icon(
-                        icon,
-                        color: Colors.white,
-                        size: 30,
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white,
+                          spreadRadius: -10,
+                          blurRadius: 17,
+                          offset: Offset(-5, -5),
+                        ),
+                        BoxShadow(
+                          color: Colors.black26,
+                          spreadRadius: -2,
+                          blurRadius: 10,
+                          offset: Offset(7, 7),
+                        ),
+                      ],
+                    ),
+                    child: Material(
+                      color: Color(color),
+                      borderRadius: BorderRadius.circular(24),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned(
+                              left: 3.0,
+                              top: 8.0,
+                              child: Icon(icon, color: Colors.grey[700]),
+                            ),
+                            Icon(
+                              icon,
+                              color: Colors.grey[200],
+                              size: 30,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               )
             ],

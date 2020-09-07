@@ -103,18 +103,46 @@ class CustomCardState extends State<FoodCard> {
                       ),
 
                       //icon
-                      Material(
-                        color: Color(color),
-                        borderRadius: BorderRadius.circular(24),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Icon(
-                            icon,
-                            color: Colors.white,
-                            size: 30,
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white,
+                              spreadRadius: -10,
+                              blurRadius: 17,
+                              offset: Offset(-5, -5),
+                            ),
+                            BoxShadow(
+                              color: Colors.black26,
+                              spreadRadius: -2,
+                              blurRadius: 10,
+                              offset: Offset(7, 7),
+                            ),
+                          ],
+                        ),
+                        child: Material(
+                          color: Color(color),
+                          borderRadius: BorderRadius.circular(24),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned(
+                                  left: 3.0,
+                                  top: 8.0,
+                                  child: Icon(icon, color: Colors.grey[700]),
+                                ),
+                                Icon(
+                                  icon,
+                                  color: Colors.grey[200],
+                                  size: 30,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
