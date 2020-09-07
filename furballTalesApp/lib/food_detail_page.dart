@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 
-class IconDetailPage extends StatelessWidget {
+class FoodDetailPage extends StatelessWidget {
   IconData icon;
   String heading;
   int color;
 
-  IconDetailPage(IconData icon, String heading, int color) {
+  FoodDetailPage(IconData icon, String heading, int color) {
     this.icon = icon;
     this.heading = heading;
     this.color = color;
@@ -18,7 +18,7 @@ class IconDetailPage extends StatelessWidget {
         backgroundColor:
             Colors.transparent, //Make background of overall Widget transparent
         body: Hero(
-            tag: "iconTag",
+            tag: heading,
             child: Material(
                 type: MaterialType.transparency,
                 child: Container(

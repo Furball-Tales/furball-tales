@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import './memo.dart';
 import 'custom_card.dart';
-import 'icon_card.dart';
+import 'food_card.dart';
 
 class GridDashboard extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
-          IconCard(Icons.graphic_eq, "Food", 0xffed622b),
+          FoodCard(Icons.graphic_eq, "Food", 0xffed622b),
           cardPageView(),
           MyItems(Icons.graphic_eq, "Walk", 0xffed622b),
           MyItems(Icons.graphic_eq, "Goods", 0xffed622b),
