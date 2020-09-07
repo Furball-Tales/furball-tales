@@ -3,6 +3,7 @@ import 'placeholder_widget.dart';
 import 'dashboard.dart';
 import 'medical.dart';
 import 'profile.dart';
+import 'albums.dart';
 
 void main() => runApp(MaterialApp(home: Homepage()));
 
@@ -15,8 +16,8 @@ class _MyAppState extends State<Homepage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     Dashboard(),
+    Albums(),
     PlaceholderWidget(Colors.deepOrange),
-    Medical(),
     Profile()
   ];
 
