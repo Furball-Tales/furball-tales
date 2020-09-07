@@ -86,11 +86,9 @@ class _GridDashboardState extends State<GridDashboard> {
     updateUrl(uploadUrl);
     // _url = await readUrl();
     await readUrl();
-    print("============selectImage");
 
     setState(() {
-      // _image = File(pickedFile.path);
-      print("============setState");
+      _image = File(pickedFile.path);
     });
   }
 
