@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class FourthNav extends StatefulWidget {
   final double w;
@@ -150,9 +150,11 @@ class Nav4Item extends StatelessWidget {
             duration: Duration(milliseconds: 300),
             width: item.isOpen ? 30 : 24,
             height: item.isOpen ? 30 : 24,
-            child: SvgPicture.asset(
-              item.icon,
-              fit: BoxFit.cover,
+            child: Container(
+              child: NeumorphicIcon(
+                Icons.home,
+                size: 30,
+              ),
               color: item.isOpen ? Colors.white : Colors.grey,
             ),
           ),

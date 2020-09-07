@@ -75,13 +75,13 @@ class _MyAppState extends State<Homepage> {
           //   onTap: onTabTapped,
           //   currentIndex: _currentIndex,
           //   items: <BottomNavigationBarItem>[
-          //     BottomNavigationBarItem(
-          //       icon: NeumorphicIcon(
-          //         Icons.home,
-          //         size: 30,
-          //       ),
-          //       title: Container(height: 12.0),
-          //     ),
+          // BottomNavigationBarItem(
+          //   icon: NeumorphicIcon(
+          //     Icons.home,
+          //     size: 30,
+          //   ),
+          //   title: Container(height: 12.0),
+          // ),
           //     BottomNavigationBarItem(
           //       icon: NeumorphicIcon(
           //         Icons.perm_media,
