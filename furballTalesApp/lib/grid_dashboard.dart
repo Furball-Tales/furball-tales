@@ -135,12 +135,15 @@ class _GridDashboardState extends State<GridDashboard> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(10.10),
-                    child: Text(
-                      'Good Morning, Sir.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.cyanAccent[700],
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Text(
+                        'Good Morning, Sir.',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.cyanAccent[700],
+                        ),
                       ),
                     ),
                   ),
