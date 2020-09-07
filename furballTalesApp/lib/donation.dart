@@ -8,22 +8,22 @@ class Donation extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Donation',
-          style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5, 
-          fontSize: 25),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, letterSpacing: 1.5, fontSize: 25),
         ),
         centerTitle: true,
         backgroundColor: Colors.cyanAccent[400],
         elevation: 0.0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
+        padding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
               child: CircleAvatar(
-                radius: 75.0,
-                backgroundImage: AssetImage('assets/logo.png'),
+                radius: 120.0,
+                backgroundImage: AssetImage('assets/don_img.jpg'),
               ),
             ),
             Divider(
@@ -34,11 +34,12 @@ class Donation extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(5),
               child: Text(
-                'Our app FurBallTales manages all of the medical information for your pet. That includes medication reminders, food tracking, grooming, ear and teeth cleaning, various measurements like weight and height, and, of course, vaccinations. You can also get reminders for upcoming vet appointments. It keeps track of this stuff so you don’t have to. The app is also completely free with no in-app purchases or ads.',
+                "Let's improve the life quality of our pets. Support us to make this application better.  You can reach us by contacting any team member of the project.   ",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

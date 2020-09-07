@@ -28,7 +28,7 @@ class About extends StatelessWidget {
         //padding: const EdgeInsets.all(1),
         children: <Widget>[
           Container(
-            height: 80,
+            height: 85,
             width: 30,
             decoration: BoxDecoration(
               image: DecorationImage(
