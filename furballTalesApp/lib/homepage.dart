@@ -3,6 +3,7 @@ import 'placeholder_widget.dart';
 import 'dashboard.dart';
 import 'medical.dart';
 import 'profile.dart';
+import 'about.dart';
 import 'grid_dashboard.dart';
 import 'package:flutter/services.Dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/material.dart';
-import 'profile.dart';
+
 
 
 // These variables will pull from Google
@@ -32,7 +31,6 @@ Future<String> signInWithGoogle() async {
   image = user.photoUrl;
   id = user.uid;
 
- 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
