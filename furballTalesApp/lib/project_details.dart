@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Donation extends StatelessWidget {
+class ProjectDet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
         title: Text(
-          'Donation',
-          style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5, 
-          fontSize: 25),
+          'Project Details',
+          style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5),
         ),
         centerTitle: true,
         backgroundColor: Colors.cyanAccent[400],

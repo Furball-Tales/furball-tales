@@ -35,7 +35,7 @@ class Profile extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20.0,
+                height: 50.0,
                 width: 200,
                 child: Divider(
                   color: Colors.teal[200],
@@ -44,10 +44,8 @@ class Profile extends StatelessWidget {
               //   this is about page-----------------------------------------
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) {
-                    return About();
-                  }), ModalRoute.withName('/about'));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => About()));
                 },
                 child: Card(
                     color: Colors.white,
@@ -67,10 +65,8 @@ class Profile extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) {
-                    return Donation();
-                  }), ModalRoute.withName('/about'));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Donation()));
                 },
                 child: Card(
                   color: Colors.white,
