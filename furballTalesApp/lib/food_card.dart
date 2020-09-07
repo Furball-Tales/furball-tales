@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'food_detail_page.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class FoodCard extends StatefulWidget {
   IconData icon;
@@ -71,11 +72,15 @@ class CustomCardState extends State<FoodCard> {
             _hasPadding = false;
           });
         },
-        child: Material(
-          color: Colors.white,
-          elevation: 14.0,
-          shadowColor: Colors.grey[200],
-          borderRadius: BorderRadius.circular(60),
+        child: Neumorphic(
+          style: NeumorphicStyle(
+              shape: NeumorphicShape.concave,
+              // boxShape: NeumorphicBoxShape.roundRect(
+              //     borderRadius: BorderRadius.circular(12)),
+              depth: 8,
+              intensity: 0.5,
+              lightSource: LightSource.topLeft,
+              color: Colors.grey[100]),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8),

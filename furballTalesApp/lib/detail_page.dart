@@ -71,7 +71,7 @@ class DetailPage extends StatelessWidget {
                               Icons.close,
                               color: Colors.white,
                             ),
-                            color: Colors.blue,
+                            color: Color(0xff00b8d4),
                             shape: CircleBorder(),
                             onPressed: () {
                               Navigator.pop(

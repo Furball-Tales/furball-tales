@@ -3,11 +3,16 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import './memo.dart';
 import 'custom_card.dart';
 import 'food_card.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class GridDashboard extends StatefulWidget {
   @override
   _GridDashboardState createState() => _GridDashboardState();
 }
+
+var accentBlue = 0xff00b8d4;
+var accentPink = 0xffD41571;
+var accentYellow = 0xffD4BF15;
 
 class _GridDashboardState extends State<GridDashboard> {
   var itemList = ['one', 'two', 'three', 'for', 'five'];
@@ -22,6 +27,7 @@ class _GridDashboardState extends State<GridDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: StaggeredGridView.count(
         crossAxisCount: 2,
         crossAxisSpacing: 12.0,
@@ -29,11 +35,11 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
-          FoodCard(Icons.graphic_eq, "Food", 0xffed622b),
+          FoodCard(Icons.graphic_eq, "Food", accentBlue),
           cardPageView(),
-          MyItems(Icons.graphic_eq, "Walk", 0xffed622b),
-          MyItems(Icons.graphic_eq, "Goods", 0xffed622b),
-          MyItems(Icons.graphic_eq, "Clothes", 0xffed622b),
+          MyItems(Icons.graphic_eq, "Walk", accentPink),
+          MyItems(Icons.graphic_eq, "Goods", accentYellow),
+          MyItems(Icons.graphic_eq, "Clothes", accentYellow),
           // Memo(),
         ],
         staggeredTiles: [
@@ -48,12 +54,16 @@ class _GridDashboardState extends State<GridDashboard> {
     );
   }
 
-  Material MyItems(IconData icon, String heading, int color) {
-    return Material(
-      color: Colors.white,
-      elevation: 14.0,
-      shadowColor: Colors.grey[200],
-      borderRadius: BorderRadius.circular(60),
+  Widget MyItems(IconData icon, String heading, int color) {
+    return Neumorphic(
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          // boxShape: NeumorphicBoxShape.roundRect(
+          //     borderRadius: BorderRadius.circular(12)),
+          depth: 8,
+          intensity: 0.5,
+          lightSource: LightSource.topLeft,
+          color: Colors.grey[100]),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -63,7 +73,6 @@ class _GridDashboardState extends State<GridDashboard> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  //text
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
@@ -74,8 +83,6 @@ class _GridDashboardState extends State<GridDashboard> {
                       ),
                     ),
                   ),
-
-                  //icon
                   Material(
                     color: Color(color),
                     borderRadius: BorderRadius.circular(24),
@@ -99,61 +106,79 @@ class _GridDashboardState extends State<GridDashboard> {
 
   Material Top() {
     return Material(
-      color: Colors.white,
-      elevation: 5,
-      shadowColor: Colors.grey[200],
-      borderRadius: BorderRadius.circular(5),
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(40.40),
-            child: Container(
-                width: 115.0,
-                height: 115.0,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxDoD5caxFUy_dn0w6wl01m882CeJHNVOCRg&usqp=CAU'),
-                    ))),
-          ),
-          Flexible(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.10),
-                  child: Text(
-                    'Good Morning, Sir.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
-                Card(
-                    child: Container(
-                      height: 100,
-                      width: 130,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text('Name: Benjamin'),
-                          Text('Sex: ♂'),
-                          Text('Age: 3 months'),
-                        ],
+      child: Neumorphic(
+        style: NeumorphicStyle(
+            shape: NeumorphicShape.concave,
+            // boxShape: NeumorphicBoxShape.roundRect(
+            //     borderRadius: BorderRadius.circular(12)),
+            depth: 8,
+            intensity: 0.5,
+            lightSource: LightSource.topLeft,
+            color: Colors.grey[100]),
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(40.40),
+              child: Container(
+                  width: 115.0,
+                  height: 115.0,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxDoD5caxFUy_dn0w6wl01m882CeJHNVOCRg&usqp=CAU'),
+                      ))),
+            ),
+            Flexible(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.10),
+                    child: Text(
+                      'Good Morning, Sir.',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.cyanAccent[700],
                       ),
                     ),
-                    elevation: 5),
-              ],
+                  ),
+                  Neumorphic(
+                    style: NeumorphicStyle(
+                        shape: NeumorphicShape.concave,
+                        // boxShape: NeumorphicBoxShape.roundRect(
+                        //     borderRadius: BorderRadius.circular(12)),
+                        depth: -3,
+                        intensity: 1,
+                        lightSource: LightSource.topLeft,
+                        color: Colors.grey[100]),
+                    child: Container(
+                      color: Colors.transparent,
+                      height: 100,
+                      width: 130,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 12, bottom: 12),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text('Name: Benjamin'),
+                            Text('Sex: ♂'),
+                            Text('Age: 3 months'),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

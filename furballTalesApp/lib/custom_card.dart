@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class CustomCard extends StatefulWidget {
   String heroTag;
@@ -66,16 +67,22 @@ class CustomCardState extends State<CustomCard> {
             _hasPadding = false;
           });
         },
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+        child: Material(
+          color: Colors.transparent,
+          child: Neumorphic(
+            style: NeumorphicStyle(
+                shape: NeumorphicShape.convex,
+                // boxShape: NeumorphicBoxShape.roundRect(
+                //     borderRadius: BorderRadius.circular(12)),
+                depth: 8,
+                intensity: 0.6,
+                lightSource: LightSource.topLeft,
+                color: Colors.grey[100]),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Image.asset(photo, fit: BoxFit.fill),
+            ),
           ),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Image.asset(photo, fit: BoxFit.fill),
-          ),
-          elevation: 11,
         ),
       ),
     );

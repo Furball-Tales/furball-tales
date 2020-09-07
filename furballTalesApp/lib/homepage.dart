@@ -5,11 +5,34 @@ import 'medical.dart';
 import 'profile.dart';
 import 'grid_dashboard.dart';
 import 'package:flutter/services.Dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-void main() => {
-      runApp(MaterialApp(home: Homepage())),
-      SystemChrome.setEnabledSystemUIOverlays([])
-    };
+void main() => {runApp(MyApp()), SystemChrome.setEnabledSystemUIOverlays([])};
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      themeMode: ThemeMode.light,
+      theme: NeumorphicThemeData(
+        baseColor: Colors.grey[50],
+        lightSource: LightSource.topLeft,
+        depth: 10,
+      ),
+      darkTheme: NeumorphicThemeData(
+        baseColor: Color(0xFF3E3E3E),
+        lightSource: LightSource.topLeft,
+        depth: 6,
+      ),
+      home: MaterialApp(
+        home: Homepage(),
+      ),
+    );
+  }
+}
 
 class Homepage extends StatefulWidget {
   @override
@@ -33,6 +56,7 @@ class _MyAppState extends State<Homepage> {
           title: Text('Furball Tales'),
           backgroundColor: Colors.cyanAccent[400],
         ),
+        backgroundColor: Colors.grey[100],
         body: _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
@@ -55,7 +79,7 @@ class _MyAppState extends State<Homepage> {
               title: Text('Profile'),
             ),
           ],
-          selectedItemColor: Colors.cyanAccent[400],
+          selectedItemColor: Color(0xff00b8d4),
           unselectedItemColor: Colors.grey[600],
         ),
       ),
