@@ -7,7 +7,7 @@ import 'about.dart';
 import 'grid_dashboard.dart';
 import 'package:flutter/services.Dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'albums.dart';
+import 'albums/albums.dart';
 
 void main() => {runApp(MyApp()), SystemChrome.setEnabledSystemUIOverlays([])};
 
