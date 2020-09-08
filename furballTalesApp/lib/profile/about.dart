@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:furballTalesApp/project_details.dart';
-import 'profile.dart';
+import 'package:furballTalesApp/profile/project_details.dart';
 import 'team.dart';
-import 'project_details.dart';
 
 class About extends StatelessWidget {
   @override
