@@ -55,10 +55,6 @@ class _MyAppState extends State<Homepage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Furball Tales'),
-          backgroundColor: Colors.cyanAccent[400],
-        ),
         backgroundColor: Colors.grey[200],
         body: _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
