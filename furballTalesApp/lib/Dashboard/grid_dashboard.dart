@@ -5,6 +5,14 @@ import 'custom_card.dart';
 import 'food_card.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import 'package:firebase_database/firebase_database.dart';
+
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
+
 class GridDashboard extends StatefulWidget {
   @override
   _GridDashboardState createState() => _GridDashboardState();
@@ -13,6 +21,27 @@ class GridDashboard extends StatefulWidget {
 var accentBlue = 0xff00b8d4;
 var accentPink = 0xffD41571;
 var accentYellow = 0xffD4BF15;
+
+final databaseReference = FirebaseDatabase.instance
+    .reference()
+    .child('pets')
+    .child("Ryohei Mizuho")
+    .child("1");
+
+var _url;
+
+Future readUrl() async {
+  var url;
+  await databaseReference.once().then((DataSnapshot snapshot) {
+    url = snapshot.value;
+  });
+  _url = await url["petProfilePic"];
+  // return await url["petProfilePic"];
+}
+
+void updateUrl(imageData) {
+  databaseReference.update({'petProfilePic': imageData});
+}
 
 class _GridDashboardState extends State<GridDashboard> {
   var itemList = ['one', 'two', 'three', 'for', 'five'];
@@ -23,9 +52,49 @@ class _GridDashboardState extends State<GridDashboard> {
     'assets/login_background.png',
     'assets/top_image.png',
   ];
+  File _image;
+  final picker = ImagePicker();
+
+  Future<String> uploadImage(var imageFile) async {
+    // final currentUser = await FirebaseAuth.instance.currentUser();
+    // print(currentUser);
+    // StorageReference ref = FirebaseStorage.instance.ref().child("/beach.jpg");
+    StorageReference ref = FirebaseStorage.instance
+        .ref()
+        .child("images")
+        .child(basename(imageFile.path));
+    StorageUploadTask uploadTask =
+        ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
+    final snapshot = await uploadTask.onComplete;
+    var downUrl;
+    if (snapshot.error == null) {
+      downUrl = await snapshot.ref.getDownloadURL();
+    } else {
+      print(snapshot.error);
+      downUrl = null;
+    }
+    String url = downUrl.toString();
+
+    return url;
+  }
+
+  Future selectImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    _image = File(pickedFile.path);
+
+    var uploadUrl = await uploadImage(_image);
+    updateUrl(uploadUrl);
+    // _url = await readUrl();
+    await readUrl();
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    readUrl();
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: StaggeredGridView.count(
@@ -145,18 +214,25 @@ class _GridDashboardState extends State<GridDashboard> {
             color: Colors.grey[100]),
         child: Row(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(40.40),
-              child: Container(
-                  width: 115.0,
-                  height: 115.0,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxDoD5caxFUy_dn0w6wl01m882CeJHNVOCRg&usqp=CAU'),
-                      ))),
+            GestureDetector(
+              onTap: () {
+                selectImage();
+              },
+              child: Padding(
+                  padding: const EdgeInsets.all(40.40),
+                  child: StreamBuilder(
+                      stream: databaseReference.onValue,
+                      builder: (context, snap) {
+                        return Container(
+                            width: 115.0,
+                            height: 115.0,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(_url),
+                                )));
+                      })),
             ),
             Flexible(
               child: Column(

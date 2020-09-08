@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import './Dashboard/dashboard.dart';
 import 'medical.dart';
-import 'profile.dart';
-import 'about.dart';
-import 'albums.dart';
 import './Dashboard/grid_dashboard.dart';
+import './profile/profile.dart';
+import './profile/about.dart';
 import 'package:flutter/services.Dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'albums/albums.dart';
 
 void main() => {runApp(MyApp()), SystemChrome.setEnabledSystemUIOverlays([])};
 
