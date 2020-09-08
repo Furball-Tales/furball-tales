@@ -9,9 +9,9 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import '../sign_in.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart';
 
 class GridDashboard extends StatefulWidget {
   @override
@@ -22,25 +22,45 @@ var accentBlue = 0xff00b8d4;
 var accentPink = 0xffD41571;
 var accentYellow = 0xffD4BF15;
 
-final databaseReference = FirebaseDatabase.instance
-    .reference()
-    .child('pets')
-    .child("Ryohei Mizuho")
-    .child("1");
+final databaseReference =
+    FirebaseDatabase.instance.reference().child('$id').child('pets');
 
 var _url;
+var _name;
+var _sex;
+var _age;
+var _weight;
 
-Future readUrl() async {
-  var url;
+Future readPetdata() async {
+  var readData;
   await databaseReference.once().then((DataSnapshot snapshot) {
-    url = snapshot.value;
+    snapshot.value.forEach((index, data) => {readData = data});
   });
-  _url = await url["petProfilePic"];
-  // return await url["petProfilePic"];
+  _name = await readData["petName"];
+  _sex = await readData["sex"];
+  var readBirthday = await readData["birthday"];
+  DateTime birthday = DateTime.parse(readBirthday);
+  Duration differenceDays = DateTime.now().difference(birthday);
+  _age = (differenceDays.inDays / 365).floor().toString();
+  _weight = await readData["weight"];
 }
 
-void updateUrl(imageData) {
-  databaseReference.update({'petProfilePic': imageData});
+Future readUrl() async {
+  var readData;
+  await databaseReference.once().then((DataSnapshot snapshot) {
+    snapshot.value.forEach((index, data) => {readData = data});
+  });
+  _url = await readData["petProfilePicUrl"];
+}
+
+Future updateUrl(petProfilePicUrl) async {
+  var readIndex;
+  await databaseReference.once().then((DataSnapshot snapshot) {
+    snapshot.value.forEach((index, data) => {readIndex = index});
+  });
+  databaseReference
+      .child(readIndex)
+      .update({'petProfilePicUrl': petProfilePicUrl});
 }
 
 class _GridDashboardState extends State<GridDashboard> {
@@ -56,13 +76,11 @@ class _GridDashboardState extends State<GridDashboard> {
   final picker = ImagePicker();
 
   Future<String> uploadImage(var imageFile) async {
-    // final currentUser = await FirebaseAuth.instance.currentUser();
-    // print(currentUser);
-    // StorageReference ref = FirebaseStorage.instance.ref().child("/beach.jpg");
     StorageReference ref = FirebaseStorage.instance
         .ref()
-        .child("images")
-        .child(basename(imageFile.path));
+        .child('$id')
+        .child("profileImage")
+        .child("profileImage.jpg");
     StorageUploadTask uploadTask =
         ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
     final snapshot = await uploadTask.onComplete;
@@ -84,7 +102,6 @@ class _GridDashboardState extends State<GridDashboard> {
 
     var uploadUrl = await uploadImage(_image);
     updateUrl(uploadUrl);
-    // _url = await readUrl();
     await readUrl();
 
     setState(() {
@@ -94,6 +111,7 @@ class _GridDashboardState extends State<GridDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    readPetdata();
     readUrl();
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -222,15 +240,26 @@ class _GridDashboardState extends State<GridDashboard> {
                   child: StreamBuilder(
                       stream: databaseReference.onValue,
                       builder: (context, snap) {
-                        return Container(
-                            width: 115.0,
-                            height: 115.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(_url),
-                                )));
+                        return (_url != null)
+                            ? Container(
+                                width: 115.0,
+                                height: 115.0,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(_url),
+                                    )))
+                            : Container(
+                                width: 115.0,
+                                height: 115.0,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(
+                                          "https://github.com/Furball-Tales/furball-tales/blob/master/furballTalesApp/assets/logo.png"),
+                                    )));
                       })),
             ),
             Flexible(
@@ -277,18 +306,24 @@ class _GridDashboardState extends State<GridDashboard> {
                       width: 130,
                       child: Padding(
                         padding: EdgeInsets.only(left: 12, bottom: 12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 4,
-                            ),
-                            Text('Name: Benjamin'),
-                            Text('Sex: ♂'),
-                            Text('Age: 3 months'),
-                          ],
-                        ),
+                        child: StreamBuilder(
+                            stream: databaseReference.onValue,
+                            builder: (context, snap) {
+                              return Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text('Name: $_name'),
+                                  Text('Sex: $_sex'),
+                                  Text('Age: $_age'),
+                                  Text('Weight: $_weight'),
+                                ],
+                              );
+                            }),
                       ),
                     ),
                   ),
