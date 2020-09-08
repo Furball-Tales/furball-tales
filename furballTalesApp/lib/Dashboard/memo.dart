@@ -28,7 +28,7 @@ class MemoListState extends State<MemoList> {
     }
     return Scaffold(
       body: _buildList(),
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       floatingActionButton: FloatingActionButton(
         onPressed: _addMemo,
         tooltip: 'New Memo',
@@ -117,8 +117,8 @@ class MemoListState extends State<MemoList> {
             shape: NeumorphicShape.concave,
             // boxShape: NeumorphicBoxShape.roundRect(
             //     borderRadius: BorderRadius.circular(12)),
-            depth: -10,
-            intensity: 0.9,
+            depth: -3,
+            intensity: 1,
             lightSource: LightSource.topLeft,
             color: Colors.grey[100]),
         child: Container(

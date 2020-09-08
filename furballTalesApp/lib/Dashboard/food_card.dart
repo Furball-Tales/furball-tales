@@ -75,12 +75,11 @@ class CustomCardState extends State<FoodCard> {
         child: Neumorphic(
           style: NeumorphicStyle(
               shape: NeumorphicShape.concave,
-              // boxShape: NeumorphicBoxShape.roundRect(
-              //     borderRadius: BorderRadius.circular(12)),
-              depth: 8,
-              intensity: 0.5,
+              surfaceIntensity: 0.1,
+              depth: 1.5,
+              intensity: 0.7,
               lightSource: LightSource.topLeft,
-              color: Colors.grey[100]),
+              color: Colors.grey[200]),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -135,7 +134,7 @@ class CustomCardState extends State<FoodCard> {
                                 ),
                                 Icon(
                                   icon,
-                                  color: Colors.grey[200],
+                                  color: Colors.white,
                                   size: 30,
                                 ),
                               ],

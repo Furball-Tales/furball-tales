@@ -127,12 +127,11 @@ class _GridDashboardState extends State<GridDashboard> {
     return Neumorphic(
       style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
-          // boxShape: NeumorphicBoxShape.roundRect(
-          //     borderRadius: BorderRadius.circular(12)),
-          depth: 8,
-          intensity: 0.5,
+          surfaceIntensity: 0.1,
+          depth: 1.5,
+          intensity: 0.7,
           lightSource: LightSource.topLeft,
-          color: Colors.grey[100]),
+          color: Colors.grey[200]),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -184,7 +183,7 @@ class _GridDashboardState extends State<GridDashboard> {
                             ),
                             Icon(
                               icon,
-                              color: Colors.grey[200],
+                              color: Colors.white,
                               size: 30,
                             ),
                           ],
@@ -203,15 +202,15 @@ class _GridDashboardState extends State<GridDashboard> {
 
   Material Top() {
     return Material(
+      color: Colors.transparent,
       child: Neumorphic(
         style: NeumorphicStyle(
             shape: NeumorphicShape.concave,
-            // boxShape: NeumorphicBoxShape.roundRect(
-            //     borderRadius: BorderRadius.circular(12)),
-            depth: 8,
-            intensity: 0.5,
+            surfaceIntensity: 0.1,
+            depth: 1.5,
+            intensity: 0.7,
             lightSource: LightSource.topLeft,
-            color: Colors.grey[100]),
+            color: Colors.grey[200]),
         child: Row(
           children: <Widget>[
             GestureDetector(
@@ -241,14 +240,26 @@ class _GridDashboardState extends State<GridDashboard> {
                     padding: const EdgeInsets.all(10.10),
                     child: Padding(
                       padding: EdgeInsets.only(left: 8),
-                      child: Text(
-                        'Good Morning, Sir.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.cyanAccent[700],
+                      child: NeumorphicText(
+                        "Good Morning",
+                        style: NeumorphicStyle(
+                          depth: 4, //customize depth here
+                          color: Colors.white, //customize color here
                         ),
+                        textStyle: NeumorphicTextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold //customize size here
+                            // AND others usual text style properties (fontFamily, fontWeight, ...)
+                            ),
                       ),
+                      // child: Text(
+                      //   'Good Morning 😍',
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 20,
+                      //     color: Colors.cyanAccent[700],
+                      //   ),
+                      // ),
                     ),
                   ),
                   Neumorphic(
@@ -257,7 +268,7 @@ class _GridDashboardState extends State<GridDashboard> {
                         // boxShape: NeumorphicBoxShape.roundRect(
                         //     borderRadius: BorderRadius.circular(12)),
                         depth: -3,
-                        intensity: 1,
+                        intensity: 0.7,
                         lightSource: LightSource.topLeft,
                         color: Colors.grey[100]),
                     child: Container(
