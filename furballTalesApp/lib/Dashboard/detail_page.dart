@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import '../main.dart';
 
-class FoodDetailPage extends StatelessWidget {
-  IconData icon;
-  String heading;
-  int color;
+class DetailPage extends StatelessWidget {
+  String heroTag;
+  String photo;
 
-  FoodDetailPage(IconData icon, String heading, int color) {
-    this.icon = icon;
-    this.heading = heading;
-    this.color = color;
+  DetailPage(String heroTag, String photo) {
+    this.heroTag = heroTag;
+    this.photo = photo;
   }
 
   @override
@@ -18,7 +16,7 @@ class FoodDetailPage extends StatelessWidget {
         backgroundColor:
             Colors.transparent, //Make background of overall Widget transparent
         body: Hero(
-            tag: heading,
+            tag: heroTag,
             child: Material(
                 type: MaterialType.transparency,
                 child: Container(
@@ -53,10 +51,9 @@ class FoodDetailPage extends StatelessWidget {
             child: Stack(
           children: <Widget>[
             Center(
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 30,
+              child: Image.asset(
+                photo,
+                fit: BoxFit.cover,
               ),
             ),
             Column(

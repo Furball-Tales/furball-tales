@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import './memo_edit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class MemoList extends StatefulWidget {
   @override
@@ -27,11 +28,15 @@ class MemoListState extends State<MemoList> {
     }
     return Scaffold(
       body: _buildList(),
+      backgroundColor: Colors.grey[200],
       floatingActionButton: FloatingActionButton(
         onPressed: _addMemo,
         tooltip: 'New Memo',
-        backgroundColor: Color(0xff00b8d4),
-        child: Icon(Icons.add),
+        backgroundColor: Colors.transparent,
+        child: NeumorphicIcon(
+          Icons.add_circle,
+          size: 60,
+        ),
       ),
     );
   }
@@ -107,11 +112,24 @@ class MemoListState extends State<MemoList> {
 
   Widget _buildRow(String content, int index) {
     return ListTile(
-      title: Text(
-        content,
-        style: _biggerFont,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+      title: Neumorphic(
+        style: NeumorphicStyle(
+            shape: NeumorphicShape.concave,
+            // boxShape: NeumorphicBoxShape.roundRect(
+            //     borderRadius: BorderRadius.circular(12)),
+            depth: -3,
+            intensity: 1,
+            lightSource: LightSource.topLeft,
+            color: Colors.grey[100]),
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Text(
+            content,
+            style: TextStyle(height: 1.5, fontSize: 15),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ),
       onTap: () {
         _currentIndex = index;

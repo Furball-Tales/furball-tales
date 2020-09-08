@@ -75,12 +75,11 @@ class CustomCardState extends State<FoodCard> {
         child: Neumorphic(
           style: NeumorphicStyle(
               shape: NeumorphicShape.concave,
-              // boxShape: NeumorphicBoxShape.roundRect(
-              //     borderRadius: BorderRadius.circular(12)),
-              depth: 8,
-              intensity: 0.5,
+              surfaceIntensity: 0.1,
+              depth: 1.5,
+              intensity: 0.7,
               lightSource: LightSource.topLeft,
-              color: Colors.grey[100]),
+              color: Colors.grey[200]),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -103,18 +102,46 @@ class CustomCardState extends State<FoodCard> {
                       ),
 
                       //icon
-                      Material(
-                        color: Color(color),
-                        borderRadius: BorderRadius.circular(24),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Icon(
-                            icon,
-                            color: Colors.white,
-                            size: 30,
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white,
+                              spreadRadius: -10,
+                              blurRadius: 17,
+                              offset: Offset(-5, -5),
+                            ),
+                            BoxShadow(
+                              color: Colors.black26,
+                              spreadRadius: -2,
+                              blurRadius: 10,
+                              offset: Offset(7, 7),
+                            ),
+                          ],
+                        ),
+                        child: Material(
+                          color: Color(color),
+                          borderRadius: BorderRadius.circular(24),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned(
+                                  right: 0.5,
+                                  top: 8.0,
+                                  child: Icon(icon, color: Colors.grey[600]),
+                                ),
+                                Icon(
+                                  icon,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
