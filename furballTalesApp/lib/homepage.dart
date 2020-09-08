@@ -58,7 +58,7 @@ class _MyAppState extends State<Homepage> {
           title: Text('Furball Tales'),
           backgroundColor: Colors.cyanAccent[400],
         ),
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.grey[200],
         body: _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
