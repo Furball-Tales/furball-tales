@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
-import 'dashboard.dart';
+import './Dashboard/dashboard.dart';
 import 'medical.dart';
 import 'profile.dart';
 import 'about.dart';
 import 'albums.dart';
-import 'grid_dashboard.dart';
+import './Dashboard/grid_dashboard.dart';
 import 'package:flutter/services.Dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -63,22 +63,34 @@ class _MyAppState extends State<Homepage> {
         bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
           currentIndex: _currentIndex,
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
+              icon: NeumorphicIcon(
+                Icons.home,
+                size: 30,
+              ),
+              title: Container(height: 12.0),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.perm_media),
-              title: Text('Photos'),
+              icon: NeumorphicIcon(
+                Icons.perm_media,
+                size: 30,
+              ),
+              title: Container(height: 12.0),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.local_hospital),
-              title: Text('Medical'),
+              icon: NeumorphicIcon(
+                Icons.local_hospital,
+                size: 30,
+              ),
+              title: Container(height: 12.0),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.perm_identity),
-              title: Text('Profile'),
+              icon: NeumorphicIcon(
+                Icons.perm_identity,
+                size: 30,
+              ),
+              title: Container(height: 12.0),
             ),
           ],
           selectedItemColor: Color(0xff00b8d4),
