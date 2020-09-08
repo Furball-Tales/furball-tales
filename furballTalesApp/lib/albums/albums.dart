@@ -3,6 +3,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'photos.dart';
 import '../sign_in.dart';
+import '../Dashboard/grid_dashboard.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Albums extends StatelessWidget {
   @override
@@ -38,74 +40,6 @@ class _ImageGridItemState extends State<ImageGridItem> {
   }
 
   List<String> albumList = List<String>();
-
-  // getAlbums() {
-  //   databaseReference
-  //       .child('Ryohei Mizuho')
-  //       .once()
-  //       .then((DataSnapshot snapshot) {
-  //     Map<dynamic, dynamic> albums = snapshot.value;
-  //     albums.forEach((k, v) {
-  //       albumList.add(k);
-  //       print(albumList);
-  //     });
-  //   });
-  // }
-
-  // Widget decideGridTileView() {
-  //   if (albumList.length == 0) {
-  //     return Center(child: Text("Loading"));
-  //   } else {
-  //     return GridView.builder(
-  //         itemCount: albumList.length,
-  //         gridDelegate:
-  //             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-  //         itemBuilder: (context, index) {
-  //           final album = albumList[index];
-  //           return GestureDetector(
-  //             child: Card(
-  //               elevation: 5.0,
-  //               child: Container(
-  //                 alignment: Alignment.center,
-  //                 child: Text('$album'),
-  //               ),
-  //             ),
-  // onTap: () {
-  // Photos(album);
-  //   showDialog(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     child: new CupertinoAlertDialog(
-  //       title: new Column(
-  //         children: <Widget>[
-  //           new Text("GridView"),
-  //           new Icon(
-  //             Icons.favorite,
-  //             color: Colors.green,
-  //           ),
-  //         ],
-  //       ),
-  //       content: new Text("Selected Item $index"),
-  //       actions: <Widget>[
-  //         new FlatButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: new Text("OK"))
-  //       ],
-  //     ),
-  //   );
-  // },
-  //           );
-  //         });
-  //   }
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // getAlbums();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -166,11 +100,11 @@ class _ImageGridItemState extends State<ImageGridItem> {
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
                 leading: Icon(
-                  Icons.help,
+                  Icons.add_photo_alternate,
                   color: Colors.teal[900],
                 ),
                 title: Text(
-                  'About',
+                  'Add Album',
                   style: TextStyle(fontFamily: 'BalooBhai', fontSize: 20.0),
                 ),
               )),
@@ -187,21 +121,34 @@ class _ImageGridItemState extends State<ImageGridItem> {
 
                 data.forEach(
                     (index, data) => item.add({"key": index, ...data}));
-                print(item);
+
                 return GridView.builder(
                   itemCount: item.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   itemBuilder: (context, index) {
                     return GridTile(
-                      child: Text(item[index]["albumNames"]),
+                        child: InkResponse(
+                      enableFeedback: true,
+                      child: MyItems(Icons.photo_library,
+                          item[index]["albumNames"], accentPink),
+                      onTap: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Photos(item[index]['key'])))
+                      },
                       // trailing: Text(DateFormat("hh:mm:ss")
                       //     .format(DateTime.fromMicrosecondsSinceEpoch(
                       //         item[index]['timestamp'] * 1000))
                       //     .toString()),
-                      // onTap: () => updateTimeStamp(item[index]['key']),
                       // onLongPress: () => deleteMessage(item[index]['key']),
-                    );
+                    ));
                   },
                 );
               } else
@@ -212,4 +159,82 @@ class _ImageGridItemState extends State<ImageGridItem> {
       ],
     );
   }
+}
+
+Widget MyItems(IconData icon, String heading, int color) {
+  return Neumorphic(
+    style: NeumorphicStyle(
+        shape: NeumorphicShape.concave,
+        // boxShape: NeumorphicBoxShape.roundRect(
+        //     borderRadius: BorderRadius.circular(12)),
+        depth: 8,
+        intensity: 0.5,
+        lightSource: LightSource.topLeft,
+        color: Colors.grey[100]),
+    child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    heading,
+                    style: TextStyle(
+                      color: Color(color),
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                        spreadRadius: -10,
+                        blurRadius: 17,
+                        offset: Offset(-5, -5),
+                      ),
+                      BoxShadow(
+                        color: Colors.black26,
+                        spreadRadius: -2,
+                        blurRadius: 10,
+                        offset: Offset(7, 7),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Color(color),
+                    borderRadius: BorderRadius.circular(24),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            right: 0.5,
+                            top: 6.0,
+                            child: Icon(icon, color: Colors.grey[600]),
+                          ),
+                          Icon(
+                            icon,
+                            color: Colors.grey[200],
+                            size: 30,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }
