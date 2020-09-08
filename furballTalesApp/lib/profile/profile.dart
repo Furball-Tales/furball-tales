@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'sign_in.dart';
-import 'login_page.dart';
+import '../sign_in.dart';
+import '../login_page.dart';
 import 'about.dart';
 import 'donation.dart';
 
