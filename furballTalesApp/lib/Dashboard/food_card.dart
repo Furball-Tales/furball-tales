@@ -134,7 +134,7 @@ class CustomCardState extends State<FoodCard> {
                                 ),
                                 Icon(
                                   icon,
-                                  color: Colors.grey[200],
+                                  color: Colors.white,
                                   size: 30,
                                 ),
                               ],
