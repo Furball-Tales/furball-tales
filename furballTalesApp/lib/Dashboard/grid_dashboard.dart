@@ -18,9 +18,9 @@ class GridDashboard extends StatefulWidget {
   _GridDashboardState createState() => _GridDashboardState();
 }
 
-var accentBlue = 0xff00b8d4;
-var accentPink = 0xffD41571;
-var accentYellow = 0xffD4BF15;
+var accentBlue = 0xff00E5FF;
+var accentPink = 0xffFF1996;
+var accentYellow = 0xffFFE319;
 
 final databaseReference = FirebaseDatabase.instance
     .reference()
@@ -106,9 +106,9 @@ class _GridDashboardState extends State<GridDashboard> {
           Top(),
           FoodCard(Icons.fastfood, "Food", accentBlue),
           cardPageView(),
-          MyItems(Icons.directions_run, "Walk", accentPink),
-          MyItems(Icons.color_lens, "Goods", accentYellow),
-          MyItems(Icons.wb_sunny, "Clothes", accentYellow),
+          MyItems(Icons.directions_run, "Walk", accentPink, accentPink),
+          MyItems(Icons.color_lens, "Goods", 0xffD4BF15, accentYellow),
+          MyItems(Icons.wb_sunny, "Clothes", 0xffD4BF15, accentYellow),
           // Memo(),
         ],
         staggeredTiles: [
@@ -123,7 +123,8 @@ class _GridDashboardState extends State<GridDashboard> {
     );
   }
 
-  Widget MyItems(IconData icon, String heading, int color) {
+  Widget MyItems(
+      IconData icon, String heading, int textColor, int materialColor) {
     return Neumorphic(
       style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
@@ -146,7 +147,7 @@ class _GridDashboardState extends State<GridDashboard> {
                     child: Text(
                       heading,
                       style: TextStyle(
-                        color: Color(color),
+                        color: Color(textColor),
                         fontSize: 20,
                       ),
                     ),
@@ -170,7 +171,7 @@ class _GridDashboardState extends State<GridDashboard> {
                       ],
                     ),
                     child: Material(
-                      color: Color(color),
+                      color: Color(materialColor),
                       borderRadius: BorderRadius.circular(24),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
