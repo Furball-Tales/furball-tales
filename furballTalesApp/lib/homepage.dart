@@ -8,6 +8,7 @@ import 'grid_dashboard.dart';
 import 'package:flutter/services.Dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'albums.dart';
+import 'medical.dart';
 
 void main() => {runApp(MyApp()), SystemChrome.setEnabledSystemUIOverlays([])};
 
@@ -46,8 +47,9 @@ class _MyAppState extends State<Homepage> {
   final List<Widget> _children = [
     Dashboard(),
     Albums(),
-    GridDashboard(),
-    Profile()
+    // GridDashboard(),
+    Medical(),
+    Profile(),
   ];
 
   @override

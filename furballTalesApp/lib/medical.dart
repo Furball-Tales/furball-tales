@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'sign_in.dart';
@@ -23,7 +22,7 @@ class _MedicalState extends State<Medical> {
   final databaseReference = FirebaseDatabase.instance.reference().child('$id').child('vetinfos');
 
   List history = List();
-  String _date = "Not set";
+  String dateValue = "Not set";
   String hospital = "";
   String veterinarian = "";
   String vaccinations = "";
@@ -34,7 +33,7 @@ class _MedicalState extends State<Medical> {
   addHistory(){
    //Map
     Map<String, String> history = {
-      "Date": _date,
+      "Date": dateValue,
       "Hospital": hospital,
       "Veterinarian": veterinarian,
       "Vaccinations": vaccinations,
@@ -47,6 +46,8 @@ class _MedicalState extends State<Medical> {
       print("Medical history created");
     });
   }
+
+
   @override
   Widget build(BuildContext context) {
     // getData();
@@ -74,24 +75,24 @@ class _MedicalState extends State<Medical> {
               content: Stack(
                 overflow: Overflow.visible,
                 children: <Widget>[
-                  Positioned(
-                    right: -10.0,
-                    top: -50.0,
-                    child: InkResponse( 
-                      onTap: () {
-                      Navigator.of(context).pop();
-                      },
-                      child: CircleAvatar(child: Icon (
-                        Icons.close,
-                        color: Colors.white,
-                      ),
-                      backgroundColor: Colors.blue,
-                      maxRadius: 18.0,)
-                    ),
-                  ), 
+                  // Positioned(
+                  //   right: -10.0,
+                  //   top: -50.0,
+                  //   child: 
+                  //     InkResponse(
+                  //       onTap: (){
+                  //         Navigator.of(context).pop();
+                  //       },
+                  //       child: CircleAvatar(child: Icon(Icons.close,
+                  //       color: Colors.white,),
+                  //       backgroundColor: Colors.blue,
+                  //       maxRadius: 15.0,
+                  //       )
+                  //     )
+                  // ),
                 Form(
                   child: SingleChildScrollView(
-                      child: Column(
+                    child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Padding(
@@ -106,11 +107,11 @@ class _MedicalState extends State<Medical> {
                                     containerHeight:250.0,
                                   ),
                                     showTitleActions: true, 
-                                    minTime: DateTime(2000, 1, 1),
-                                    maxTime: DateTime(2050,12,31), onConfirm: (date) {
-                                      _date = '${date.year}-${date.month}-${date.day}';
-                                      print('this is the dateValue $_date');
-                                      setState((){});
+                                    minTime: DateTime(2020, 1, 1),
+                                    maxTime: DateTime(2021,12,31), 
+                                    onChanged: (date) {
+                                      setState((){dateValue = '${date.year}-${date.month}-${date.day}';});
+                                      print(dateValue);
                                     }, currentTime: DateTime.now(), locale: LocaleType.en);
                                   },
                                   child: Container(
@@ -127,10 +128,10 @@ class _MedicalState extends State<Medical> {
                                                   Icon(
                                                     Icons.date_range,
                                                     size: 15.0,
-                                                    color: Colors.grey,
+                                                    color: Colors.blue,
                                                   ),
                                                   Text(
-                                                    "$_date",
+                                                    "$dateValue",
                                                     style: TextStyle(
                                                       color: Colors.grey,
                                                       fontWeight: FontWeight.bold,
@@ -246,18 +247,61 @@ class _MedicalState extends State<Medical> {
             itemBuilder: (context, index) {
               return ListTile(
                     title: Text(item[index]["Date"]),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.grey,
-                      ),
-                      onPressed: () {
-                        setState((){
-                          String key = item[index]['key'];
-                          print('this is the key $key');
-                          databaseReference.child('$key').remove();
-                        }); 
-                      }),
+                    subtitle: Text(item[index]["Notes"]),
+                    onTap:(){
+                      //is this working??
+                      showDialog(context:context,
+                      builder: (BuildContext context) {
+                        return SimpleDialog(
+                          title: Text(item[index]["Date"]),
+                          titlePadding: EdgeInsets.symmetric(
+                            horizontal: 30, 
+                            vertical: 20,
+                          ),
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                Container(
+                                  margin: EdgeInsets.all(30),
+                                  child: Text(
+                                  "Hospital: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold, 
+                                    color: Colors.grey, 
+                                    fontSize: 15.0,)
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Container(
+                                    margin: EdgeInsets.all(20),
+                                    child: Text(
+                                      item[index]["Hospital"],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 15.0,)
+                                    ),
+                                  ),
+                                ),
+                              ]
+                            ),
+                          ]
+                        );
+                      });
+                    }
+                    // trailing: IconButton(
+                    //   icon: Icon(
+                    //     Icons.delete,
+                    //     color: Colors.grey,
+                    //   ),
+                    //   onPressed: () {
+                    //     setState((){
+                    //       String key = item[index]['key'];
+                    //       print('this is the key $key');
+                    //       databaseReference.child('$key').remove();
+                    //     }); 
+                    //   }),
                   );
             });
               } else{
