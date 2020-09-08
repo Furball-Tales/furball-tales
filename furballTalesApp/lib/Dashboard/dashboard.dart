@@ -3,6 +3,7 @@ import './ItemCard.dart';
 import 'package:flutter/services.dart';
 import './memo.dart';
 import './grid_dashboard.dart';
+import '../app_bar.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -51,6 +52,9 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: GradientAppBar(
+        "Furball Tales",
+      ),
       backgroundColor: Colors.transparent,
       body: Column(
         children: [

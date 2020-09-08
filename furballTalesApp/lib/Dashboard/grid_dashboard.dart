@@ -288,6 +288,7 @@ class _GridDashboardState extends State<GridDashboard> {
                             Text('Name: Benjamin'),
                             Text('Sex: ♂'),
                             Text('Age: 3 months'),
+                            Text('Weight: 10 kg'),
                           ],
                         ),
                       ),

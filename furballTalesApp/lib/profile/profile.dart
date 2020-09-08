@@ -27,9 +27,9 @@ class Profile extends StatelessWidget {
 
   Widget _buildButton({String text, int color, VoidCallback onClick}) {
     return NeumorphicButton(
-      margin: EdgeInsets.only(bottom: 30),
+      margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.symmetric(
-        vertical: 10,
+        vertical: 7,
         horizontal: 24,
       ),
       style: NeumorphicStyle(
@@ -49,11 +49,11 @@ class Profile extends StatelessWidget {
         child: NeumorphicText(
           text,
           style: NeumorphicStyle(
-            depth: 4, //customize depth here
+            depth: 2, //customize depth here
             color: Color(color), //customize color here
           ),
           textStyle: NeumorphicTextStyle(
-              fontSize: 27, fontWeight: FontWeight.bold //customize size here
+              fontSize: 24, fontWeight: FontWeight.bold //customize size here
               // AND others usual text style properties (fontFamily, fontWeight, ...)
               ),
         ),
@@ -65,75 +65,81 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(depth: 8),
       child: Scaffold(
         backgroundColor: Colors.grey[200],
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  radius: 80,
-                  backgroundImage: NetworkImage(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxDoD5caxFUy_dn0w6wl01m882CeJHNVOCRg&usqp=CAU'),
-                ),
-                Text(
-                  '<$name>',
-                  style: TextStyle(
-                    fontFamily: 'SourceSansPro',
-                    fontSize: 25,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/profile_background.png"),
+                fit: BoxFit.cover),
+          ),
+          child: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxDoD5caxFUy_dn0w6wl01m882CeJHNVOCRg&usqp=CAU'),
                   ),
-                ),
-                Text(
-                  '<$email>',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'SourceSansPro',
-                    color: Colors.red[400],
-                    letterSpacing: 2.5,
+                  Text(
+                    '<$name>',
+                    style: TextStyle(
+                      fontFamily: 'SourceSansPro',
+                      fontSize: 25,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 50.0,
-                  width: 200,
-                  child: Divider(
-                    color: Colors.teal[200],
+                  Text(
+                    '<$email>',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'SourceSansPro',
+                      color: Colors.red[400],
+                      letterSpacing: 2.5,
+                    ),
                   ),
-                ),
-                //   this is about page-----------------------------------------
-                _buildButton(
-                  text: "Our Team",
-                  color: accentBlue,
-                  onClick: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return About();
-                    }));
-                  },
-                ),
-                _buildButton(
-                  text: "Donation",
-                  color: accentYellow,
-                  onClick: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return Donation();
-                    }));
-                  },
-                ),
-                _buildButton(
-                  text: "Logout",
-                  color: accentPink,
-                  onClick: () {
-                    signOutGoogle();
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) {
-                      return LoginPage();
-                    }), ModalRoute.withName('/'));
-                  },
-                ),
-              ],
+                  SizedBox(
+                    height: 50.0,
+                    width: 200,
+                    child: Divider(
+                      color: Colors.teal[200],
+                    ),
+                  ),
+                  //   this is about page-----------------------------------------
+                  _buildButton(
+                    text: "Our Team",
+                    color: accentBlue,
+                    onClick: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return About();
+                      }));
+                    },
+                  ),
+                  _buildButton(
+                    text: "Donation",
+                    color: accentYellow,
+                    onClick: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return Donation();
+                      }));
+                    },
+                  ),
+                  _buildButton(
+                    text: "Logout",
+                    color: accentPink,
+                    onClick: () {
+                      signOutGoogle();
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) {
+                        return LoginPage();
+                      }), ModalRoute.withName('/'));
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
