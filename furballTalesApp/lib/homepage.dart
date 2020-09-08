@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import './Dashboard/dashboard.dart';
-import 'medical.dart';
 import './Dashboard/grid_dashboard.dart';
 import './profile/profile.dart';
 import './profile/about.dart';
 import 'package:flutter/services.Dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'medical.dart';
 import 'albums/albums.dart';
 
 void main() => {runApp(MyApp()), SystemChrome.setEnabledSystemUIOverlays([])};
@@ -46,8 +46,9 @@ class _MyAppState extends State<Homepage> {
   final List<Widget> _children = [
     Dashboard(),
     Albums(),
-    GridDashboard(),
-    Profile()
+    // GridDashboard(),
+    Medical(),
+    Profile(),
   ];
 
   @override
