@@ -73,8 +73,8 @@ class CustomCardState extends State<CustomCard> {
             style: NeumorphicStyle(
                 shape: NeumorphicShape.convex,
                 surfaceIntensity: 0.1,
-                depth: 1.5,
-                intensity: 0.7,
+                depth: 10,
+                intensity: 0.8,
                 lightSource: LightSource.topLeft,
                 color: Colors.grey[200]),
             child: Align(

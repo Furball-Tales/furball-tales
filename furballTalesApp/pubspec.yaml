@@ -33,7 +33,6 @@ dependencies:
   rapido: ^0.2.4
   flutter_neumorphic: ^3.0.1
   image_picker: ^0.6.7
-  background_app_bar: ^1.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

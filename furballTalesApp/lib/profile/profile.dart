@@ -27,7 +27,7 @@ class Profile extends StatelessWidget {
 
   Widget _buildButton({String text, int color, VoidCallback onClick}) {
     return NeumorphicButton(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(bottom: 20),
       padding: EdgeInsets.symmetric(
         vertical: 7,
         horizontal: 24,
@@ -41,8 +41,8 @@ class Profile extends StatelessWidget {
             width: 0.1,
           ),
           shape: NeumorphicShape.convex,
-          depth: 1.5,
-          intensity: 0.7,
+          depth: 10,
+          intensity: 0.8,
           surfaceIntensity: 0.1,
           color: Colors.grey[200]),
       child: Center(
