@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import './memo.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 import 'custom_card.dart';
 import 'food_card.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
-import 'package:firebase_database/firebase_database.dart';
-
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import '../sign_in.dart';
-
-import 'package:firebase_storage/firebase_storage.dart';
+import '../frontend_settings.dart';
 
 class GridDashboard extends StatefulWidget {
   @override
   _GridDashboardState createState() => _GridDashboardState();
 }
 
-var accentBlue = 0xff00E5FF;
-var accentPink = 0xffFF1996;
-var accentYellow = 0xffFFE319;
+var accentBlue = NeumorphicCardSettings.accentBlue;
+var accentPink = NeumorphicCardSettings.accentPink;
+var accentYellow = NeumorphicCardSettings.accentYellow;
+var intensity = NeumorphicCardSettings.intensity;
+var depth = NeumorphicCardSettings.depth;
+var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
+var baseColor = NeumorphicCardSettings.baseColor;
+
+var caveIntensity = NeumorphicCaveSettings.caveIntensity;
+var caveDepth = NeumorphicCaveSettings.caveDepth;
+var caveColor = NeumorphicCaveSettings.caveColor;
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
@@ -122,11 +127,47 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
-          FoodCard(Icons.fastfood, "Food", accentBlue),
+          FoodCard(
+            Icons.fastfood,
+            "Food",
+            accentBlue,
+            accentBlue,
+            intensity,
+            depth,
+            surfaceIntensity,
+            baseColor,
+          ),
           cardPageView(),
-          MyItems(Icons.directions_run, "Walk", accentPink, accentPink),
-          MyItems(Icons.color_lens, "Goods", 0xffD4BF15, accentYellow),
-          MyItems(Icons.wb_sunny, "Clothes", 0xffD4BF15, accentYellow),
+          MyItems(
+            Icons.directions_run,
+            "Walk",
+            accentPink,
+            accentPink,
+            intensity,
+            depth,
+            surfaceIntensity,
+            baseColor,
+          ),
+          MyItems(
+            Icons.color_lens,
+            "Goods",
+            0xffD4BF15,
+            accentYellow,
+            intensity,
+            depth,
+            surfaceIntensity,
+            baseColor,
+          ),
+          MyItems(
+            Icons.wb_sunny,
+            "Clothes",
+            0xffD4BF15,
+            accentYellow,
+            intensity,
+            depth,
+            surfaceIntensity,
+            baseColor,
+          ),
           // Memo(),
         ],
         staggeredTiles: [
@@ -142,15 +183,22 @@ class _GridDashboardState extends State<GridDashboard> {
   }
 
   Widget MyItems(
-      IconData icon, String heading, int textColor, int materialColor) {
+      IconData icon,
+      String heading,
+      int textColor,
+      int materialColor,
+      double intensity,
+      double depth,
+      double surfaceIntensity,
+      int baseColor) {
     return Neumorphic(
       style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
-          surfaceIntensity: 0.1,
-          depth: 8,
-          intensity: 0.8,
+          surfaceIntensity: surfaceIntensity,
+          depth: depth,
+          intensity: intensity,
           lightSource: LightSource.topLeft,
-          color: Colors.grey[300]),
+          color: Color(baseColor)),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -224,12 +272,13 @@ class _GridDashboardState extends State<GridDashboard> {
       color: Colors.transparent,
       child: Neumorphic(
         style: NeumorphicStyle(
-            shape: NeumorphicShape.concave,
-            surfaceIntensity: 0.1,
-            depth: 8,
-            intensity: 0.8,
-            lightSource: LightSource.topLeft,
-            color: Colors.grey[300]),
+          shape: NeumorphicShape.concave,
+          surfaceIntensity: surfaceIntensity,
+          depth: depth,
+          intensity: intensity,
+          lightSource: LightSource.topLeft,
+          color: Color(baseColor),
+        ),
         child: Row(
           children: <Widget>[
             GestureDetector(
@@ -297,10 +346,10 @@ class _GridDashboardState extends State<GridDashboard> {
                         shape: NeumorphicShape.concave,
                         // boxShape: NeumorphicBoxShape.roundRect(
                         //     borderRadius: BorderRadius.circular(12)),
-                        depth: -3,
-                        intensity: 0.7,
+                        depth: caveDepth,
+                        intensity: caveIntensity,
                         lightSource: LightSource.topLeft,
-                        color: Colors.grey[200]),
+                        color: Color(caveColor)),
                     child: Container(
                       color: Colors.transparent,
                       height: 100,

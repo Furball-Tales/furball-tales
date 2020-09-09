@@ -3,6 +3,13 @@ import 'package:flutter/widgets.dart';
 import './memo_edit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import '../frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
+
+var caveIntensity = NeumorphicCaveSettings.caveIntensity;
+var caveDepth = NeumorphicCaveSettings.caveDepth;
+var caveColor = NeumorphicCaveSettings.caveColor;
 
 class MemoList extends StatefulWidget {
   @override
@@ -28,7 +35,7 @@ class MemoListState extends State<MemoList> {
     }
     return Scaffold(
       body: _buildList(),
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color(baseColor),
       floatingActionButton: FloatingActionButton(
         onPressed: _addMemo,
         tooltip: 'New Memo',
@@ -114,13 +121,14 @@ class MemoListState extends State<MemoList> {
     return ListTile(
       title: Neumorphic(
         style: NeumorphicStyle(
-            shape: NeumorphicShape.concave,
-            // boxShape: NeumorphicBoxShape.roundRect(
-            //     borderRadius: BorderRadius.circular(12)),
-            depth: -3,
-            intensity: 1,
-            lightSource: LightSource.topLeft,
-            color: Colors.grey[200]),
+          shape: NeumorphicShape.concave,
+          // boxShape: NeumorphicBoxShape.roundRect(
+          //     borderRadius: BorderRadius.circular(12)),
+          depth: caveDepth,
+          intensity: caveIntensity,
+          lightSource: LightSource.topLeft,
+          color: Color(caveColor),
+        ),
         child: Container(
           padding: EdgeInsets.all(10),
           child: Text(
