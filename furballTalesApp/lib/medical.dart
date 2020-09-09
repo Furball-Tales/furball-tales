@@ -246,181 +246,183 @@ class _MedicalState extends State<Medical> {
           return ListView.builder (
             itemCount: item.length, 
             itemBuilder: (context, index) {
-              return ListTile(
-                    title: Text(item[index]["Date"]),
-                    subtitle: Text(item[index]["Notes"]),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
-                    onTap:(){
-                      showDialog(context:context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          actions:<Widget> [
-                            FlatButton(
-                              child: Icon(
-                                Icons.delete
-                              ),
-                              onPressed: (){
-                                setState((){
-                                String key = item[index]['key'];
-                                print('this is the key $key');
-                                databaseReference.child('$key').remove();
-                                Navigator.of(context).pop();
-                                });
-                              },
-                              )
-                          ],
-                          title: Text(item[index]["Date"]), 
-                          titleTextStyle: TextStyle( 
-                            color:Colors.blue,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold),
-                          titlePadding: EdgeInsets.fromLTRB(20,20, 0, 0),
-                          content: IntrinsicHeight(
-                              child: Column(
-                              children:<Widget>[ 
-                              Row(
-                                children:[
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Text(
-                                    "Hospital:",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold, 
-                                      color: Colors.grey, 
-                                      fontSize: 18.0,)
-                                    ),
-                                  ),
-                                  Expanded(
-                                      child: Container(
+              return Card(
+                              child: ListTile(
+                      title: Text(item[index]["Date"]),
+                      subtitle: Text(item[index]["Notes"]),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                      onTap:(){
+                        showDialog(context:context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            actions:<Widget> [
+                              FlatButton(
+                                child: Icon(
+                                  Icons.delete
+                                ),
+                                onPressed: (){
+                                  setState((){
+                                  String key = item[index]['key'];
+                                  print('this is the key $key');
+                                  databaseReference.child('$key').remove();
+                                  Navigator.of(context).pop();
+                                  });
+                                },
+                                )
+                            ],
+                            title: Text(item[index]["Date"]), 
+                            titleTextStyle: TextStyle( 
+                              color:Colors.blue,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                            titlePadding: EdgeInsets.fromLTRB(20,20, 0, 0),
+                            content: IntrinsicHeight(
+                                child: Column(
+                                children:<Widget>[ 
+                                Row(
+                                  children:[
+                                    Container(
                                       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                       child: Text(
-                                        
-                                        item[index]["Hospital"],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold, 
-                                          color: Colors.grey, 
-                                          fontSize: 18.0,)
+                                      "Hospital:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
                                       ),
                                     ),
-                                  ),
-                                ]
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Text(
-                                    "Vet Name:",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold, 
-                                      color: Colors.grey, 
-                                      fontSize: 18.0,)
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          
+                                          item[index]["Hospital"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                      child: Container(
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
                                       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                       child: Text(
-                                        item[index]["Veterinarian"],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold, 
-                                          color: Colors.grey, 
-                                          fontSize: 18.0,)
+                                      "Vet Name:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
                                       ),
                                     ),
-                                  ),
-                                ]
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Text(
-                                    "Vaccine:",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold, 
-                                      color: Colors.grey, 
-                                      fontSize: 18.0,)
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          item[index]["Veterinarian"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                      child: Container(
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
                                       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                       child: Text(
-                                        item[index]["Vaccinations"],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold, 
-                                          color: Colors.grey, 
-                                          fontSize: 18.0,)
+                                      "Vaccine:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
                                       ),
                                     ),
-                                  ),
-                                ]
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Text(
-                                    "Weight:",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold, 
-                                      color: Colors.grey, 
-                                      fontSize: 18.0,)
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          item[index]["Vaccinations"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                      child: Container(
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
                                       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                       child: Text(
-                                        item[index]["Weight"],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold, 
-                                          color: Colors.grey, 
-                                          fontSize: 18.0,)
+                                      "Weight:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
                                       ),
                                     ),
-                                  ),
-                                ]
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
-                                    child: Text(
-                                    "Notes:",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold, 
-                                      color: Colors.grey, 
-                                      fontSize: 18.0,)
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          item[index]["Weight"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                      child: Container(
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
                                       margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
                                       child: Text(
-                                        item[index]["Notes"],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold, 
-                                          color: Colors.grey, 
-                                          fontSize: 18.0,)
+                                      "Notes:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
                                       ),
                                     ),
-                                  )
-                                ]
-                              )
-                              ],
-                              ),
-                          )
-                        );
-                      });
-                    }
-                  );
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                                        child: Text(
+                                          item[index]["Notes"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
+                                    )
+                                  ]
+                                )
+                                ],
+                                ),
+                            )
+                          );
+                        });
+                      }
+                    ),
+              );
             });
               } else{
               return Center(child:CircularProgressIndicator());
