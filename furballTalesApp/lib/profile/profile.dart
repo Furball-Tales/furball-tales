@@ -80,22 +80,21 @@ class Profile extends StatelessWidget {
                 children: <Widget>[
                   CircleAvatar(
                     radius: 80,
-                    backgroundImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxDoD5caxFUy_dn0w6wl01m882CeJHNVOCRg&usqp=CAU'),
+                    backgroundImage: NetworkImage('$image'),
                   ),
                   Text(
-                    '<$name>',
+                    '$name',
                     style: TextStyle(
                       fontFamily: 'SourceSansPro',
                       fontSize: 25,
                     ),
                   ),
                   Text(
-                    '<$email>',
+                    '$email',
                     style: TextStyle(
                       fontSize: 20,
                       fontFamily: 'SourceSansPro',
-                      color: Colors.red[400],
+                      color: Colors.red[300],
                       letterSpacing: 2.5,
                     ),
                   ),
