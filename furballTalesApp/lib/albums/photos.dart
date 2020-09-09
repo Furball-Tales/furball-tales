@@ -9,6 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Photos extends StatefulWidget {
   String _albumName;
@@ -109,11 +110,40 @@ class _PhotosState extends State<Photos> {
       ),
       body: Column(
         children: [
-          FlatButton(
-              onPressed: () {
-                selectImage();
-              },
-              child: Text("Add picture")),
+          Center(
+              child: Container(
+                  margin: EdgeInsets.all(8),
+                  width: 190,
+                  child: Neumorphic(
+                      style: NeumorphicStyle(
+                          shape: NeumorphicShape.concave,
+                          surfaceIntensity: 0.2,
+                          depth: 1.5,
+                          intensity: 5,
+                          lightSource: LightSource.topLeft,
+                          color: Colors.grey[200]),
+                      child: FlatButton(
+                          onPressed: () {
+                            selectImage();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Icon(
+                                Icons.add_a_photo,
+                                size: 35,
+                                color: Colors.pink[400],
+                              ),
+                              Text(
+                                "Add picture",
+                                style: TextStyle(
+                                    fontFamily: 'BalooBhai', fontSize: 20.0),
+                              )
+                            ],
+                          )
+                          ))
+                          )
+                          ),
           Flexible(
             child: StreamBuilder(
               stream: databaseReference
