@@ -44,7 +44,7 @@ class Profile extends StatelessWidget {
           depth: 10,
           intensity: 0.8,
           surfaceIntensity: 0.1,
-          color: Colors.grey[200]),
+          color: Colors.grey[300]),
       child: Center(
         child: NeumorphicText(
           text,
@@ -66,7 +66,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicTheme(
       child: Scaffold(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Colors.grey[300],
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -107,7 +107,7 @@ class Profile extends StatelessWidget {
                   ),
                   //   this is about page-----------------------------------------
                   _buildButton(
-                    text: "Our Team",
+                    text: "About Us",
                     color: accentBlue,
                     onClick: () {
                       Navigator.of(context)

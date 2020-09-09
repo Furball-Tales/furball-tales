@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: NeumorphicThemeData(
         baseColor: Colors.grey[50],
         lightSource: LightSource.topLeft,
-        depth: 10,
+        depth: 5,
       ),
       darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
@@ -49,7 +49,7 @@ class _MyAppState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[300],
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,

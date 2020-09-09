@@ -147,10 +147,10 @@ class _GridDashboardState extends State<GridDashboard> {
       style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
           surfaceIntensity: 0.1,
-          depth: 10,
+          depth: 8,
           intensity: 0.8,
           lightSource: LightSource.topLeft,
-          color: Colors.grey[200]),
+          color: Colors.grey[300]),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -171,23 +171,23 @@ class _GridDashboardState extends State<GridDashboard> {
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.white,
-                          spreadRadius: -10,
-                          blurRadius: 17,
-                          offset: Offset(-5, -5),
-                        ),
-                        BoxShadow(
-                          color: Colors.black26,
-                          spreadRadius: -2,
-                          blurRadius: 10,
-                          offset: Offset(7, 7),
-                        ),
-                      ],
-                    ),
+                    // decoration: BoxDecoration(
+                    //   shape: BoxShape.circle,
+                    //   boxShadow: [
+                    //     BoxShadow(
+                    //       color: Colors.white,
+                    //       spreadRadius: -10,
+                    //       blurRadius: 17,
+                    //       offset: Offset(-5, -5),
+                    //     ),
+                    //     BoxShadow(
+                    //       color: Colors.black26,
+                    //       spreadRadius: -2,
+                    //       blurRadius: 10,
+                    //       offset: Offset(7, 7),
+                    //     ),
+                    //   ],
+                    // ),
                     child: Material(
                       color: Color(materialColor),
                       borderRadius: BorderRadius.circular(24),
@@ -202,7 +202,7 @@ class _GridDashboardState extends State<GridDashboard> {
                             ),
                             Icon(
                               icon,
-                              color: Colors.white,
+                              color: Colors.grey[100],
                               size: 30,
                             ),
                           ],
@@ -226,10 +226,10 @@ class _GridDashboardState extends State<GridDashboard> {
         style: NeumorphicStyle(
             shape: NeumorphicShape.concave,
             surfaceIntensity: 0.1,
-            depth: 10,
+            depth: 8,
             intensity: 0.8,
             lightSource: LightSource.topLeft,
-            color: Colors.grey[200]),
+            color: Colors.grey[300]),
         child: Row(
           children: <Widget>[
             GestureDetector(
@@ -300,7 +300,7 @@ class _GridDashboardState extends State<GridDashboard> {
                         depth: -3,
                         intensity: 0.7,
                         lightSource: LightSource.topLeft,
-                        color: Colors.grey[100]),
+                        color: Colors.grey[200]),
                     child: Container(
                       color: Colors.transparent,
                       height: 100,

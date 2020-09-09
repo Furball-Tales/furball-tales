@@ -76,10 +76,10 @@ class CustomCardState extends State<FoodCard> {
           style: NeumorphicStyle(
               shape: NeumorphicShape.concave,
               surfaceIntensity: 0.1,
-              depth: 10,
+              depth: 8,
               intensity: 0.8,
               lightSource: LightSource.topLeft,
-              color: Colors.grey[200]),
+              color: Colors.grey[300]),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -106,18 +106,18 @@ class CustomCardState extends State<FoodCard> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           boxShadow: [
-                            BoxShadow(
-                              color: Colors.white,
-                              spreadRadius: -10,
-                              blurRadius: 17,
-                              offset: Offset(-5, -5),
-                            ),
-                            BoxShadow(
-                              color: Colors.black26,
-                              spreadRadius: -2,
-                              blurRadius: 10,
-                              offset: Offset(7, 7),
-                            ),
+                            // BoxShadow(
+                            //   color: Colors.white,
+                            //   spreadRadius: -10,
+                            //   blurRadius: 17,
+                            //   offset: Offset(-5, -5),
+                            // ),
+                            // BoxShadow(
+                            //   color: Colors.black26,
+                            //   spreadRadius: -2,
+                            //   blurRadius: 10,
+                            //   offset: Offset(7, 7),
+                            // ),
                           ],
                         ),
                         child: Material(
@@ -134,7 +134,7 @@ class CustomCardState extends State<FoodCard> {
                                 ),
                                 Icon(
                                   icon,
-                                  color: Colors.white,
+                                  color: Colors.grey[100],
                                   size: 30,
                                 ),
                               ],

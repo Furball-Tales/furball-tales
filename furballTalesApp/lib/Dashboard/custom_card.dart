@@ -73,10 +73,10 @@ class CustomCardState extends State<CustomCard> {
             style: NeumorphicStyle(
                 shape: NeumorphicShape.convex,
                 surfaceIntensity: 0.1,
-                depth: 10,
+                depth: 8,
                 intensity: 0.8,
                 lightSource: LightSource.topLeft,
-                color: Colors.grey[200]),
+                color: Colors.grey[300]),
             child: Align(
               alignment: Alignment.topCenter,
               child: Image.asset(photo, fit: BoxFit.fill),
