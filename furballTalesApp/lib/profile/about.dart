@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:furballTalesApp/profile/project_details.dart';
 import 'team.dart';
+import '../app_bar.dart';
+import '../frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'About FurBallTales',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, letterSpacing: 1.5, fontSize: 25),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.arrow_back,
-            )),
+      appBar: GradientAppBar(
+        "About Us",
+        true,
       ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'About FurBallTales',
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.bold, letterSpacing: 1.5, fontSize: 25),
+      //   ),
+      //   centerTitle: true,
+      //   backgroundColor: Colors.cyanAccent[400],
+      //   leading: GestureDetector(
+      //       onTap: () {
+      //         Navigator.pop(context);
+      //       },
+      //       child: Icon(
+      //         Icons.arrow_back,
+      //       )),
+      // ),
+      backgroundColor: Color(baseColor),
       body: ListView(
         //padding: const EdgeInsets.all(1),
         children: <Widget>[

@@ -53,6 +53,7 @@ class _MedicalState extends State<Medical> {
     return Scaffold(
       appBar: GradientAppBar(
         "Medical History",
+        false,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

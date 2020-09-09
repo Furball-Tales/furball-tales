@@ -90,7 +90,7 @@ class Profile extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Container(),
+        automaticallyImplyLeading: false,
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: Color(baseColor),

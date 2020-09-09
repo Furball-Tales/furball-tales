@@ -47,6 +47,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
     return Scaffold(
       appBar: GradientAppBar(
         "Albums",
+        false,
       ),
       backgroundColor: Colors.transparent,
       body: Column(

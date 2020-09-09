@@ -3,8 +3,54 @@ import 'package:flutter/material.dart';
 class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final double barHeight = 50.0;
+  bool back;
 
-  GradientAppBar(this.title);
+  GradientAppBar(this.title, this.back);
+
+  backButton(BuildContext context) {
+    if (back) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                )),
+          ),
+          Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Container(),
+          ),
+        ],
+      );
+    } else {
+      return Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18.0,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Size get preferredSize => const Size.fromHeight(100);
@@ -16,16 +62,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
     return new Container(
       padding: EdgeInsets.only(top: statusbarHeight),
       height: statusbarHeight + barHeight,
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Colors.white,
-            // fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      child: backButton(context),
       decoration: BoxDecoration(
         gradient: LinearGradient(
             colors: [Color(0xff00e6ff), Color(0xffccffb3)],
