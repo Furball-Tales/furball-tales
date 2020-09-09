@@ -1,141 +1,134 @@
 {
-  "images": {
-    "Ryohei Mizuho": {
-      "My Album": {
-        "1": {
-          "imageName": "pic01.jpg",
-          "imageData": "xxxxxxxxxxxxxxxxx"
-        },
-        "2": {
-          "imageName": "pic02.jpg",
-          "imageData": "xxxxxxxxxxxxxxxxx"
+  "FkkP04fWjCcgy2aLdqxi867U1z53" : {
+    "albums" : {
+      "-MGc3mpsLaXsBiWBWHhx" : {
+        "albumNames" : "New Album"
+      },
+      "-MGc3t75hMwziJIUuHH7" : {
+        "albumNames" : "Day at the Beach"
+      },
+      "-MGc4kjDSZ5HHQs1yAmI" : {
+        "albumNames" : "Playing catch"
+      },
+      "-MGc4msbJAOgu6atg083" : {
+        "albumNames" : "Fun Times",
+        "pictures" : {
+          "-MGg5NOYg-YOUTdHczG1" : {
+            "imgName" : "image_picker79769090464165013.jpg",
+            "link" : "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/FkkP04fWjCcgy2aLdqxi867U1z53%2Fimages%2Fimage_picker79769090464165013.jpg?alt=media&token=b83dfcf5-ffd9-421b-bcaa-b7c3f491513e"
+          },
+          "-MGg5an4LBTQUvKA1e8W" : {
+            "imgName" : "image_picker7349746527635143831.jpg",
+            "link" : "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/FkkP04fWjCcgy2aLdqxi867U1z53%2Fimages%2Fimage_picker7349746527635143831.jpg?alt=media&token=34722445-3ebe-4540-9950-f5a45e72c1e7"
+          }
         }
       },
-      "Other Album": {
-        "1": {
-          "imageName": "pic03.jpg",
-          "imageData": "xxxxxxxxxxxxxxxxx"
-        },
-        "2": {
-          "imageName": "pic04.jpg",
-          "imageData": "xxxxxxxxxxxxxxxxx"
-        }
+      "-MGc4qDPcNmVac5hxBW0" : {
+        "albumNames" : "2nd Birthday"
+      },
+      "-MGc8d-zju7HO-z_7PFy" : {
+        "albumNames" : "Yutas fun times"
       }
     },
-    "Jimmy": {
-      "Last year album": {
-        "1": {
-          "imageName": "pic01.jpg",
-          "imageData": "xxxxxxxxxxxxxxxxx"
-        }
+    "notes" : {
+      "Example_note_key" : {
+        "date" : "2019/12/24",
+        "notes" : "I should take pet to hospital."
+      }
+    },
+    "pets" : {
+      "Example_pet_key" : {
+        "birthday" : "2019/08/13",
+        "petName" : "Kabutomushi-kun",
+        "petProfilePicUrl" : "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/images%2Fimage_picker1233626753081390830.jpg?alt=media&token=7b989346-a614-4df7-a65f-75e57716a4e4",
+        "weight" : 0.06
+      }
+    },
+    "vetinfos" : {
+      "-MGbv7eP1cSTrjhx8URq" : {
+        "Date" : "2020-10-7",
+        "Hospital" : "test",
+        "Medications" : "",
+        "Notes" : "",
+        "Vaccinations" : "",
+        "Veterinarian" : "test",
+        "Weight" : ""
+      },
+      "-MGedx9XAeh7dRGstQ1M" : {
+        "Date" : "2020-10-8",
+        "Hospital" : "",
+        "Medications" : "",
+        "Notes" : "",
+        "Vaccinations" : "",
+        "Veterinarian" : "",
+        "Weight" : ""
+      },
+      "-MGf74EJ8tQFoWyMFkqw" : {
+        "Date" : "Not set",
+        "Hospital" : "test",
+        "Medications" : "",
+        "Notes" : "",
+        "Vaccinations" : "",
+        "Veterinarian" : "",
+        "Weight" : ""
+      },
+      "-MGfJlBm1ZCj5Oj79zyr" : {
+        "Date" : "Not set",
+        "Hospital" : "",
+        "Medications" : "",
+        "Notes" : "",
+        "Vaccinations" : "",
+        "Veterinarian" : "",
+        "Weight" : ""
+      },
+      "-MGfREHmXEnP4GLs2rlq" : {
+        "Date" : "2020-10-8",
+        "Hospital" : "",
+        "Medications" : "",
+        "Notes" : "",
+        "Vaccinations" : "",
+        "Veterinarian" : "",
+        "Weight" : ""
+      },
+      "-MGfSVE76RmzxFYwR4hJ" : {
+        "Date" : "2020-9-9",
+        "Hospital" : "test",
+        "Medications" : "",
+        "Notes" : "test",
+        "Vaccinations" : "",
+        "Veterinarian" : "",
+        "Weight" : ""
+      },
+      "-MGfdYFdl8nMM5-R-Vln" : {
+        "Date" : "2020-9-9",
+        "Hospital" : "test",
+        "Medications" : "tet",
+        "Notes" : "test",
+        "Vaccinations" : "test",
+        "Veterinarian" : "test",
+        "Weight" : "tdt"
       }
     }
   },
-  "pets": {
-    "Ryohei Mizuho": {
-      "1": {
-        "petName": "Kabutomushi-kun",
-        "birthday": "2019/08/13",
-        "weight": 0.06,
-        "petProfilePic": "xxxxxxxxxxxxxxxx"
-      },
-      "2": {
-        "petName": "Gold fish Hanako",
-        "birthday": "2018/09/25",
-        "weight": 0.01,
-        "petProfilePic": "xxxxxxxxxxxxxxxx"
-      }
-    },
-    "Jimmy": {
-      "1": {
-        "petName": "Mr Banana",
-        "birthday": "2019/12/21",
-        "weight": 10,
-        "petProfilePic": "xxxxxxxxxxxxxxxx"
+  "laNGQaoa63U0yroavTdHjIznhji1" : {
+    "vetinfos" : {
+      "-MGc0O6cwUo4awpR7u-I" : {
+        "Date" : "2020-9-7",
+        "Hospital" : "",
+        "Medications" : "",
+        "Notes" : "",
+        "Vaccinations" : "",
+        "Veterinarian" : "",
+        "Weight" : ""
       }
     }
   },
-  "vetInfos": {
-    "Ryohei Mizuho": {
-      "Kabutomushi-kun": {
-        "1": {
-          "date": "2020/07/02",
-          "weight": 0.04,
-          "vet": "Doctor R",
-          "hospital": "Roppongi Hospital",
-          "vaccination": "RM-1",
-          "otherNotes": "I'm so tired."
-        },
-        "2": {
-          "date": "2020/08/02",
-          "weight": 0.05,
-          "vet": "Doctor R",
-          "hospital": "Roppongi Hospital",
-          "vaccination": "RM-2",
-          "otherNotes": "My pet's so cute."
-        },
-        "3": {
-          "date": "2020/09/02",
-          "weight": 0.06,
-          "vet": "Doctor R",
-          "hospital": "Roppongi Hospital",
-          "vaccination": "RM-3",
-          "otherNotes": "Thanks doctor."
-        }
-      },
-      "Gold fish Hanako": {
-        "1": {
-          "date": "2020/07/08",
-          "weight": 0.01,
-          "vet": "Doctor M",
-          "hospital": "Tokyo Hospital",
-          "vaccination": "MM-1",
-          "otherNotes": ""
-        },
-        "2": {
-          "date": "2020/08/08",
-          "weight": 0.01,
-          "vet": "Doctor M",
-          "hospital": "Tokyo Hospital",
-          "vaccination": "MM-1",
-          "otherNotes": ""
-        }
-      }
-    },
-    "Jimmy": {
-      "Mr Banana": {
-        "1": {
-          "date": "2019/12/24",
-          "weight": 9,
-          "vet": "Doctor Mike",
-          "hospital": "Roppongi Hospital",
-          "vaccination": "",
-          "otherNotes": ""
-        }
-      }
-    }
-  },
-  "notes": {
-    "Ryohei Mizuho": {
-      "1": {
-        "date": "2020/07/02",
-        "notes": "I should take pet to hospital."
-      },
-      "2": {
-        "date": "2020/08/02",
-        "notes": "I should take pet to hospital."
-      },
-      "3": {
-        "date": "2020/09/02",
-        "notes": "I should take pet to hospital."
-      }
-    },
-    "Jimmy": {
-      "1": {
-        "date": "2019/12/24",
-        "notes": "I should take pet to hospital."
-      }
-    }
-  },
-  "events": {}
+  "pets" : {
+    "Ryohei Mizuho" : [ null, {
+      "birthday" : "2019/08/13",
+      "petName" : "Kabutomushi-kun",
+      "petProfilePic" : "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/images%2Fimage_picker1233626753081390830.jpg?alt=media&token=7b989346-a614-4df7-a65f-75e57716a4e4",
+      "weight" : 0.06
+    } ]
+  }
 }
