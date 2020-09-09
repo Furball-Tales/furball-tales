@@ -3,7 +3,6 @@ import 'sign_in.dart';
 import 'homepage.dart';
 
 class LoginPage extends StatefulWidget {
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
