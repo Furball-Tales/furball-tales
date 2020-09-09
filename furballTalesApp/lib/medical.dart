@@ -247,7 +247,7 @@ class _MedicalState extends State<Medical> {
             itemCount: item.length, 
             itemBuilder: (context, index) {
               return Card(
-                              child: ListTile(
+                      child: ListTile(
                       title: Text(item[index]["Date"]),
                       subtitle: Text(item[index]["Notes"]),
                       shape: RoundedRectangleBorder(
