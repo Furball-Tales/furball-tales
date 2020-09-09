@@ -5,6 +5,7 @@ import 'photos.dart';
 import '../sign_in.dart';
 import '../Dashboard/grid_dashboard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import '../app_bar.dart';
 
 class Albums extends StatelessWidget {
   @override
@@ -43,156 +44,163 @@ class _ImageGridItemState extends State<ImageGridItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                      actions: <Widget>[
-                        Container(
-                            margin: EdgeInsets.all(8),
-                            width: 130,
-                            child: Neumorphic(
-                                style: NeumorphicStyle(
-                                    shape: NeumorphicShape.concave,
-                                    surfaceIntensity: 0.2,
-                                    depth: 1.5,
-                                    intensity: 5,
-                                    lightSource: LightSource.topLeft,
-                                    color: Colors.grey[200]),
-                                child: FlatButton(
-                                    onPressed: () {
-                                      createAlbum();
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.photo_album,
-                                          size: 25,
-                                          color: Colors.pink[400],
-                                        ),
-                                        Text(
-                                          "Add Album",
-                                          style: TextStyle(
-                                              fontFamily: 'BalooBhai',
-                                              fontSize: 17.0),
-                                        )
-                                      ],
-                                    ))))
-                      ],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      title: Text("Add Album"),
-                      content:
-                          Stack(overflow: Overflow.visible, children: <Widget>[
-                        Positioned(
-                          right: -50.0,
-                          top: -50.0,
-                          child: InkResponse(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: CircleAvatar(
-                              child: Icon(Icons.close),
-                            ),
-                          ),
-                        ),
-                        Form(
-                            child: SingleChildScrollView(
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                    onChanged: (String _newAlbumValue) {
-                                      newAlbumName = _newAlbumValue;
-                                    },
-                                    decoration:
-                                        InputDecoration(labelText: 'Album')),
-                              )
-                            ])))
-                      ]));
-                },
-              );
-            },
-            child: Container(
-                margin: EdgeInsets.all(8),
-                width: 200,
-                child: Neumorphic(
-                    style: NeumorphicStyle(
-                        shape: NeumorphicShape.concave,
-                        surfaceIntensity: 0.2,
-                        depth: 1.5,
-                        intensity: 5,
-                        lightSource: LightSource.topLeft,
-                        color: Colors.grey[200]),
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.photo_album,
-                        size: 45,
-                        color: Colors.pink[400],
-                      ),
-                      title: Text(
-                        'Add Album',
-                        style:
-                            TextStyle(fontFamily: 'BalooBhai', fontSize: 20.0),
-                      ),
-                    )))),
-        Flexible(
-          child: StreamBuilder(
-            stream: databaseReference.onValue,
-            builder: (context, snap) {
-              if (snap.hasData &&
-                  !snap.hasError &&
-                  snap.data.snapshot.value != null) {
-                Map data = snap.data.snapshot.value;
-                List item = [];
-
-                data.forEach(
-                    (index, data) => item.add({"key": index, ...data}));
-
-                return GridView.builder(
-                  itemCount: item.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  itemBuilder: (context, index) {
-                    return GridTile(
-                        child: InkResponse(
-                      enableFeedback: true,
-                      child: MyItems(Icons.photo_library,
-                          item[index]["albumNames"], accentPink),
-                      onTap: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Photos(item[index]['key'])))
-                      },
-                      // trailing: Text(DateFormat("hh:mm:ss")
-                      //     .format(DateTime.fromMicrosecondsSinceEpoch(
-                      //         item[index]['timestamp'] * 1000))
-                      //     .toString()),
-                      // onLongPress: () => deleteMessage(item[index]['key']),
-                    ));
+    return Scaffold(
+      appBar: GradientAppBar(
+        "Albums",
+      ),
+      backgroundColor: Colors.transparent,
+      body: Column(
+        children: [
+          InkWell(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        actions: <Widget>[
+                          Container(
+                              margin: EdgeInsets.all(8),
+                              width: 130,
+                              child: Neumorphic(
+                                  style: NeumorphicStyle(
+                                      shape: NeumorphicShape.concave,
+                                      surfaceIntensity: 0.2,
+                                      depth: 1.5,
+                                      intensity: 5,
+                                      lightSource: LightSource.topLeft,
+                                      color: Colors.grey[200]),
+                                  child: FlatButton(
+                                      onPressed: () {
+                                        createAlbum();
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.photo_album,
+                                            size: 25,
+                                            color: Colors.pink[400],
+                                          ),
+                                          Text(
+                                            "Add Album",
+                                            style: TextStyle(
+                                                fontFamily: 'BalooBhai',
+                                                fontSize: 17.0),
+                                          )
+                                        ],
+                                      ))))
+                        ],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        title: Text("Add Album"),
+                        content: Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Positioned(
+                                right: -50.0,
+                                top: -50.0,
+                                child: InkResponse(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: CircleAvatar(
+                                    child: Icon(Icons.close),
+                                  ),
+                                ),
+                              ),
+                              Form(
+                                  child: SingleChildScrollView(
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: TextFormField(
+                                          onChanged: (String _newAlbumValue) {
+                                            newAlbumName = _newAlbumValue;
+                                          },
+                                          decoration: InputDecoration(
+                                              labelText: 'Album')),
+                                    )
+                                  ])))
+                            ]));
                   },
                 );
-              } else
-                return Text("No Albums");
-            },
+              },
+              child: Container(
+                  margin: EdgeInsets.all(8),
+                  width: 200,
+                  child: Neumorphic(
+                      style: NeumorphicStyle(
+                          shape: NeumorphicShape.concave,
+                          surfaceIntensity: 0.2,
+                          depth: 1.5,
+                          intensity: 5,
+                          lightSource: LightSource.topLeft,
+                          color: Colors.grey[200]),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.photo_album,
+                          size: 45,
+                          color: Colors.pink[400],
+                        ),
+                        title: Text(
+                          'Add Album',
+                          style: TextStyle(
+                              fontFamily: 'BalooBhai', fontSize: 20.0),
+                        ),
+                      )))),
+          Flexible(
+            child: StreamBuilder(
+              stream: databaseReference.onValue,
+              builder: (context, snap) {
+                if (snap.hasData &&
+                    !snap.hasError &&
+                    snap.data.snapshot.value != null) {
+                  Map data = snap.data.snapshot.value;
+                  List item = [];
+
+                  data.forEach(
+                      (index, data) => item.add({"key": index, ...data}));
+
+                  return GridView.builder(
+                    itemCount: item.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    itemBuilder: (context, index) {
+                      return GridTile(
+                          child: InkResponse(
+                        enableFeedback: true,
+                        child: MyItems(Icons.photo_library,
+                            item[index]["albumNames"], accentPink),
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Photos(item[index]['key'])))
+                        },
+                        // trailing: Text(DateFormat("hh:mm:ss")
+                        //     .format(DateTime.fromMicrosecondsSinceEpoch(
+                        //         item[index]['timestamp'] * 1000))
+                        //     .toString()),
+                        // onLongPress: () => deleteMessage(item[index]['key']),
+                      ));
+                    },
+                  );
+                } else
+                  return Text("No Albums");
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
