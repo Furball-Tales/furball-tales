@@ -78,22 +78,36 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      child: Scaffold(
-        backgroundColor: Color(baseColor),
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/profile_background.png"),
-                fit: BoxFit.cover),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 18.0,
           ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Container(),
+      ),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Color(baseColor),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/profile_background.png"),
+              fit: BoxFit.cover),
+        ),
+        child: NeumorphicTheme(
           child: SafeArea(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
+                    padding: const EdgeInsets.only(bottom: 32.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -106,7 +120,6 @@ class Profile extends StatelessWidget {
                           child: Text(
                             '$name',
                             style: TextStyle(
-                              // fontFamily: 'SourceSansPro',
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                               color: Colors.cyanAccent[700],
@@ -117,9 +130,8 @@ class Profile extends StatelessWidget {
                           '$email',
                           style: TextStyle(
                             fontSize: 16,
-                            // fontFamily: 'SourceSansPro',
                             color: Colors.grey[500],
-                            // letterSpacing: 2.5,
+                            letterSpacing: 0.2,
                           ),
                         ),
                       ],
