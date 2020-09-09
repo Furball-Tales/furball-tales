@@ -259,7 +259,7 @@ class _GridDashboardState extends State<GridDashboard> {
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-                                          "https://github.com/Furball-Tales/furball-tales/blob/master/furballTalesApp/assets/logo.png"),
+                                          "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
                                     )));
                       })),
             ),
