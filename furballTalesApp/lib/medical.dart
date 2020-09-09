@@ -53,7 +53,8 @@ class _MedicalState extends State<Medical> {
     // getData();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Medical History")
+        title: Text("Medical History"),
+        backgroundColor: Colors.cyanAccent[400],
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         showDialog(
@@ -245,67 +246,186 @@ class _MedicalState extends State<Medical> {
           return ListView.builder (
             itemCount: item.length, 
             itemBuilder: (context, index) {
-              return ListTile(
-                    title: Text(item[index]["Date"]),
-                    subtitle: Text(item[index]["Notes"]),
-                    onTap:(){
-                      //is this working??
-                      showDialog(context:context,
-                      builder: (BuildContext context) {
-                        return SimpleDialog(
-                          title: Text(item[index]["Date"]),
-                          titlePadding: EdgeInsets.symmetric(
-                            horizontal: 30, 
-                            vertical: 20,
-                          ),
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Container(
-                                  margin: EdgeInsets.all(30),
-                                  child: Text(
-                                  "Hospital: ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold, 
-                                    color: Colors.grey, 
-                                    fontSize: 15.0,)
-                                  ),
+              return Card(
+                              child: ListTile(
+                      title: Text(item[index]["Date"]),
+                      subtitle: Text(item[index]["Notes"]),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                      onTap:(){
+                        showDialog(context:context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            actions:<Widget> [
+                              FlatButton(
+                                child: Icon(
+                                  Icons.delete
                                 ),
-                                Expanded(
-                                    child: Container(
-                                    margin: EdgeInsets.all(20),
-                                    child: Text(
-                                      item[index]["Hospital"],
+                                onPressed: (){
+                                  setState((){
+                                  String key = item[index]['key'];
+                                  print('this is the key $key');
+                                  databaseReference.child('$key').remove();
+                                  Navigator.of(context).pop();
+                                  });
+                                },
+                                )
+                            ],
+                            title: Text(item[index]["Date"]), 
+                            titleTextStyle: TextStyle( 
+                              color:Colors.blue,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                            titlePadding: EdgeInsets.fromLTRB(20,20, 0, 0),
+                            content: IntrinsicHeight(
+                                child: Column(
+                                children:<Widget>[ 
+                                Row(
+                                  children:[
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Text(
+                                      "Hospital:",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold, 
                                         color: Colors.grey, 
-                                        fontSize: 15.0,)
+                                        fontSize: 18.0,)
+                                      ),
                                     ),
-                                  ),
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          
+                                          item[index]["Hospital"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
+                                    ),
+                                  ]
                                 ),
-                              ]
-                            ),
-                          ]
-                        );
-                      });
-                    }
-                    // trailing: IconButton(
-                    //   icon: Icon(
-                    //     Icons.delete,
-                    //     color: Colors.grey,
-                    //   ),
-                    //   onPressed: () {
-                    //     setState((){
-                    //       String key = item[index]['key'];
-                    //       print('this is the key $key');
-                    //       databaseReference.child('$key').remove();
-                    //     }); 
-                    //   }),
-                  );
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Text(
+                                      "Vet Name:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          item[index]["Veterinarian"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Text(
+                                      "Vaccine:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          item[index]["Vaccinations"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Text(
+                                      "Weight:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Text(
+                                          item[index]["Weight"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                                      child: Text(
+                                      "Notes:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, 
+                                        color: Colors.grey, 
+                                        fontSize: 18.0,)
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                        margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                                        child: Text(
+                                          item[index]["Notes"],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold, 
+                                            color: Colors.grey, 
+                                            fontSize: 18.0,)
+                                        ),
+                                      ),
+                                    )
+                                  ]
+                                )
+                                ],
+                                ),
+                            )
+                          );
+                        });
+                      }
+                    ),
+              );
             });
               } else{
-              return Center(child:Text("Yuta is gone"));
+              return Center(child:CircularProgressIndicator());
             }
       }),
     );
