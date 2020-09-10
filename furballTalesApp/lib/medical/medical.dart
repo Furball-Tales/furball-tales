@@ -75,6 +75,7 @@ class _MedicalState extends State<Medical> {
                           onPressed: () {
                             addHistory();
                             Navigator.of(context).pop();
+                            dateValue = "Not Set";
                           },
                           child: Text("Add History"))
                     ],
@@ -103,12 +104,11 @@ class _MedicalState extends State<Medical> {
                                         showTitleActions: true,
                                         minTime: DateTime(2020, 1, 1),
                                         maxTime: DateTime(2021, 12, 31),
-                                        onChanged: (date) {
-                                      setState(() {
-                                        dateValue =
+                                        onConfirm: (date) {
+                                          setState(() {
+                                            dateValue =
                                             '${date.year}-${date.month}-${date.day}';
                                       });
-                                      print(dateValue);
                                     },
                                         currentTime: DateTime.now(),
                                         locale: LocaleType.en);
@@ -130,7 +130,7 @@ class _MedicalState extends State<Medical> {
                                                     size: 15.0,
                                                     color: Colors.blue,
                                                   ),
-                                                  Text(
+                                                  new Text(
                                                     "$dateValue",
                                                     style: TextStyle(
                                                         color: Colors.grey,
@@ -259,7 +259,7 @@ class _MedicalState extends State<Medical> {
                                           child: Icon(Icons.update),
                                           onPressed:() {
                                             key = item[index]['key'];
-                                            updateDateValue = item[index]["Hospital"];
+                                            updateDateValue = item[index]["Date"];
                                             updateHospital = item[index]["Hospital"];
                                             updateVeterinarian = item[index]["Hospital"];
                                             updateVaccinations = item[index]["Vaccinations"];
