@@ -10,6 +10,21 @@ import 'food_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
 
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      title: 'Flutter Neumorphic',
+      home: GridDashboard(),
+    );
+  }
+}
+
 class GridDashboard extends StatefulWidget {
   @override
   _GridDashboardState createState() => _GridDashboardState();
@@ -362,7 +377,6 @@ class _GridDashboardState extends State<GridDashboard> {
                                   Text('Name: $_name'),
                                   Text('Sex: $_sex'),
                                   Text('Age: $_age'),
-                                  Text('Weight: $_weight'),
                                 ],
                               );
                             }),

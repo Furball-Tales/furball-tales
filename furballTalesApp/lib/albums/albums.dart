@@ -6,12 +6,40 @@ import '../sign_in.dart';
 import '../Dashboard/grid_dashboard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
+import '../frontend_settings.dart';
+
+var accentBlue = NeumorphicCardSettings.accentBlue;
+var accentPink = NeumorphicCardSettings.accentPink;
+var accentYellow = NeumorphicCardSettings.accentYellow;
+var intensity = NeumorphicCardSettings.intensity;
+var depth = NeumorphicCardSettings.depth;
+var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
+var baseColor = NeumorphicCardSettings.baseColor;
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      title: 'Flutter Neumorphic',
+      home: Albums(),
+    );
+  }
+}
+
+_buildButton({String text, int color, VoidCallback onClick}) =>
+    BuildButton().buildButton;
 
 class Albums extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ImageGridItem(),
+      backgroundColor: Color(baseColor),
     );
   }
 }
@@ -59,6 +87,18 @@ class _ImageGridItemState extends State<ImageGridItem> {
         false,
       ),
       backgroundColor: Colors.transparent,
+      floatingActionButton: NeumorphicTheme(
+        child: NeumorphicFloatingActionButton(
+          child: Container(
+            color: Color(baseColor),
+            child: Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
+          onPressed: () {},
+        ),
+      ),
       body: Column(
         children: [
           InkWell(
@@ -74,11 +114,11 @@ class _ImageGridItemState extends State<ImageGridItem> {
                               child: Neumorphic(
                                   style: NeumorphicStyle(
                                       shape: NeumorphicShape.concave,
-                                      surfaceIntensity: 0.2,
-                                      depth: 1.5,
-                                      intensity: 5,
+                                      surfaceIntensity: surfaceIntensity,
+                                      depth: depth,
+                                      intensity: intensity,
                                       lightSource: LightSource.topLeft,
-                                      color: Colors.grey[200]),
+                                      color: Color(baseColor)),
                                   child: FlatButton(
                                       onPressed: () {
                                         createAlbum();
@@ -145,11 +185,11 @@ class _ImageGridItemState extends State<ImageGridItem> {
                   child: Neumorphic(
                       style: NeumorphicStyle(
                           shape: NeumorphicShape.concave,
-                          surfaceIntensity: 0.2,
-                          depth: 1.5,
-                          intensity: 5,
+                          surfaceIntensity: surfaceIntensity,
+                          depth: depth,
+                          intensity: intensity,
                           lightSource: LightSource.topLeft,
-                          color: Colors.grey[200]),
+                          color: Color(baseColor)),
                       child: ListTile(
                         leading: Icon(
                           Icons.photo_album,
@@ -187,8 +227,16 @@ class _ImageGridItemState extends State<ImageGridItem> {
                       return GridTile(
                           child: InkResponse(
                         enableFeedback: true,
-                        child: MyItems(Icons.photo_library,
-                            item[index]["albumNames"], accentPink),
+                        child: MyItems(
+                          Icons.photo_library,
+                          item[index]["albumNames"],
+                          accentPink,
+                          accentPink,
+                          intensity,
+                          depth,
+                          surfaceIntensity,
+                          baseColor,
+                        ),
                         onTap: () => {
                           Navigator.push(
                               context,
@@ -234,16 +282,25 @@ class _ImageGridItemState extends State<ImageGridItem> {
   }
 }
 
-Widget MyItems(IconData icon, String heading, int color) {
+Widget MyItems(
+  IconData icon,
+  String heading,
+  int textColor,
+  int materialColor,
+  double intensity,
+  double depth,
+  double surfaceIntensity,
+  int baseColor,
+) {
   return Neumorphic(
     style: NeumorphicStyle(
-        shape: NeumorphicShape.concave,
-        // boxShape: NeumorphicBoxShape.roundRect(
-        //     borderRadius: BorderRadius.circular(12)),
-        depth: 8,
-        intensity: 0.5,
-        lightSource: LightSource.topLeft,
-        color: Colors.grey[100]),
+      shape: NeumorphicShape.concave,
+      surfaceIntensity: surfaceIntensity,
+      depth: depth,
+      intensity: intensity,
+      lightSource: LightSource.topLeft,
+      color: Color(baseColor),
+    ),
     child: Center(
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -258,7 +315,7 @@ Widget MyItems(IconData icon, String heading, int color) {
                   child: Text(
                     heading,
                     style: TextStyle(
-                      color: Color(color),
+                      color: Color(textColor),
                       fontSize: 15,
                     ),
                   ),
@@ -266,36 +323,22 @@ Widget MyItems(IconData icon, String heading, int color) {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: -10,
-                        blurRadius: 17,
-                        offset: Offset(-5, -5),
-                      ),
-                      BoxShadow(
-                        color: Colors.black26,
-                        spreadRadius: -2,
-                        blurRadius: 10,
-                        offset: Offset(7, 7),
-                      ),
-                    ],
                   ),
                   child: Material(
-                    color: Color(color),
+                    color: Color(materialColor),
                     borderRadius: BorderRadius.circular(24),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Stack(
                         children: <Widget>[
                           Positioned(
-                            right: 0.5,
-                            top: 6.0,
+                            right: -2.5,
+                            top: 7.0,
                             child: Icon(icon, color: Colors.grey[600]),
                           ),
                           Icon(
                             icon,
-                            color: Colors.grey[200],
+                            color: Colors.grey[100],
                             size: 30,
                           ),
                         ],

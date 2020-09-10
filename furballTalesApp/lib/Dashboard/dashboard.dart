@@ -12,7 +12,7 @@ class Dashboard extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: GridDashboard()),
-          Container(height: 70, child: MemoList())
+          Container(height: 55, child: MemoList())
         ],
       ),
     );
