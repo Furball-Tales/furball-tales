@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import '../app_bar.dart';
+import '../frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class Ayumi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        elevation: 0.0,
-        
+      backgroundColor: Color(baseColor),
+      appBar: GradientAppBar(
+        "Introduction",
+        true,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -99,11 +101,10 @@ class Yuta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        elevation: 0.0,
+      backgroundColor: Color(baseColor),
+      appBar: GradientAppBar(
+        "Introduction",
+        true,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -193,11 +194,10 @@ class Ryohei extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        elevation: 0.0,
+      backgroundColor: Color(baseColor),
+      appBar: GradientAppBar(
+        "Introduction",
+        true,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -287,11 +287,10 @@ class Jimmy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        elevation: 0.0,
+      backgroundColor: Color(baseColor),
+      appBar: GradientAppBar(
+        "Introduction",
+        true,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -377,16 +376,14 @@ class Jimmy extends StatelessWidget {
   }
 }
 
-
 class Mukhtar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        elevation: 0.0,
+      backgroundColor: Color(baseColor),
+      appBar: GradientAppBar(
+        "Introduction",
+        true,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),

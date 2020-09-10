@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import '../app_bar.dart';
+import '../frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class Donation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        title: Text(
-          'Donation',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, letterSpacing: 1.5, fontSize: 25),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        elevation: 0.0,
+      backgroundColor: Color(baseColor),
+      appBar: GradientAppBar(
+        "Donation",
+        true,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 0),
