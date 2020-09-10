@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './Dashboard/dashboard.dart';
 import './profile/profile.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'medical.dart';
+import './medical/medical.dart';
 import 'albums/albums.dart';
 import './frontend_settings.dart';
 
