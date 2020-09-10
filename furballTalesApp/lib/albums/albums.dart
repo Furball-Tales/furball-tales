@@ -97,6 +97,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
             ),
           ),
           onPressed: () {},
+          tooltip: 'New Album',
         ),
       ),
       body: Column(

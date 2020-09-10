@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'custom_card.dart';
-import 'food_card.dart';
+import 'jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
 
@@ -142,7 +142,7 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
-          FoodCard(
+          JumpCard(
             Icons.fastfood,
             "Food",
             accentBlue,
@@ -153,7 +153,7 @@ class _GridDashboardState extends State<GridDashboard> {
             baseColor,
           ),
           cardPageView(),
-          MyItems(
+          JumpCard(
             Icons.directions_run,
             "Walk",
             accentPink,
