@@ -31,6 +31,8 @@ List<IntSize> _createSizes(int count) {
 class _PhotosState extends State<Photos> {
   final databaseReference =
       FirebaseDatabase.instance.reference().child("$id").child("albums");
+  final storageReference =
+      FirebaseStorage.instance.ref().child("$id").child("images");
 
   _PhotosState() : _sizes = _createSizes(_kItemCount).toList();
 
@@ -89,9 +91,18 @@ class _PhotosState extends State<Photos> {
 
   List<String> photoList = List<String>();
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  void _showScaffold(String message) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(message),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           "Photos",
@@ -140,10 +151,7 @@ class _PhotosState extends State<Photos> {
                                     fontFamily: 'BalooBhai', fontSize: 20.0),
                               )
                             ],
-                          )
-                          ))
-                          )
-                          ),
+                          ))))),
           Flexible(
             child: StreamBuilder(
               stream: databaseReference
@@ -166,8 +174,39 @@ class _PhotosState extends State<Photos> {
                     crossAxisCount: 4,
                     mainAxisSpacing: 4.0,
                     crossAxisSpacing: 4.0,
-                    itemBuilder: (context, index) =>
-                        new _Tile(index, _sizes[index], item[index]["link"]),
+                    itemBuilder: (context, index) => InkResponse(
+                      child:
+                          new _Tile(index, _sizes[index], item[index]["link"]),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Icon(Icons.delete),
+                                    onPressed: () {
+                                      setState(() {
+                                        String key = item[index]['key'];
+                                        storageReference
+                                            .child(item[index]["imgName"])
+                                            .delete();
+                                        databaseReference
+                                            .child(widget._albumName)
+                                            .child("pictures")
+                                            .child('$key')
+                                            .remove();
+                                        Navigator.of(context).pop();
+                                      });
+                                      _showScaffold("Deleted Photo");
+                                    },
+                                  )
+                                ],
+                                title: Text("Delete Photo?"),
+                              );
+                            });
+                      },
+                    ),
                     staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
                   );
                 } else
@@ -197,7 +236,7 @@ class _Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Card(
+    return Card(
       child: new Column(
         children: <Widget>[
           new Stack(
