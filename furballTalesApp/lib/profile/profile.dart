@@ -20,6 +20,9 @@ var buttonIntensity = NeumorphicButtonSettings.buttonIntensity;
 var buttonDepth = NeumorphicButtonSettings.buttonDepth;
 var buttonSurfaceIntensity = NeumorphicButtonSettings.buttonSurfaceIntensity;
 
+_buildButton({String text, int color, VoidCallback onClick}) =>
+    BuildButton().buildButton;
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -36,46 +39,6 @@ class MyApp extends StatelessWidget {
 }
 
 class Profile extends StatelessWidget {
-  // var accentBlue = 0xff00E5FF;
-  // var accentPink = 0xffFF1996;
-  // var accentGold = 0xffD4BF15;
-
-  Widget _buildButton({String text, int color, VoidCallback onClick}) {
-    return NeumorphicButton(
-      margin: EdgeInsets.only(bottom: 27),
-      padding: EdgeInsets.symmetric(
-        vertical: 7,
-        horizontal: 24,
-      ),
-      style: NeumorphicStyle(
-          boxShape: NeumorphicBoxShape.roundRect(
-            BorderRadius.circular(12),
-          ),
-          border: NeumorphicBorder(
-            isEnabled: false,
-            width: 0.1,
-          ),
-          shape: NeumorphicShape.convex,
-          depth: buttonDepth,
-          intensity: buttonIntensity,
-          surfaceIntensity: buttonSurfaceIntensity,
-          color: Color(baseColor)),
-      child: Center(
-        child: NeumorphicText(
-          text,
-          style: NeumorphicStyle(
-            depth: 2, //customize depth here
-            color: Color(color), //customize color here
-          ),
-          textStyle: NeumorphicTextStyle(fontSize: 20 //customize size here
-              // AND others usual text style properties (fontFamily, fontWeight, ...)
-              ),
-        ),
-      ),
-      onPressed: onClick,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,7 +116,7 @@ class Profile extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        _buildButton(
+                        _buildButton()(
                           text: "About Us",
                           color: accentBlue,
                           onClick: () {
@@ -163,7 +126,7 @@ class Profile extends StatelessWidget {
                             }));
                           },
                         ),
-                        _buildButton(
+                        _buildButton()(
                           text: "Donation",
                           color: accentGold,
                           onClick: () {
@@ -173,7 +136,7 @@ class Profile extends StatelessWidget {
                             }));
                           },
                         ),
-                        _buildButton(
+                        _buildButton()(
                           text: "Logout",
                           color: accentPink,
                           onClick: () {
