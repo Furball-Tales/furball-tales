@@ -40,11 +40,20 @@ class _ImageGridItemState extends State<ImageGridItem> {
     databaseReference.child(key).remove();
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  void _showScaffold(String message) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(message),
+    ));
+  }
+
   List<String> albumList = List<String>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: GradientAppBar(
         "Albums",
         false,
@@ -187,11 +196,30 @@ class _ImageGridItemState extends State<ImageGridItem> {
                                   builder: (context) =>
                                       Photos(item[index]['key'])))
                         },
-                        // trailing: Text(DateFormat("hh:mm:ss")
-                        //     .format(DateTime.fromMicrosecondsSinceEpoch(
-                        //         item[index]['timestamp'] * 1000))
-                        //     .toString()),
-                        // onLongPress: () => deleteMessage(item[index]['key']),
+                        onLongPress: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Icon(Icons.delete),
+                                      onPressed: () {
+                                        setState(() {
+                                          String key = item[index]['key'];
+                                          databaseReference
+                                              .child('$key')
+                                              .remove();
+                                          Navigator.of(context).pop();
+                                        });
+                                        _showScaffold("Deleted Album");
+                                      },
+                                    )
+                                  ],
+                                  title: Text("Delete Album?"),
+                                );
+                              });
+                        },
                       ));
                     },
                   );
