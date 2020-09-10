@@ -1,4 +1,4 @@
-package com.example.furballTalesApp
+package com.furballtales.furballTalesApp
 
 import io.flutter.embedding.android.FlutterActivity
 
