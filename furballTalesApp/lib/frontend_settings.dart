@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 class NeumorphicCardSettings {
   //Color Settings
   static int accentBlue = 0xff00E5FF;
@@ -21,4 +24,49 @@ class NeumorphicButtonSettings {
   static double buttonIntensity = 0.8;
   static double buttonDepth = 10;
   static double buttonSurfaceIntensity = 0.0;
+}
+
+class BuildButton {
+  Widget buildButton({
+    String text,
+    int color,
+    VoidCallback onClick,
+    double bottom = 27.0,
+    double fontSize = 20,
+  }) {
+    return NeumorphicButton(
+      margin: EdgeInsets.only(bottom: bottom),
+      padding: EdgeInsets.symmetric(
+        vertical: 7,
+        horizontal: 24,
+      ),
+      style: NeumorphicStyle(
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.circular(12),
+          ),
+          border: NeumorphicBorder(
+            isEnabled: false,
+            width: 0.1,
+          ),
+          shape: NeumorphicShape.convex,
+          depth: NeumorphicButtonSettings.buttonDepth,
+          intensity: NeumorphicButtonSettings.buttonIntensity,
+          surfaceIntensity: NeumorphicButtonSettings.buttonSurfaceIntensity,
+          color: Color(NeumorphicCardSettings.baseColor)),
+      child: Center(
+        child: NeumorphicText(
+          text,
+          style: NeumorphicStyle(
+            depth: 2, //customize depth here
+            color: Color(color), //customize color here
+          ),
+          textStyle: NeumorphicTextStyle(
+            fontSize: fontSize, //customize size here
+            // AND others usual text style properties (fontFamily, fontWeight, ...)
+          ),
+        ),
+      ),
+      onPressed: onClick,
+    );
+  }
 }

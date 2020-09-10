@@ -331,14 +331,6 @@ class _GridDashboardState extends State<GridDashboard> {
                             // AND others usual text style properties (fontFamily, fontWeight, ...)
                             ),
                       ),
-                      // child: Text(
-                      //   'Good Morning 😍',
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 20,
-                      //     color: Colors.cyanAccent[700],
-                      //   ),
-                      // ),
                     ),
                   ),
                   Neumorphic(
