@@ -1,35 +1,75 @@
 import 'package:flutter/material.dart';
 import 'food_detail_page.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import '../frontend_settings.dart';
+
+var accentBlue = NeumorphicCardSettings.accentBlue;
+var accentPink = NeumorphicCardSettings.accentPink;
+var accentYellow = NeumorphicCardSettings.accentYellow;
+var intensity = NeumorphicCardSettings.intensity;
+var depth = NeumorphicCardSettings.depth;
+var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class FoodCard extends StatefulWidget {
   IconData icon;
   String heading;
-  int color;
+  int textColor;
+  int materialColor;
+  double intensity;
+  double depth;
+  double surfaceIntensity;
+  int baseColor;
 
-  FoodCard(IconData icon, String heading, int color) {
+  FoodCard(IconData icon, String heading, int textColor, int materialColor,
+      double intensity, double depth, double surfaceIntensity, int baseColor) {
     this.icon = icon;
     this.heading = heading;
-    this.color = color;
+    this.textColor = textColor;
+    this.materialColor = materialColor;
+    this.intensity = intensity;
+    this.depth = depth;
+    this.surfaceIntensity = surfaceIntensity;
+    this.baseColor = baseColor;
   }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return CustomCardState(icon, heading, color);
+    return CustomCardState(icon, heading, textColor, materialColor, intensity,
+        depth, surfaceIntensity, baseColor);
   }
 }
 
 class CustomCardState extends State<FoodCard> {
   IconData icon;
   String heading;
-  int color;
+  int textColor;
+  int materialColor;
+  double intensity;
+  double depth;
+  double surfaceIntensity;
+  int baseColor;
+
   var _hasPadding = false;
 
-  CustomCardState(IconData icon, String heading, int color) {
+  CustomCardState(
+      IconData icon,
+      String heading,
+      int textColor,
+      int materialColor,
+      double intensity,
+      double depth,
+      double surfaceIntensity,
+      int baseColor) {
     this.icon = icon;
     this.heading = heading;
-    this.color = color;
+    this.textColor = textColor;
+    this.materialColor = materialColor;
+    this.intensity = intensity;
+    this.depth = depth;
+    this.surfaceIntensity = surfaceIntensity;
+    this.baseColor = baseColor;
   }
 
   @override
@@ -64,7 +104,7 @@ class CustomCardState extends State<FoodCard> {
               PageRouteBuilder(
                 transitionDuration: Duration(milliseconds: 500),
                 pageBuilder: (_, __, ___) =>
-                    FoodDetailPage(icon, heading, color),
+                    FoodDetailPage(icon, heading, textColor),
               ));
         },
         onTapCancel: () {
@@ -75,11 +115,11 @@ class CustomCardState extends State<FoodCard> {
         child: Neumorphic(
           style: NeumorphicStyle(
               shape: NeumorphicShape.concave,
-              surfaceIntensity: 0.1,
-              depth: 10,
-              intensity: 0.8,
+              surfaceIntensity: surfaceIntensity,
+              depth: depth,
+              intensity: intensity,
               lightSource: LightSource.topLeft,
-              color: Colors.grey[200]),
+              color: Color(baseColor)),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -95,7 +135,7 @@ class CustomCardState extends State<FoodCard> {
                         child: Text(
                           heading,
                           style: TextStyle(
-                            color: Color(color),
+                            color: Color(textColor),
                             fontSize: 20,
                           ),
                         ),
@@ -106,22 +146,22 @@ class CustomCardState extends State<FoodCard> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           boxShadow: [
-                            BoxShadow(
-                              color: Colors.white,
-                              spreadRadius: -10,
-                              blurRadius: 17,
-                              offset: Offset(-5, -5),
-                            ),
-                            BoxShadow(
-                              color: Colors.black26,
-                              spreadRadius: -2,
-                              blurRadius: 10,
-                              offset: Offset(7, 7),
-                            ),
+                            // BoxShadow(
+                            //   color: Colors.white,
+                            //   spreadRadius: -10,
+                            //   blurRadius: 17,
+                            //   offset: Offset(-5, -5),
+                            // ),
+                            // BoxShadow(
+                            //   color: Colors.black26,
+                            //   spreadRadius: -2,
+                            //   blurRadius: 10,
+                            //   offset: Offset(7, 7),
+                            // ),
                           ],
                         ),
                         child: Material(
-                          color: Color(color),
+                          color: Color(materialColor),
                           borderRadius: BorderRadius.circular(24),
                           child: Padding(
                             padding: const EdgeInsets.all(16),
@@ -134,7 +174,7 @@ class CustomCardState extends State<FoodCard> {
                                 ),
                                 Icon(
                                   icon,
-                                  color: Colors.white,
+                                  color: Colors.grey[100],
                                   size: 30,
                                 ),
                               ],

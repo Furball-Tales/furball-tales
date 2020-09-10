@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import './Dashboard/dashboard.dart';
-import './Dashboard/grid_dashboard.dart';
 import './profile/profile.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import './medical/medical.dart';
 import 'albums/albums.dart';
-import './app_bar.dart';
+import './frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 void main() => runApp(MyApp());
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: NeumorphicThemeData(
         baseColor: Colors.grey[50],
         lightSource: LightSource.topLeft,
-        depth: 10,
+        depth: 5,
       ),
       darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
@@ -49,7 +50,7 @@ class _MyAppState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Color(baseColor),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,

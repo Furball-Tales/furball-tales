@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import '../app_bar.dart';
+import '../frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class ProjectDet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        title: Text(
-          'Project Details',
-          style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        elevation: 0.0,
+      appBar: GradientAppBar(
+        "Our Project",
+        true,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
