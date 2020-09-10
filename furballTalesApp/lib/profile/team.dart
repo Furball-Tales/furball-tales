@@ -10,7 +10,7 @@ class Ayumi extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
-        "Introduction",
+        "Bio",
         true,
       ),
       body: Padding(
@@ -103,7 +103,7 @@ class Yuta extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
-        "Introduction",
+        "Bio",
         true,
       ),
       body: Padding(
@@ -196,7 +196,7 @@ class Ryohei extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
-        "Introduction",
+        "Bio",
         true,
       ),
       body: Padding(
@@ -289,7 +289,7 @@ class Jimmy extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
-        "Introduction",
+        "Bio",
         true,
       ),
       body: Padding(
@@ -382,7 +382,7 @@ class Mukhtar extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
-        "Introduction",
+        "Bio",
         true,
       ),
       body: Padding(
