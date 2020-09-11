@@ -6,9 +6,24 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'custom_card.dart';
-import 'food_card.dart';
+import 'jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      title: 'Flutter Neumorphic',
+      home: GridDashboard(),
+    );
+  }
+}
 
 class GridDashboard extends StatefulWidget {
   @override
@@ -34,7 +49,7 @@ var _url;
 var _name;
 var _sex;
 var _age;
-var _weight;
+// var _weight;
 
 Future readPetdata() async {
   var readData;
@@ -47,7 +62,7 @@ Future readPetdata() async {
   DateTime birthday = DateTime.parse(readBirthday);
   Duration differenceDays = DateTime.now().difference(birthday);
   _age = (differenceDays.inDays / 365).floor().toString();
-  _weight = await readData["weight"];
+  // _weight = await readData["weight"];
 }
 
 Future readUrl() async {
@@ -127,7 +142,7 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
-          FoodCard(
+          JumpCard(
             Icons.fastfood,
             "Food",
             accentBlue,
@@ -138,7 +153,7 @@ class _GridDashboardState extends State<GridDashboard> {
             baseColor,
           ),
           cardPageView(),
-          MyItems(
+          JumpCard(
             Icons.directions_run,
             "Walk",
             accentPink,
@@ -362,7 +377,7 @@ class _GridDashboardState extends State<GridDashboard> {
                                   Text('Name: $_name'),
                                   Text('Sex: $_sex'),
                                   Text('Age: $_age'),
-                                  Text('Weight: $_weight'),
+                                  // Text('Weight: $_weight'),
                                 ],
                               );
                             }),

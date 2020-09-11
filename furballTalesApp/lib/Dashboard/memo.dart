@@ -36,13 +36,17 @@ class MemoListState extends State<MemoList> {
     return Scaffold(
       body: _buildList(),
       backgroundColor: Color(baseColor),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addMemo,
-        tooltip: 'New Memo',
-        backgroundColor: Colors.transparent,
-        child: NeumorphicIcon(
-          Icons.add_circle,
-          size: 60,
+      floatingActionButton: NeumorphicTheme(
+        child: NeumorphicFloatingActionButton(
+          child: Container(
+            color: Color(baseColor),
+            child: Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
+          onPressed: _addMemo,
+          tooltip: 'New Memo',
         ),
       ),
     );

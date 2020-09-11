@@ -10,6 +10,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import '../app_bar.dart';
 
 class Photos extends StatefulWidget {
   String _albumName;
@@ -103,21 +104,9 @@ class _PhotosState extends State<Photos> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(
-          "Photos",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, letterSpacing: 1.5, fontSize: 25),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent[400],
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.arrow_back,
-            )),
+      appBar: GradientAppBar(
+        "Photos",
+        true,
       ),
       body: Column(
         children: [

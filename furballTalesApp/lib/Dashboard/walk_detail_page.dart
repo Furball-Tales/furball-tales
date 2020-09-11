@@ -4,12 +4,12 @@ import '../frontend_settings.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
-class FoodDetailPage extends StatelessWidget {
+class WalkDetailPage extends StatelessWidget {
   IconData icon;
   String heading;
   int color;
 
-  FoodDetailPage(IconData icon, String heading, int color) {
+  WalkDetailPage(IconData icon, String heading, int color) {
     this.icon = icon;
     this.heading = heading;
     this.color = color;
@@ -19,13 +19,13 @@ class FoodDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor:
-            Color(baseColor), //Make background of overall Widget transparent
+            Colors.transparent, //Make background of overall Widget transparent
         body: Hero(
             tag: heading,
             child: Material(
                 type: MaterialType.transparency,
                 child: Container(
-                  color: Colors.white,
+                  color: Color(baseColor),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[

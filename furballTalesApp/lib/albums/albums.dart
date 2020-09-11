@@ -6,12 +6,40 @@ import '../sign_in.dart';
 import '../Dashboard/grid_dashboard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
+import '../frontend_settings.dart';
+
+var accentBlue = NeumorphicCardSettings.accentBlue;
+var accentPink = NeumorphicCardSettings.accentPink;
+var accentYellow = NeumorphicCardSettings.accentYellow;
+var intensity = NeumorphicCardSettings.intensity;
+var depth = NeumorphicCardSettings.depth;
+var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
+var baseColor = NeumorphicCardSettings.baseColor;
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      title: 'Flutter Neumorphic',
+      home: Albums(),
+    );
+  }
+}
+
+_buildButton({String text, int color, VoidCallback onClick}) =>
+    BuildButton().buildButton;
 
 class Albums extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ImageGridItem(),
+      backgroundColor: Color(baseColor),
     );
   }
 }
@@ -59,109 +87,96 @@ class _ImageGridItemState extends State<ImageGridItem> {
         false,
       ),
       backgroundColor: Colors.transparent,
-      body: Column(
-        children: [
-          InkWell(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        actions: <Widget>[
-                          Container(
-                              margin: EdgeInsets.all(8),
-                              width: 130,
-                              child: Neumorphic(
-                                  style: NeumorphicStyle(
-                                      shape: NeumorphicShape.concave,
-                                      surfaceIntensity: 0.2,
-                                      depth: 1.5,
-                                      intensity: 5,
-                                      lightSource: LightSource.topLeft,
-                                      color: Colors.grey[200]),
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        createAlbum();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.photo_album,
-                                            size: 25,
-                                            color: Colors.pink[400],
-                                          ),
-                                          Text(
-                                            "Add Album",
-                                            style: TextStyle(
-                                                fontFamily: 'BalooBhai',
-                                                fontSize: 17.0),
-                                          )
-                                        ],
-                                      ))))
-                        ],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        title: Text("Add Album"),
-                        content: Stack(
-                            overflow: Overflow.visible,
-                            children: <Widget>[
-                              Positioned(
-                                right: -50.0,
-                                top: -50.0,
-                                child: InkResponse(
-                                  onTap: () {
+      floatingActionButton: NeumorphicTheme(
+        child: NeumorphicFloatingActionButton(
+          child: Container(
+            color: Color(baseColor),
+            child: Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                    actions: <Widget>[
+                      Container(
+                          margin: EdgeInsets.all(8),
+                          width: 130,
+                          child: Neumorphic(
+                              style: NeumorphicStyle(
+                                  shape: NeumorphicShape.concave,
+                                  surfaceIntensity: surfaceIntensity,
+                                  depth: depth,
+                                  intensity: intensity,
+                                  lightSource: LightSource.topLeft,
+                                  color: Color(baseColor)),
+                              child: FlatButton(
+                                  onPressed: () {
+                                    createAlbum();
                                     Navigator.of(context).pop();
                                   },
-                                  child: CircleAvatar(
-                                    child: Icon(Icons.close),
-                                  ),
-                                ),
-                              ),
-                              Form(
-                                  child: SingleChildScrollView(
-                                      child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                          onChanged: (String _newAlbumValue) {
-                                            newAlbumName = _newAlbumValue;
-                                          },
-                                          decoration: InputDecoration(
-                                              labelText: 'Album')),
-                                    )
-                                  ])))
-                            ]));
-                  },
-                );
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.photo_album,
+                                        size: 25,
+                                        color: Colors.pink[400],
+                                      ),
+                                      Text(
+                                        "Add Album",
+                                        style: TextStyle(
+                                            fontFamily: 'BalooBhai',
+                                            fontSize: 17.0),
+                                      )
+                                    ],
+                                  ))))
+                    ],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    title: Text("Add Album"),
+                    content:
+                        Stack(overflow: Overflow.visible, children: <Widget>[
+                      Positioned(
+                        right: -50.0,
+                        top: -50.0,
+                        child: InkResponse(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: CircleAvatar(
+                            child: Icon(Icons.close),
+                          ),
+                        ),
+                      ),
+                      Form(
+                          child: SingleChildScrollView(
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                  onChanged: (String _newAlbumValue) {
+                                    newAlbumName = _newAlbumValue;
+                                  },
+                                  decoration:
+                                      InputDecoration(labelText: 'Album')),
+                            )
+                          ])))
+                    ]));
               },
-              child: Container(
-                  margin: EdgeInsets.all(8),
-                  width: 200,
-                  child: Neumorphic(
-                      style: NeumorphicStyle(
-                          shape: NeumorphicShape.concave,
-                          surfaceIntensity: 0.2,
-                          depth: 1.5,
-                          intensity: 5,
-                          lightSource: LightSource.topLeft,
-                          color: Colors.grey[200]),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.photo_album,
-                          size: 45,
-                          color: Colors.pink[400],
-                        ),
-                        title: Text(
-                          'Add Album',
-                          style: TextStyle(
-                              fontFamily: 'BalooBhai', fontSize: 20.0),
-                        ),
-                      )))),
+            );
+          },
+          tooltip: 'New Album',
+        ),
+      ),
+      body: Column(
+        children: [
           Flexible(
             child: StreamBuilder(
               stream: databaseReference.onValue,
@@ -187,8 +202,16 @@ class _ImageGridItemState extends State<ImageGridItem> {
                       return GridTile(
                           child: InkResponse(
                         enableFeedback: true,
-                        child: MyItems(Icons.photo_library,
-                            item[index]["albumNames"], accentPink),
+                        child: MyItems(
+                          Icons.photo_library,
+                          item[index]["albumNames"],
+                          accentPink,
+                          accentPink,
+                          intensity,
+                          depth,
+                          surfaceIntensity,
+                          baseColor,
+                        ),
                         onTap: () => {
                           Navigator.push(
                               context,
@@ -234,16 +257,25 @@ class _ImageGridItemState extends State<ImageGridItem> {
   }
 }
 
-Widget MyItems(IconData icon, String heading, int color) {
+Widget MyItems(
+  IconData icon,
+  String heading,
+  int textColor,
+  int materialColor,
+  double intensity,
+  double depth,
+  double surfaceIntensity,
+  int baseColor,
+) {
   return Neumorphic(
     style: NeumorphicStyle(
-        shape: NeumorphicShape.concave,
-        // boxShape: NeumorphicBoxShape.roundRect(
-        //     borderRadius: BorderRadius.circular(12)),
-        depth: 8,
-        intensity: 0.5,
-        lightSource: LightSource.topLeft,
-        color: Colors.grey[100]),
+      shape: NeumorphicShape.concave,
+      surfaceIntensity: surfaceIntensity,
+      depth: depth,
+      intensity: intensity,
+      lightSource: LightSource.topLeft,
+      color: Color(baseColor),
+    ),
     child: Center(
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -258,7 +290,7 @@ Widget MyItems(IconData icon, String heading, int color) {
                   child: Text(
                     heading,
                     style: TextStyle(
-                      color: Color(color),
+                      color: Color(textColor),
                       fontSize: 15,
                     ),
                   ),
@@ -266,36 +298,22 @@ Widget MyItems(IconData icon, String heading, int color) {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: -10,
-                        blurRadius: 17,
-                        offset: Offset(-5, -5),
-                      ),
-                      BoxShadow(
-                        color: Colors.black26,
-                        spreadRadius: -2,
-                        blurRadius: 10,
-                        offset: Offset(7, 7),
-                      ),
-                    ],
                   ),
                   child: Material(
-                    color: Color(color),
+                    color: Color(materialColor),
                     borderRadius: BorderRadius.circular(24),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Stack(
                         children: <Widget>[
                           Positioned(
-                            right: 0.5,
-                            top: 6.0,
+                            right: -2.5,
+                            top: 7.0,
                             child: Icon(icon, color: Colors.grey[600]),
                           ),
                           Icon(
                             icon,
-                            color: Colors.grey[200],
+                            color: Colors.grey[100],
                             size: 30,
                           ),
                         ],
