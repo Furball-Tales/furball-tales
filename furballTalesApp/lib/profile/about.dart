@@ -75,7 +75,8 @@ class About extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProjectDet()));
+                              builder: (context) => ProjectDet())
+                              );
                     },
                     color: Colors.cyan,
                     textColor: Colors.white,
