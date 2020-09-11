@@ -5,6 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import './medical/medical.dart';
 import 'albums/albums.dart';
 import './frontend_settings.dart';
+import 'walk.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -44,6 +45,7 @@ class _MyAppState extends State<Homepage> {
     Dashboard(),
     Albums(),
     Medical(),
+    Walk(),
     Profile(),
   ];
 
