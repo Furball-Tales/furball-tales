@@ -6,9 +6,24 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'custom_card.dart';
-import 'food_card.dart';
+import 'jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      title: 'Flutter Neumorphic',
+      home: GridDashboard(),
+    );
+  }
+}
 
 class GridDashboard extends StatefulWidget {
   @override
@@ -127,7 +142,7 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           Top(),
-          FoodCard(
+          JumpCard(
             Icons.fastfood,
             "Food",
             accentBlue,
@@ -138,7 +153,7 @@ class _GridDashboardState extends State<GridDashboard> {
             baseColor,
           ),
           cardPageView(),
-          MyItems(
+          JumpCard(
             Icons.directions_run,
             "Walk",
             accentPink,
