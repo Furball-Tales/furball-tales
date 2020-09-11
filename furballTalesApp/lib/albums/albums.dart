@@ -52,7 +52,8 @@ class ImageGridItem extends StatefulWidget {
 class _ImageGridItemState extends State<ImageGridItem> {
   final databaseReference =
       FirebaseDatabase.instance.reference().child("$id").child("albums");
-  // FirebaseDatabase.instance.reference().child("images");
+  final storageReference =
+      FirebaseStorage.instance.ref().child("$id").child("images");
 
   var newAlbumName = "";
 
@@ -161,6 +162,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: TextFormField(
+                                  maxLength: 20,
                                   onChanged: (String _newAlbumValue) {
                                     newAlbumName = _newAlbumValue;
                                   },
@@ -230,6 +232,24 @@ class _ImageGridItemState extends State<ImageGridItem> {
                                       onPressed: () {
                                         setState(() {
                                           String key = item[index]['key'];
+                                          if (data[item[index]["key"]]
+                                                  ['pictures'] !=
+                                              null) {
+                                            List<Map<String, dynamic>>
+                                                dummyListMap = new List();
+                                            data[item[index]["key"]]['pictures']
+                                                .forEach((key, mapValue) {
+                                              dummyListMap.add(
+                                                  Map<String, dynamic>.from(
+                                                      mapValue));
+                                            });
+                                            dummyListMap.forEach((key) {
+                                              storageReference
+                                                  .child(
+                                                      key["imgName"].toString())
+                                                  .delete();
+                                            });
+                                          }
                                           databaseReference
                                               .child('$key')
                                               .remove();
@@ -247,7 +267,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
                     },
                   );
                 } else
-                  return Text("No Albums");
+                  return Center(child: Text("No Albums"));
               },
             ),
           ),
@@ -282,46 +302,48 @@ Widget MyItems(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    heading,
-                    style: TextStyle(
-                      color: Color(textColor),
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Material(
-                    color: Color(materialColor),
-                    borderRadius: BorderRadius.circular(24),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            right: -2.5,
-                            top: 7.0,
-                            child: Icon(icon, color: Colors.grey[600]),
-                          ),
-                          Icon(
-                            icon,
-                            color: Colors.grey[100],
-                            size: 30,
-                          ),
-                        ],
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      heading,
+                      style: TextStyle(
+                        color: Color(textColor),
+                        fontSize: 15,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Material(
+                      color: Color(materialColor),
+                      borderRadius: BorderRadius.circular(24),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned(
+                              right: -2.5,
+                              top: 7.0,
+                              child: Icon(icon, color: Colors.grey[600]),
+                            ),
+                            Icon(
+                              icon,
+                              color: Colors.grey[100],
+                              size: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
