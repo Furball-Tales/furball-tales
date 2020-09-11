@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'homepage.dart';
+import 'initial_registration.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -40,13 +41,29 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return Homepage();
-              },
-            ),
-          );
+          checkPetData().whenComplete(() => {
+                print("existData: $existData"),
+                if (existData)
+                  {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Homepage();
+                        },
+                      ),
+                    )
+                  }
+                else
+                  {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return InitialRegistration();
+                        },
+                      ),
+                    )
+                  }
+              });
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

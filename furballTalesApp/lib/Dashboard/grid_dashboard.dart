@@ -49,7 +49,7 @@ var _url;
 var _name;
 var _sex;
 var _age;
-var _weight;
+// var _weight;
 
 Future readPetdata() async {
   var readData;
@@ -62,7 +62,7 @@ Future readPetdata() async {
   DateTime birthday = DateTime.parse(readBirthday);
   Duration differenceDays = DateTime.now().difference(birthday);
   _age = (differenceDays.inDays / 365).floor().toString();
-  _weight = await readData["weight"];
+  // _weight = await readData["weight"];
 }
 
 Future readUrl() async {
@@ -377,6 +377,7 @@ class _GridDashboardState extends State<GridDashboard> {
                                   Text('Name: $_name'),
                                   Text('Sex: $_sex'),
                                   Text('Age: $_age'),
+                                  // Text('Weight: $_weight'),
                                 ],
                               );
                             }),
