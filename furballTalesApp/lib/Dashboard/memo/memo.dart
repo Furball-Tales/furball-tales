@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import './memo_edit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../frontend_settings.dart';
+import '../../frontend_settings.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
