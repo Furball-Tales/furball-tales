@@ -61,23 +61,45 @@ Future updateUrl(petProfilePicUrl) async {
 
 class PetCard extends StatefulWidget {
   String heroTag;
+  String birthday;
+  String name;
   String photo;
+  String sex;
 
-  PetCard(String heroTag, String photo) {
+  PetCard(
+    String heroTag,
+    String birthday,
+    String name,
+    String photo,
+    String sex,
+  ) {
     this.heroTag = heroTag;
+    this.birthday = birthday;
+    this.name = name;
     this.photo = photo;
+    this.sex = sex;
   }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return PetCardState(heroTag, photo);
+    return PetCardState(
+      heroTag,
+      birthday,
+      name,
+      photo,
+      sex,
+    );
   }
 }
 
 class PetCardState extends State<PetCard> {
   String heroTag;
+  String birthday;
+  String name;
   String photo;
+  String sex;
+
   var _hasPadding = false;
 
   File _image;
@@ -117,9 +139,18 @@ class PetCardState extends State<PetCard> {
     });
   }
 
-  PetCardState(String heroTag, String photo) {
+  PetCardState(
+    String heroTag,
+    String birthday,
+    String name,
+    String photo,
+    String sex,
+  ) {
     this.heroTag = heroTag;
+    this.birthday = birthday;
+    this.name = name;
     this.photo = photo;
+    this.sex = sex;
   }
 
   @override
@@ -243,9 +274,9 @@ class PetCardState extends State<PetCard> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text('Name: $_name'),
-                                        Text('Sex: $_sex'),
-                                        Text('Age: $_age'),
+                                        Text(name),
+                                        Text(sex),
+                                        Text(birthday),
                                         // Text('Weight: $_weight'),
                                       ],
                                     ),
