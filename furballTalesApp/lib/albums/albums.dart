@@ -96,113 +96,87 @@ class _ImageGridItemState extends State<ImageGridItem> {
               size: 30,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                    actions: <Widget>[
+                      Container(
+                          margin: EdgeInsets.all(8),
+                          width: 130,
+                          child: Neumorphic(
+                              style: NeumorphicStyle(
+                                  shape: NeumorphicShape.concave,
+                                  surfaceIntensity: surfaceIntensity,
+                                  depth: depth,
+                                  intensity: intensity,
+                                  lightSource: LightSource.topLeft,
+                                  color: Color(baseColor)),
+                              child: FlatButton(
+                                  onPressed: () {
+                                    createAlbum();
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.photo_album,
+                                        size: 25,
+                                        color: Colors.pink[400],
+                                      ),
+                                      Text(
+                                        "Add Album",
+                                        style: TextStyle(
+                                            fontFamily: 'BalooBhai',
+                                            fontSize: 17.0),
+                                      )
+                                    ],
+                                  ))))
+                    ],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    title: Text("Add Album"),
+                    content:
+                        Stack(overflow: Overflow.visible, children: <Widget>[
+                      Positioned(
+                        right: -50.0,
+                        top: -50.0,
+                        child: InkResponse(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: CircleAvatar(
+                            child: Icon(Icons.close),
+                          ),
+                        ),
+                      ),
+                      Form(
+                          child: SingleChildScrollView(
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                  onChanged: (String _newAlbumValue) {
+                                    newAlbumName = _newAlbumValue;
+                                  },
+                                  decoration:
+                                      InputDecoration(labelText: 'Album')),
+                            )
+                          ])))
+                    ]));
+              },
+            );
+          },
           tooltip: 'New Album',
         ),
       ),
       body: Column(
         children: [
-          InkWell(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        actions: <Widget>[
-                          Container(
-                              margin: EdgeInsets.all(8),
-                              width: 130,
-                              child: Neumorphic(
-                                  style: NeumorphicStyle(
-                                      shape: NeumorphicShape.concave,
-                                      surfaceIntensity: surfaceIntensity,
-                                      depth: depth,
-                                      intensity: intensity,
-                                      lightSource: LightSource.topLeft,
-                                      color: Color(baseColor)),
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        createAlbum();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.photo_album,
-                                            size: 25,
-                                            color: Colors.pink[400],
-                                          ),
-                                          Text(
-                                            "Add Album",
-                                            style: TextStyle(
-                                                fontFamily: 'BalooBhai',
-                                                fontSize: 17.0),
-                                          )
-                                        ],
-                                      ))))
-                        ],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        title: Text("Add Album"),
-                        content: Stack(
-                            overflow: Overflow.visible,
-                            children: <Widget>[
-                              Positioned(
-                                right: -50.0,
-                                top: -50.0,
-                                child: InkResponse(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: CircleAvatar(
-                                    child: Icon(Icons.close),
-                                  ),
-                                ),
-                              ),
-                              Form(
-                                  child: SingleChildScrollView(
-                                      child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                          onChanged: (String _newAlbumValue) {
-                                            newAlbumName = _newAlbumValue;
-                                          },
-                                          decoration: InputDecoration(
-                                              labelText: 'Album')),
-                                    )
-                                  ])))
-                            ]));
-                  },
-                );
-              },
-              child: Container(
-                  margin: EdgeInsets.all(8),
-                  width: 200,
-                  child: Neumorphic(
-                      style: NeumorphicStyle(
-                          shape: NeumorphicShape.concave,
-                          surfaceIntensity: surfaceIntensity,
-                          depth: depth,
-                          intensity: intensity,
-                          lightSource: LightSource.topLeft,
-                          color: Color(baseColor)),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.photo_album,
-                          size: 45,
-                          color: Colors.pink[400],
-                        ),
-                        title: Text(
-                          'Add Album',
-                          style: TextStyle(
-                              fontFamily: 'BalooBhai', fontSize: 20.0),
-                        ),
-                      )))),
           Flexible(
             child: StreamBuilder(
               stream: databaseReference.onValue,
