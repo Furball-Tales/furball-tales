@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'food_detail_page.dart';
-import 'walk_detail_page.dart';
+import 'food_detail.dart';
+import 'walk_detail.dart';
+import 'weight_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
 
@@ -13,8 +14,10 @@ var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
 
 _nextPage(icon, heading, textColor) {
-  if (heading == 'Food') return FoodDetailPage(icon, heading, textColor);
-  if (heading == 'Walk') return WalkDetailPage(icon, heading, textColor);
+  if (heading == 'Food') return FoodDetail(icon, heading, textColor);
+  if (heading == 'Walk') return WalkDetail(icon, heading, textColor);
+  if (heading == 'Food') return FoodDetail(icon, heading, textColor);
+  if (heading == 'Weight') return WeightDetail(icon, heading, textColor);
 }
 
 class JumpCard extends StatefulWidget {

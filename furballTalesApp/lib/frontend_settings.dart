@@ -8,6 +8,10 @@ class NeumorphicCardSettings {
   static int accentYellow = 0xffFFE319;
   static int accentGold = 0xffD4BF15;
 
+  static int mildBlueGreen = 0xff2ecaf2;
+  static int mildBlue = 0xff198df8;
+  static int mildDarkBlue = 0xff0f4ffb;
+
   static double intensity = 0.7;
   static double depth = 8.0;
   static double surfaceIntensity = 0.1;
