@@ -245,7 +245,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                   //   ],
                   // ),
                   Container(
-                    alignment: Alignment(-0.845, 0),
+                    alignment: Alignment(-0.59, 0),
                     padding: const EdgeInsets.only(bottom: 30.0),
                     // padding: EdgeInsets.only(right: 117),
                     child: Column(
@@ -285,7 +285,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      left: 8.0,
+                      left: 20.0,
                       right: 18,
                       bottom: 35,
                     ),
