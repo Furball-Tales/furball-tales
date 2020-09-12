@@ -121,7 +121,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
   var _petNameController = TextEditingController();
   var _petSexController = TextEditingController();
   var _text = '';
-  var _dateText = 'Tap to select.';
+  var _dateText = '';
   var _url;
   File imageData;
 
@@ -247,7 +247,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                   Container(
                     padding: const EdgeInsets.only(
                       left: 20,
-                      right: 18,
+                      right: 35,
                       bottom: 32.0,
                     ),
                     child: Row(
@@ -266,7 +266,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
+                          children: [
                             Text(
                               _dateText,
                               style: TextStyle(fontSize: 14),
@@ -309,33 +309,36 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                             color: Color(textBaseColor),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            selectImage();
-                            _text = "";
-                          },
-                          child: (_url != null)
-                              ? Container(
-                                  width: 115.0,
-                                  height: 115.0,
-                                  decoration: BoxDecoration(
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              selectImage();
+                              _text = "";
+                            },
+                            child: (_url != null)
+                                ? Container(
+                                    width: 115.0,
+                                    height: 115.0,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(_url),
+                                        )))
+                                : Container(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
-                                        image: NetworkImage(_url),
-                                      )))
-                              : Container(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                          "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
+                                        image: NetworkImage(
+                                            "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
+                                      ),
                                     ),
                                   ),
-                                ),
+                          ),
                         ),
                       ],
                     ),
