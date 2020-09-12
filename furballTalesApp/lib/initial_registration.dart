@@ -247,7 +247,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                   Container(
                     padding: const EdgeInsets.only(
                       left: 20,
-                      right: 24,
+                      right: 18,
                       bottom: 32.0,
                     ),
                     child: Row(
