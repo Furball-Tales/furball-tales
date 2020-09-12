@@ -365,7 +365,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                               {
                                 setState(
                                   () {
-                                    _text = "Please fill out all items.";
+                                    _text = "Please fill in all fields.";
                                   },
                                 ),
                               }
