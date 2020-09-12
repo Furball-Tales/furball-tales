@@ -257,7 +257,14 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                       IconButton(
                         icon: NeumorphicIcon(
                           Icons.date_range,
-                          size: 40,
+                          size: 45,
+                          style: NeumorphicStyle(
+                            // shape: NeumorphicShape.convex,
+                            // surfaceIntensity: 1.0,
+                            intensity: 1.0,
+                            depth: 2,
+                            color: Color(baseColor),
+                          ),
                         ),
                         color: Color(textBaseColor),
                         onPressed: () => {_selectDate(context), _text = ""},
@@ -351,6 +358,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                         },
                         bottom: 14.0,
                         fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Container(

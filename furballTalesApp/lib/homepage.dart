@@ -54,6 +54,7 @@ class _MyAppState extends State<Homepage> {
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
+        backgroundColor: Color(baseColor),
         currentIndex: _currentIndex,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

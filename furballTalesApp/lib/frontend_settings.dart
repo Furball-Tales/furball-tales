@@ -39,6 +39,7 @@ class BuildButton {
     VoidCallback onClick,
     double bottom = 27.0,
     double fontSize = 20,
+    FontWeight fontWeight = FontWeight.normal,
   }) {
     return NeumorphicButton(
       margin: EdgeInsets.only(bottom: bottom),
@@ -67,7 +68,8 @@ class BuildButton {
             color: Color(color), //customize color here
           ),
           textStyle: NeumorphicTextStyle(
-            fontSize: fontSize, //customize size here
+            fontSize: fontSize,
+            fontWeight: fontWeight, //customize size here
             // AND others usual text style properties (fontFamily, fontWeight, ...)
           ),
         ),
