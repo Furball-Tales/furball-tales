@@ -85,7 +85,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
       key: _scaffoldKey,
       appBar: GradientAppBar(
         "Albums",
-        false,
+        'null',
       ),
       backgroundColor: Colors.transparent,
       floatingActionButton: NeumorphicTheme(

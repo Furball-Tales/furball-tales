@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../app_bar.dart';
 
 class MemoEdit extends StatelessWidget {
   String _current;
@@ -10,21 +11,9 @@ class MemoEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Edit Memo'),
-        backgroundColor: Colors.cyanAccent[400],
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () => FocusScope.of(context).requestFocus(FocusNode()),
-            child: Icon(Icons.check),
-            shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-          ),
-        ],
-        leading: FlatButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Icon(Icons.arrow_back_ios),
-          shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-        ),
+      appBar: GradientAppBar(
+        "Quick Memo",
+        'back',
       ),
       body: new Container(
           padding: const EdgeInsets.all(16.0),

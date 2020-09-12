@@ -20,6 +20,8 @@ var caveIntensity = NeumorphicCaveSettings.caveIntensity;
 var caveDepth = NeumorphicCaveSettings.caveDepth;
 var caveColor = NeumorphicCaveSettings.caveColor;
 
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
+
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
 
@@ -229,9 +231,12 @@ class PetCardState extends State<PetCard> {
                                 ),
                               )
                             : Container(
-                                width: 80.0,
-                                height: 80.0,
-                                margin: EdgeInsets.only(bottom: 10),
+                                width: 70.0,
+                                height: 70.0,
+                                margin: EdgeInsets.only(
+                                  top: 3,
+                                  bottom: 1,
+                                ),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
@@ -245,47 +250,76 @@ class PetCardState extends State<PetCard> {
                   ),
                 ),
                 Flexible(
-                  child: Column(
-                    children: [
-                      Neumorphic(
-                        style: NeumorphicStyle(
-                            shape: NeumorphicShape.concave,
-                            depth: caveDepth,
-                            intensity: caveIntensity,
-                            lightSource: LightSource.topLeft,
-                            color: Color(caveColor)),
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 100,
-                          width: 110,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: 12,
-                              bottom: 12,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 2.0,
+                      left: 8.0,
+                      right: 8.0,
+                      bottom: 8.0,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Neumorphic(
+                            style: NeumorphicStyle(
+                                shape: NeumorphicShape.concave,
+                                depth: caveDepth,
+                                intensity: caveIntensity,
+                                lightSource: LightSource.topLeft,
+                                color: Color(caveColor)),
+                            child: Container(
+                              color: Colors.transparent,
+                              height: 80,
+                              width: 110,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: 12,
+                                  bottom: 12,
+                                ),
+                                child: StreamBuilder(
+                                    stream: databaseReference.onValue,
+                                    builder: (context, snap) {
+                                      return Container(
+                                        padding:
+                                            EdgeInsets.only(top: 12, left: 2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              name,
+                                              style: TextStyle(
+                                                color: Color(textBaseColor),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            Text(
+                                              sex,
+                                              style: TextStyle(
+                                                color: Color(textBaseColor),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            Text(
+                                              birthday,
+                                              style: TextStyle(
+                                                color: Color(textBaseColor),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            // Text('Weight: $_weight'),
+                                          ],
+                                        ),
+                                      );
+                                    }),
+                              ),
                             ),
-                            child: StreamBuilder(
-                                stream: databaseReference.onValue,
-                                builder: (context, snap) {
-                                  return Container(
-                                    padding: EdgeInsets.only(top: 12, left: 2),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(name),
-                                        Text(sex),
-                                        Text(birthday),
-                                        // Text('Weight: $_weight'),
-                                      ],
-                                    ),
-                                  );
-                                }),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],

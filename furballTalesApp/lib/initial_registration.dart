@@ -3,15 +3,39 @@ import 'sign_in.dart';
 import 'homepage.dart';
 import 'package:intl/intl.dart';
 import './app_bar.dart';
-
 import 'package:firebase_database/firebase_database.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import './sign_in.dart';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import './Dashboard/grid_dashboard.dart';
+import 'frontend_settings.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
+var baseColor = NeumorphicCardSettings.baseColor;
+
+var buttonIntensity = NeumorphicButtonSettings.buttonIntensity;
+var buttonDepth = NeumorphicButtonSettings.buttonDepth;
+var buttonSurfaceIntensity = NeumorphicButtonSettings.buttonSurfaceIntensity;
+
+_buildButton({String text, int color, VoidCallback onClick}) =>
+    BuildButton().buildButton;
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      title: 'Flutter Neumorphic',
+      home: InitialRegistration(),
+    );
+  }
+}
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
@@ -97,7 +121,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
   var _petNameController = TextEditingController();
   var _petSexController = TextEditingController();
   var _text = '';
-  var _dateText = 'Please select a Pet Birthday.';
+  var _dateText = 'Please select Date of Birth.';
   var _url;
   File imageData;
 
@@ -131,104 +155,177 @@ class _InitialRegistrationState extends State<InitialRegistration> {
 
   Widget initialRegistrationScreen() {
     return Scaffold(
-      appBar: GradientAppBar("Furball Tales", false),
-      body: Container(
-        padding: EdgeInsets.all(32.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Text("Initial Registration of Pet's Information"),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 7,
-                    child: TextFormField(
-                      controller: _petNameController,
-                      decoration: InputDecoration(labelText: 'Pet Name'),
-                      textInputAction: TextInputAction.next,
-                      autovalidate: true,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return 'Please input a Pet Name.';
-                        }
-                        return null;
-                      },
+      appBar: GradientAppBar(
+        "Pet Registeration",
+        'back',
+      ),
+      backgroundColor: Color(baseColor),
+      body: NeumorphicTheme(
+        child: Container(
+          padding: EdgeInsets.only(
+            right: 32.0,
+            left: 32.0,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 25, bottom: 25.0),
+                  child: Text(
+                    "Please register your pet information.",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Color(accentBlue),
                     ),
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 7,
-                    child: TextFormField(
-                      controller: _petSexController,
-                      decoration: InputDecoration(labelText: 'Pet Sex'),
-                      textInputAction: TextInputAction.next,
-                      autovalidate: true,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return 'Please input a Pet Sex.';
-                        }
-                        return null;
-                      },
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: _TextField(
+                    label: "Pet Name",
+                    hint: "Bella",
+                    controller: _petNameController,
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: Text('Pet Birthday: '),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  child: _TextField(
+                    label: "Sex",
+                    hint: "Female",
+                    controller: _petSexController,
                   ),
-                  IconButton(
-                      icon: Icon(Icons.date_range),
-                      onPressed: () => {_selectDate(context), _text = ""}),
-                  Text(
-                    _dateText,
-                    style: TextStyle(fontSize: 18),
+                ),
+                // TextFormField(
+                //   controller: _petNameController,
+                //   decoration: InputDecoration(
+                //       hintText: 'Pet Name',
+                //       hintStyle: TextStyle(
+                //         fontSize: 14,
+                //       )),
+                //   textInputAction: TextInputAction.next,
+                //   autofocus: true,
+                //   autovalidate: true,
+                //   validator: (String value) {
+                //     if (value.isEmpty) {
+                //       return 'Required';
+                //     }
+                //     return null;
+                //   },
+                // ),
+                // Row(
+                //   children: <Widget>[
+                //     Expanded(
+                //       flex: 7,
+                //       child: TextFormField(
+                //         controller: _petSexController,
+                //         decoration: InputDecoration(labelText: 'Pet Sex'),
+                //         textInputAction: TextInputAction.next,
+                //         autovalidate: true,
+                //         validator: (String value) {
+                //           if (value.isEmpty) {
+                //             return 'Please input a Pet Sex.';
+                //           }
+                //           return null;
+                //         },
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                Container(
+                  alignment: Alignment(-0.845, 0),
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  // padding: EdgeInsets.only(right: 117),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5.0),
+                        child: Text(
+                          'Birthday:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(textBaseColor),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        _dateText,
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      IconButton(
+                        icon: NeumorphicIcon(
+                          Icons.date_range,
+                          size: 40,
+                        ),
+                        color: Color(textBaseColor),
+                        onPressed: () => {_selectDate(context), _text = ""},
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: Text('Pet Image: '),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 21.0,
+                    right: 50,
+                    bottom: 35,
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        selectImage();
-                        _text = "";
-                      },
-                      child: (_url != null)
-                          ? Container(
-                              width: 115.0,
-                              height: 115.0,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(_url),
-                                  )))
-                          : Container(
-                              width: 115.0,
-                              height: 115.0,
-                              decoration: BoxDecoration(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Pet Image: ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(textBaseColor),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          selectImage();
+                          _text = "";
+                        },
+                        child: (_url != null)
+                            ? Container(
+                                width: 115.0,
+                                height: 115.0,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(_url),
+                                    )))
+                            : Container(
+                                width: 115.0,
+                                height: 115.0,
+                                decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
                                     image: NetworkImage(
                                         "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
-                                  ))))
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.all(16.0),
-                child: RaisedButton(
-                    child: Text('Submit'),
-                    onPressed: () => {
+                                  ),
+                                ),
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                    child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 5,
+                        right: 90,
+                        left: 90,
+                      ),
+                      child: _buildButton()(
+                        text: "Complete!",
+                        color: accentBlue,
+                        onClick: () => {
                           if ((_dateText != 'Please select a Pet Birthday.') &&
                               (_petNameController.text != "") &&
                               (_url != null) &&
@@ -251,13 +348,55 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                                 },
                               ),
                             }
-                        }),
-              ),
-              Container(
-                padding: EdgeInsets.all(8.0),
-                child: Text(_text, style: TextStyle(color: Colors.red)),
-              )
-            ],
+                        },
+                        bottom: 14.0,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    Container(
+                      // padding: EdgeInsets.all(8.0),
+                      child: Text(_text, style: TextStyle(color: Colors.red)),
+                    )
+                  ],
+                )
+
+                    // Container(
+                    //   padding: EdgeInsets.all(16.0),
+                    //   child: RaisedButton(
+                    //       child: Text('Submit'),
+                    //       onPressed: () => {
+                    // if ((_dateText !=
+                    //         'Please select a Pet Birthday.') &&
+                    //     (_petNameController.text != "") &&
+                    //     (_url != null) &&
+                    //     (_petSexController.text != ""))
+                    //   {
+                    //     createPetdata(
+                    //         _dateText,
+                    //         _petNameController.text,
+                    //         _url,
+                    //         _petSexController.text),
+                    //     updatePetImage(imageData),
+                    //     setState(
+                    //       () {
+                    //         funcIndex = "Homepage";
+                    //       },
+                    //     ),
+                    //   }
+                    // else
+                    //   {
+                    //     setState(
+                    //       () {
+                    //         _text = "Please fill out all items.";
+                    //       },
+                    //     ),
+                    //   }
+                    //           }),
+                    // ),
+
+                    ),
+              ],
+            ),
           ),
         ),
       ),
@@ -275,5 +414,77 @@ class _InitialRegistrationState extends State<InitialRegistration> {
       func = Homepage();
     }
     return func;
+  }
+}
+
+class _TextField extends StatefulWidget {
+  final String label;
+  final String hint;
+  final TextEditingController controller;
+
+  // final ValueChanged<String> onChanged;
+
+  _TextField({
+    @required this.label,
+    this.hint,
+    this.controller,
+  });
+
+  @override
+  __TextFieldState createState() => __TextFieldState();
+}
+
+class __TextFieldState extends State<_TextField> {
+  // TextEditingController _controller;
+
+  // @override
+  // void initState() {
+  //   _controller = TextEditingController(text: widget.hint);
+  //   super.initState();
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+          child: Text(
+            this.widget.label,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Color(textBaseColor),
+            ),
+          ),
+        ),
+        Neumorphic(
+          margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+          style: NeumorphicStyle(
+            depth: NeumorphicTheme.embossDepth(context),
+            boxShape: NeumorphicBoxShape.stadium(),
+            color: Color(baseColor),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+          child: TextFormField(
+            controller: this.widget.controller,
+            decoration: InputDecoration.collapsed(
+              hintText: this.widget.hint,
+              hintStyle: TextStyle(
+                fontSize: 12,
+              ),
+            ),
+            textInputAction: TextInputAction.next,
+            autovalidate: true,
+            validator: (String value) {
+              if (value.isEmpty) {
+                return 'Required';
+              }
+              return null;
+            },
+          ),
+        )
+      ],
+    );
   }
 }

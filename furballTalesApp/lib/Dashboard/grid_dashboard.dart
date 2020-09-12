@@ -195,11 +195,11 @@ class _GridDashboardState extends State<GridDashboard> {
           ),
         ],
         staggeredTiles: [
-          StaggeredTile.extent(2, 70),
-          StaggeredTile.extent(2, 250),
+          StaggeredTile.extent(2, 65),
+          StaggeredTile.extent(2, 230),
           StaggeredTile.extent(2, 140),
-          StaggeredTile.extent(1, 130),
-          StaggeredTile.extent(1, 130),
+          StaggeredTile.extent(1, 140),
+          StaggeredTile.extent(1, 140),
         ],
       ),
     );

@@ -106,7 +106,7 @@ class _PhotosState extends State<Photos> {
       key: _scaffoldKey,
       appBar: GradientAppBar(
         "Photos",
-        true,
+        'back',
       ),
       body: Column(
         children: [

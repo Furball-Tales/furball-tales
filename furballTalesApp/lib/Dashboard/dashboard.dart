@@ -9,7 +9,10 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar("Furball Tales", false),
+      appBar: GradientAppBar(
+        "Dashboard",
+        'add',
+      ),
       backgroundColor: Colors.transparent,
       body: Column(
         children: [

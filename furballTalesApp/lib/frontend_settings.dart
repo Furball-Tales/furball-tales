@@ -16,6 +16,8 @@ class NeumorphicCardSettings {
   static double depth = 8.0;
   static double surfaceIntensity = 0.1;
   static int baseColor = 0xFFEEEEEE;
+
+  static int textBaseColor = 0xFF616161; // Colors.grey[700]
 }
 
 class NeumorphicCaveSettings {
