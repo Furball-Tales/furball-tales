@@ -11,6 +11,7 @@ import 'dart:io';
 import './sign_in.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import './Dashboard/grid_dashboard.dart';
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
@@ -21,15 +22,42 @@ class InitialRegistration extends StatefulWidget {
 }
 
 // var _url;
+var allPetsData = [];
 bool existData;
 
+Future readAllPetsData() async {
+  await databaseReference.orderByKey().once().then((DataSnapshot snapshot) {
+    snapshot.value.forEach((key, data) => {
+          allPetsData.add({"key": key, "data": data})
+        });
+    allPetsData.sort((a, b) => b['key'].compareTo(a['key']));
+  });
+  print("Out allPetsData: $allPetsData");
+  print("Out allPetsData[0]: ${allPetsData[0]}");
+  print("allPetsData[0]['key']: ${allPetsData[0]['key']}");
+}
+
 Future createPetdata(birthday, petName, petProfilePicUrl, sex) async {
-  databaseReference.push().set({
+  String nowDateText =
+      (DateFormat("yyyy-MM-dd=HH:mm:ss:SSS")).format(DateTime.now());
+  print("nowDateText: $nowDateText");
+  databaseReference.child(nowDateText).set({
     "birthday": birthday,
     "petName": petName,
     "petProfilePicUrl": petProfilePicUrl,
     "sex": sex, // ♂,♀
   });
+}
+
+Future updatePetImage(var imageFile) async {
+  print("1=========updatePetImage");
+  await readAllPetsData();
+  print("2=========updatePetImage");
+  var key = allPetsData[0]['key'];
+  print("key: $key");
+  var uploadUrl = await uploadImage(imageFile, key);
+
+  updateUrl(uploadUrl);
 }
 
 Future checkPetData() async {
@@ -44,12 +72,12 @@ Future checkPetData() async {
   }
 }
 
-Future<String> uploadImage(var imageFile) async {
+Future<String> uploadTemporaryImage(var imageFile) async {
   StorageReference ref = FirebaseStorage.instance
       .ref()
       .child('$id')
-      .child("profileImage")
-      .child("profileImage.jpg");
+      .child("profileTemporaryImage")
+      .child("profileTemporaryImage.jpg");
   StorageUploadTask uploadTask =
       ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
   final snapshot = await uploadTask.onComplete;
@@ -71,6 +99,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
   var _text = '';
   var _dateText = 'Please select a Pet Birthday.';
   var _url;
+  File imageData;
 
   // File _image;
   final picker = ImagePicker();
@@ -78,8 +107,8 @@ class _InitialRegistrationState extends State<InitialRegistration> {
   Future selectImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     // _image = File(pickedFile.path);
-    File imageData = File(pickedFile.path);
-    _url = await uploadImage(imageData);
+    imageData = File(pickedFile.path);
+    _url = await uploadTemporaryImage(imageData);
     // updateUrl(uploadUrl);
     // await readUrl();
 
@@ -207,6 +236,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                             {
                               createPetdata(_dateText, _petNameController.text,
                                   _url, _petSexController.text),
+                              updatePetImage(imageData),
                               setState(
                                 () {
                                   funcIndex = "Homepage";
