@@ -121,7 +121,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
   var _petNameController = TextEditingController();
   var _petSexController = TextEditingController();
   var _text = '';
-  var _dateText = 'Please select Date of Birth.';
+  var _dateText = 'Tap to select.';
   var _url;
   File imageData;
 
@@ -179,7 +179,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
             ),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(top: 15, bottom: 20.0),
@@ -201,7 +201,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 30.0),
+                    padding: const EdgeInsets.only(bottom: 28.0),
                     child: _TextField(
                       label: "Sex",
                       hint: "Female",
@@ -245,12 +245,15 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                   //   ],
                   // ),
                   Container(
-                    alignment: Alignment(-0.59, 0),
-                    padding: const EdgeInsets.only(bottom: 30.0),
-                    // padding: EdgeInsets.only(right: 117),
-                    child: Column(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 24,
+                      bottom: 32.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
+                      children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
@@ -261,31 +264,37 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                             ),
                           ),
                         ),
-                        Text(
-                          _dateText,
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        IconButton(
-                          icon: NeumorphicIcon(
-                            Icons.date_range,
-                            size: 45,
-                            style: NeumorphicStyle(
-                              // shape: NeumorphicShape.convex,
-                              // surfaceIntensity: 1.0,
-                              intensity: 1.0,
-                              depth: 2,
-                              color: Color(baseColor),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              _dateText,
+                              style: TextStyle(fontSize: 14),
                             ),
-                          ),
-                          color: Color(textBaseColor),
-                          onPressed: () => {_selectDate(context), _text = ""},
+                            IconButton(
+                              icon: NeumorphicIcon(
+                                Icons.date_range,
+                                size: 45,
+                                style: NeumorphicStyle(
+                                  // shape: NeumorphicShape.convex,
+                                  // surfaceIntensity: 1.0,
+                                  intensity: 1.0,
+                                  depth: 2,
+                                  color: Color(baseColor),
+                                ),
+                              ),
+                              color: Color(textBaseColor),
+                              onPressed: () =>
+                                  {_selectDate(context), _text = ""},
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      left: 20.0,
+                      left: 20,
                       right: 18,
                       bottom: 35,
                     ),
