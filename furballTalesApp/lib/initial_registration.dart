@@ -160,250 +160,270 @@ class _InitialRegistrationState extends State<InitialRegistration> {
         'back',
       ),
       backgroundColor: Color(baseColor),
-      body: NeumorphicTheme(
-        child: Container(
-          padding: EdgeInsets.only(
-            right: 32.0,
-            left: 32.0,
+      body: Neumorphic(
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        style: NeumorphicStyle(
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.circular(12),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 25, bottom: 25.0),
-                  child: Text(
-                    "Please register your pet information.",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Color(accentBlue),
+          color: Color(baseColor),
+          intensity: 0.8,
+          depth: 7,
+        ),
+        child: NeumorphicTheme(
+          child: Container(
+            padding: EdgeInsets.only(
+              right: 32.0,
+              left: 32.0,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, bottom: 20.0),
+                    child: Text(
+                      "Please register your pet information.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Color(accentBlue),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: _TextField(
-                    label: "Pet Name",
-                    hint: "Bella",
-                    controller: _petNameController,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: _TextField(
+                      label: "Pet Name",
+                      hint: "Bella",
+                      controller: _petNameController,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: _TextField(
-                    label: "Sex",
-                    hint: "Female",
-                    controller: _petSexController,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    child: _TextField(
+                      label: "Sex",
+                      hint: "Female",
+                      controller: _petSexController,
+                    ),
                   ),
-                ),
-                // TextFormField(
-                //   controller: _petNameController,
-                //   decoration: InputDecoration(
-                //       hintText: 'Pet Name',
-                //       hintStyle: TextStyle(
-                //         fontSize: 14,
-                //       )),
-                //   textInputAction: TextInputAction.next,
-                //   autofocus: true,
-                //   autovalidate: true,
-                //   validator: (String value) {
-                //     if (value.isEmpty) {
-                //       return 'Required';
-                //     }
-                //     return null;
-                //   },
-                // ),
-                // Row(
-                //   children: <Widget>[
-                //     Expanded(
-                //       flex: 7,
-                //       child: TextFormField(
-                //         controller: _petSexController,
-                //         decoration: InputDecoration(labelText: 'Pet Sex'),
-                //         textInputAction: TextInputAction.next,
-                //         autovalidate: true,
-                //         validator: (String value) {
-                //           if (value.isEmpty) {
-                //             return 'Please input a Pet Sex.';
-                //           }
-                //           return null;
-                //         },
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                Container(
-                  alignment: Alignment(-0.845, 0),
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  // padding: EdgeInsets.only(right: 117),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Text(
-                          'Birthday:',
+                  // TextFormField(
+                  //   controller: _petNameController,
+                  //   decoration: InputDecoration(
+                  //       hintText: 'Pet Name',
+                  //       hintStyle: TextStyle(
+                  //         fontSize: 14,
+                  //       )),
+                  //   textInputAction: TextInputAction.next,
+                  //   autofocus: true,
+                  //   autovalidate: true,
+                  //   validator: (String value) {
+                  //     if (value.isEmpty) {
+                  //       return 'Required';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // Row(
+                  //   children: <Widget>[
+                  //     Expanded(
+                  //       flex: 7,
+                  //       child: TextFormField(
+                  //         controller: _petSexController,
+                  //         decoration: InputDecoration(labelText: 'Pet Sex'),
+                  //         textInputAction: TextInputAction.next,
+                  //         autovalidate: true,
+                  //         validator: (String value) {
+                  //           if (value.isEmpty) {
+                  //             return 'Please input a Pet Sex.';
+                  //           }
+                  //           return null;
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  Container(
+                    alignment: Alignment(-0.845, 0),
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    // padding: EdgeInsets.only(right: 117),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Text(
+                            'Birthday:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(textBaseColor),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          _dateText,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        IconButton(
+                          icon: NeumorphicIcon(
+                            Icons.date_range,
+                            size: 45,
+                            style: NeumorphicStyle(
+                              // shape: NeumorphicShape.convex,
+                              // surfaceIntensity: 1.0,
+                              intensity: 1.0,
+                              depth: 2,
+                              color: Color(baseColor),
+                            ),
+                          ),
+                          color: Color(textBaseColor),
+                          onPressed: () => {_selectDate(context), _text = ""},
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8.0,
+                      right: 18,
+                      bottom: 35,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Pet Image: ',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(textBaseColor),
                           ),
                         ),
-                      ),
-                      Text(
-                        _dateText,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      IconButton(
-                        icon: NeumorphicIcon(
-                          Icons.date_range,
-                          size: 45,
-                          style: NeumorphicStyle(
-                            // shape: NeumorphicShape.convex,
-                            // surfaceIntensity: 1.0,
-                            intensity: 1.0,
-                            depth: 2,
-                            color: Color(baseColor),
-                          ),
-                        ),
-                        color: Color(textBaseColor),
-                        onPressed: () => {_selectDate(context), _text = ""},
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 21.0,
-                    right: 50,
-                    bottom: 35,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Pet Image: ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(textBaseColor),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          selectImage();
-                          _text = "";
-                        },
-                        child: (_url != null)
-                            ? Container(
-                                width: 115.0,
-                                height: 115.0,
-                                decoration: BoxDecoration(
+                        GestureDetector(
+                          onTap: () {
+                            selectImage();
+                            _text = "";
+                          },
+                          child: (_url != null)
+                              ? Container(
+                                  width: 115.0,
+                                  height: 115.0,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(_url),
+                                      )))
+                              : Container(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
-                                      image: NetworkImage(_url),
-                                    )))
-                            : Container(
-                                width: 115.0,
-                                height: 115.0,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                        "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
+                                      image: NetworkImage(
+                                          "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
+                                    ),
                                   ),
                                 ),
-                              ),
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                    child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 5,
-                        right: 90,
-                        left: 90,
+                  Container(
+                      child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: 40,
+                          left: 40,
+                        ),
+                        child: _buildButton()(
+                          text: "Complete!",
+                          color: accentBlue,
+                          onClick: () => {
+                            if ((_dateText !=
+                                    'Please select a Pet Birthday.') &&
+                                (_petNameController.text != "") &&
+                                (_url != null) &&
+                                (_petSexController.text != ""))
+                              {
+                                createPetdata(
+                                    _dateText,
+                                    _petNameController.text,
+                                    _url,
+                                    _petSexController.text),
+                                updatePetImage(imageData),
+                                setState(
+                                  () {
+                                    funcIndex = "Homepage";
+                                  },
+                                ),
+                              }
+                            else
+                              {
+                                setState(
+                                  () {
+                                    _text = "Please fill out all items.";
+                                  },
+                                ),
+                              }
+                          },
+                          bottom: 14.0,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      child: _buildButton()(
-                        text: "Complete!",
-                        color: accentBlue,
-                        onClick: () => {
-                          if ((_dateText != 'Please select a Pet Birthday.') &&
-                              (_petNameController.text != "") &&
-                              (_url != null) &&
-                              (_petSexController.text != ""))
-                            {
-                              createPetdata(_dateText, _petNameController.text,
-                                  _url, _petSexController.text),
-                              updatePetImage(imageData),
-                              setState(
-                                () {
-                                  funcIndex = "Homepage";
-                                },
-                              ),
-                            }
-                          else
-                            {
-                              setState(
-                                () {
-                                  _text = "Please fill out all items.";
-                                },
-                              ),
-                            }
-                        },
-                        bottom: 14.0,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+                      Container(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          _text,
+                          style: TextStyle(
+                            color: Colors.red[600],
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+
+                      // Container(
+                      //   padding: EdgeInsets.all(16.0),
+                      //   child: RaisedButton(
+                      //       child: Text('Submit'),
+                      //       onPressed: () => {
+                      // if ((_dateText !=
+                      //         'Please select a Pet Birthday.') &&
+                      //     (_petNameController.text != "") &&
+                      //     (_url != null) &&
+                      //     (_petSexController.text != ""))
+                      //   {
+                      //     createPetdata(
+                      //         _dateText,
+                      //         _petNameController.text,
+                      //         _url,
+                      //         _petSexController.text),
+                      //     updatePetImage(imageData),
+                      //     setState(
+                      //       () {
+                      //         funcIndex = "Homepage";
+                      //       },
+                      //     ),
+                      //   }
+                      // else
+                      //   {
+                      //     setState(
+                      //       () {
+                      //         _text = "Please fill out all items.";
+                      //       },
+                      //     ),
+                      //   }
+                      //           }),
+                      // ),
+
                       ),
-                    ),
-                    Container(
-                      // padding: EdgeInsets.all(8.0),
-                      child: Text(_text, style: TextStyle(color: Colors.red)),
-                    )
-                  ],
-                )
-
-                    // Container(
-                    //   padding: EdgeInsets.all(16.0),
-                    //   child: RaisedButton(
-                    //       child: Text('Submit'),
-                    //       onPressed: () => {
-                    // if ((_dateText !=
-                    //         'Please select a Pet Birthday.') &&
-                    //     (_petNameController.text != "") &&
-                    //     (_url != null) &&
-                    //     (_petSexController.text != ""))
-                    //   {
-                    //     createPetdata(
-                    //         _dateText,
-                    //         _petNameController.text,
-                    //         _url,
-                    //         _petSexController.text),
-                    //     updatePetImage(imageData),
-                    //     setState(
-                    //       () {
-                    //         funcIndex = "Homepage";
-                    //       },
-                    //     ),
-                    //   }
-                    // else
-                    //   {
-                    //     setState(
-                    //       () {
-                    //         _text = "Please fill out all items.";
-                    //       },
-                    //     ),
-                    //   }
-                    //           }),
-                    // ),
-
-                    ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
