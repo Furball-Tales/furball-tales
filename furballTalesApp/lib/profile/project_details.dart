@@ -155,7 +155,7 @@ class ProjectDet extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 12.0),
                                   child: Text(
-                                    "- Becoming a leading and lasting company in the pet app industry.",
+                                    "- Communicate and share everything as a lasting team.",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: 18,

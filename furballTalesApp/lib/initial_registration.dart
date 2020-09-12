@@ -265,7 +265,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                           ),
                         ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
                               _dateText,

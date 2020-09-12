@@ -76,13 +76,19 @@ class _MedicalState extends State<Medical> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                       actions: <Widget>[
-                        FlatButton(
+                        NeumorphicTheme(
+                          child: NeumorphicButton(
+                            child: const Text('Add'),
                             onPressed: () {
                               addHistory();
                               Navigator.of(context).pop();
                               dateValue = "Not Set";
                             },
-                            child: Text("Add History"))
+                            style: NeumorphicStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
