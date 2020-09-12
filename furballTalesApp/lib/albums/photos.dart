@@ -11,6 +11,9 @@ import 'dart:typed_data';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
+import '../frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class Photos extends StatefulWidget {
   String _albumName;
@@ -108,39 +111,24 @@ class _PhotosState extends State<Photos> {
         "Photos",
         'back',
       ),
+      backgroundColor: Color(baseColor),
+      floatingActionButton: NeumorphicTheme(
+        child: NeumorphicFloatingActionButton(
+          child: Container(
+            color: Color(baseColor),
+            child: Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
+          onPressed: () {
+            selectImage();
+          },
+          tooltip: 'New Photo',
+        ),
+      ),
       body: Column(
         children: [
-          Center(
-              child: Container(
-                  margin: EdgeInsets.all(8),
-                  width: 190,
-                  child: Neumorphic(
-                      style: NeumorphicStyle(
-                          shape: NeumorphicShape.concave,
-                          surfaceIntensity: 0.2,
-                          depth: 1.5,
-                          intensity: 5,
-                          lightSource: LightSource.topLeft,
-                          color: Colors.grey[200]),
-                      child: FlatButton(
-                          onPressed: () {
-                            selectImage();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Icon(
-                                Icons.add_a_photo,
-                                size: 35,
-                                color: Colors.pink[400],
-                              ),
-                              Text(
-                                "Add picture",
-                                style: TextStyle(
-                                    fontFamily: 'BalooBhai', fontSize: 20.0),
-                              )
-                            ],
-                          ))))),
           Flexible(
             child: StreamBuilder(
               stream: databaseReference
