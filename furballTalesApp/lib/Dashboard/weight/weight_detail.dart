@@ -1,44 +1,59 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
+import '../../frontend_settings.dart';
+import '../each_jump_card.dart';
+import 'test.dart';
+import '../../app_bar.dart';
 
-class PetDetail extends StatelessWidget {
-  String heroTag;
-  String photo;
+var baseColor = NeumorphicCardSettings.baseColor;
 
-  PetDetail(String heroTag, String photo) {
-    this.heroTag = heroTag;
-    this.photo = photo;
+var mildBlueGreen = NeumorphicCardSettings.mildBlueGreen;
+var mildBlue = NeumorphicCardSettings.mildBlue;
+var mildDarkBlue = NeumorphicCardSettings.mildDarkBlue;
+
+class WeightDetail extends StatelessWidget {
+  IconData icon;
+  String heading;
+  int color;
+
+  WeightDetail(IconData icon, String heading, int color) {
+    this.icon = icon;
+    this.heading = heading;
+    this.color = color;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: GradientAppBar(
+          "",
+          'back',
+        ),
         backgroundColor:
-            Colors.transparent, //Make background of overall Widget transparent
-        body: Hero(
-            tag: heroTag,
-            child: Material(
-                type: MaterialType.transparency,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          height: 300,
-                          child: imageContents(context),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 500,
-                          child: Text('content'),
-                        ),
-                      )
-                    ],
+            Color(baseColor), //Make background of overall Widget transparent
+        body: Column(
+          children: [
+            Hero(
+                tag: heading,
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Container(
+                    color: Color(baseColor),
+                    child: Text('Oioi'),
                   ),
-                ))));
+                )),
+            Test(
+              Icons.directions_run,
+              'Weight',
+              mildBlueGreen,
+              mildBlueGreen,
+              intensity,
+              depth,
+              surfaceIntensity,
+              baseColor,
+            ),
+          ],
+        ));
   }
 
   // Image Widget
@@ -51,9 +66,10 @@ class PetDetail extends StatelessWidget {
             child: Stack(
           children: <Widget>[
             Center(
-              child: Image.asset(
-                photo,
-                fit: BoxFit.cover,
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 30,
               ),
             ),
             Column(

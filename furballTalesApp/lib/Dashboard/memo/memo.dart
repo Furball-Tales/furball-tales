@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import './memo_edit.dart';
+import 'memo_edit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../frontend_settings.dart';
-import '../../initial_registration.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -72,7 +71,7 @@ class MemoListState extends State<MemoList> {
       storeMemoList();
       Navigator.of(context).push(MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return InitialRegistration();
+          return MemoEdit(_memoList[_currentIndex], _onChanged);
         },
       ));
     });

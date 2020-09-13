@@ -16,6 +16,8 @@ class NeumorphicCardSettings {
   static double depth = 8.0;
   static double surfaceIntensity = 0.1;
   static int baseColor = 0xFFEEEEEE;
+
+  static int textBaseColor = 0xFF616161; // Colors.grey[700]
 }
 
 class NeumorphicCaveSettings {
@@ -37,6 +39,7 @@ class BuildButton {
     VoidCallback onClick,
     double bottom = 27.0,
     double fontSize = 20,
+    FontWeight fontWeight = FontWeight.normal,
   }) {
     return NeumorphicButton(
       margin: EdgeInsets.only(bottom: bottom),
@@ -65,7 +68,8 @@ class BuildButton {
             color: Color(color), //customize color here
           ),
           textStyle: NeumorphicTextStyle(
-            fontSize: fontSize, //customize size here
+            fontSize: fontSize,
+            fontWeight: fontWeight, //customize size here
             // AND others usual text style properties (fontFamily, fontWeight, ...)
           ),
         ),

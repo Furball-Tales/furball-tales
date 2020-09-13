@@ -5,8 +5,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
-import 'list_card_view.dart';
-import 'jump_card.dart';
+import 'pet/list_card_view.dart';
+import 'dashboard_jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
 import '../initial_registration.dart';
@@ -195,11 +195,11 @@ class _GridDashboardState extends State<GridDashboard> {
           ),
         ],
         staggeredTiles: [
-          StaggeredTile.extent(2, 70),
-          StaggeredTile.extent(2, 250),
+          StaggeredTile.extent(2, 65),
+          StaggeredTile.extent(2, 230),
           StaggeredTile.extent(2, 140),
-          StaggeredTile.extent(1, 130),
-          StaggeredTile.extent(1, 130),
+          StaggeredTile.extent(1, 140),
+          StaggeredTile.extent(1, 140),
         ],
       ),
     );

@@ -3,7 +3,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'photos.dart';
 import '../sign_in.dart';
-import '../Dashboard/grid_dashboard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
@@ -31,8 +30,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-_buildButton({String text, int color, VoidCallback onClick}) =>
-    BuildButton().buildButton;
+// _buildButton({String text, int color, VoidCallback onClick}) =>
+//     BuildButton().buildButton;
 
 class Albums extends StatelessWidget {
   @override
@@ -85,7 +84,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
       key: _scaffoldKey,
       appBar: GradientAppBar(
         "Albums",
-        false,
+        'null',
       ),
       backgroundColor: Colors.transparent,
       floatingActionButton: NeumorphicTheme(
@@ -103,57 +102,24 @@ class _ImageGridItemState extends State<ImageGridItem> {
               builder: (BuildContext context) {
                 return AlertDialog(
                     actions: <Widget>[
-                      Container(
-                          margin: EdgeInsets.all(8),
-                          width: 130,
-                          child: Neumorphic(
-                              style: NeumorphicStyle(
-                                  shape: NeumorphicShape.concave,
-                                  surfaceIntensity: surfaceIntensity,
-                                  depth: depth,
-                                  intensity: intensity,
-                                  lightSource: LightSource.topLeft,
-                                  color: Color(baseColor)),
-                              child: FlatButton(
-                                  onPressed: () {
-                                    createAlbum();
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.photo_album,
-                                        size: 25,
-                                        color: Colors.pink[400],
-                                      ),
-                                      Text(
-                                        "Add Album",
-                                        style: TextStyle(
-                                            fontFamily: 'BalooBhai',
-                                            fontSize: 17.0),
-                                      )
-                                    ],
-                                  ))))
+                      NeumorphicTheme(
+                        child: NeumorphicButton(
+                          child: const Text('Add'),
+                          onPressed: () {
+                            createAlbum();
+                            Navigator.of(context).pop();
+                          },
+                          style: NeumorphicStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ],
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     title: Text("Add Album"),
                     content:
                         Stack(overflow: Overflow.visible, children: <Widget>[
-                      Positioned(
-                        right: -50.0,
-                        top: -50.0,
-                        child: InkResponse(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: CircleAvatar(
-                            child: Icon(Icons.close),
-                          ),
-                        ),
-                      ),
                       Form(
                           child: SingleChildScrollView(
                               child: Column(
@@ -162,12 +128,12 @@ class _ImageGridItemState extends State<ImageGridItem> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: TextFormField(
-                                  maxLength: 20,
-                                  onChanged: (String _newAlbumValue) {
-                                    newAlbumName = _newAlbumValue;
-                                  },
-                                  decoration:
-                                      InputDecoration(labelText: 'Album')),
+                                maxLength: 20,
+                                onChanged: (String _newAlbumValue) {
+                                  newAlbumName = _newAlbumValue;
+                                },
+                                decoration: InputDecoration(labelText: 'Album'),
+                              ),
                             )
                           ])))
                     ]));

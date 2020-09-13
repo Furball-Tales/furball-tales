@@ -1,14 +1,53 @@
 import 'package:flutter/material.dart';
+import 'initial_registration.dart';
 
 class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final double barHeight = 50.0;
-  bool back;
+  String appBarButton = 'null';
 
-  GradientAppBar(this.title, this.back);
+  GradientAppBar(
+    this.title,
+    this.appBarButton,
+  );
 
   backButton(BuildContext context) {
-    if (back) {
+    if (appBarButton == 'add') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Container(),
+          ),
+          Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute<void>(
+                    builder: (BuildContext context) {
+                      return InitialRegistration();
+                    },
+                  ));
+                },
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 20,
+                )),
+          ),
+        ],
+      );
+    } else if (appBarButton == 'back') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -39,7 +78,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       );
-    } else {
+    } else if (appBarButton == 'null') {
       return Center(
         child: Text(
           title,
