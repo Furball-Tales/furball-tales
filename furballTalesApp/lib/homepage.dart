@@ -4,7 +4,10 @@ import 'profile/profile.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'medical/medical.dart';
 import 'albums/albums.dart';
+import './frontend_settings.dart';
+import './calendar/calendar_main.dart';
 import 'frontend_settings.dart';
+
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -43,6 +46,7 @@ class _MyAppState extends State<Homepage> {
   final List<Widget> _children = [
     Dashboard(),
     Albums(),
+    Calendar(),
     Medical(),
     Profile(),
   ];
@@ -82,6 +86,18 @@ class _MyAppState extends State<Homepage> {
             BottomNavigationBarItem(
               icon: NeumorphicIcon(
                 Icons.perm_media,
+                size: 30,
+                style: NeumorphicStyle(
+                  intensity: 1.0,
+                  depth: 2,
+                  color: Color(baseColor),
+                ),
+              ),
+              title: Container(height: 12.0),
+            ),
+          BottomNavigationBarItem(
+              icon: NeumorphicIcon(
+                Icons.calendar_today,
                 size: 30,
                 style: NeumorphicStyle(
                   intensity: 1.0,

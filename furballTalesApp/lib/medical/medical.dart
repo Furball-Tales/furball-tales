@@ -694,9 +694,11 @@ class _MedicalState extends State<Medical> {
                                                 ])
                                           ],
                                         ),
-                                      ));
+                                      )
+                                      );
                                 });
-                          }),
+                          }
+                          ),
                     );
                   });
             } else {
