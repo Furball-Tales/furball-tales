@@ -8,7 +8,6 @@ import './frontend_settings.dart';
 import './calendar/calendar_main.dart';
 import 'frontend_settings.dart';
 
-
 var baseColor = NeumorphicCardSettings.baseColor;
 
 void main() => runApp(MyApp());
@@ -95,9 +94,9 @@ class _MyAppState extends State<Homepage> {
               ),
               title: Container(height: 12.0),
             ),
-          BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: NeumorphicIcon(
-                Icons.calendar_today,
+                Icons.date_range,
                 size: 30,
                 style: NeumorphicStyle(
                   intensity: 1.0,

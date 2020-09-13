@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import '../app_bar.dart';
 
 class Chart extends StatefulWidget {
+  List<Map<String, Object>> allChartData;
+
+  Chart(List<Map<String, Object>> allChartData) {
+    this.allChartData = allChartData;
+  }
+
   @override
   _ChartState createState() => _ChartState();
 }
@@ -11,12 +17,14 @@ class Chart extends StatefulWidget {
 class _ChartState extends State<Chart> {
   DateTime fromDate;
   DateTime toDate;
+  List<Map<String, Object>> allChartData;
 
   @override
   void initState() {
     super.initState();
     fromDate = DateTime(2019, 09, 1);
     toDate = DateTime(2019, 09, 30);
+    this.allChartData = allChartData;
   }
 
   @override
@@ -26,11 +34,15 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
+    // List<Map<String, Object>> allChartData;
     final date1 = toDate.subtract(Duration(days: 2));
     final date2 = toDate.subtract(Duration(days: 3));
+
+    // for (var i = 0; i < allChartData.length; i++)
     return Scaffold(
       appBar: GradientAppBar(
-        "",
+        'indivisual name',
+        // allChartData[i]['petName']',
         'back',
       ),
       // IconButton(
