@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import './sign_in.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import './Dashboard/grid_dashboard.dart';
+import './dashboard/grid_dashboard.dart';
 import 'frontend_settings.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 

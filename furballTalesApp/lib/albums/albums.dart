@@ -3,7 +3,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'photos.dart';
 import '../sign_in.dart';
-import '../Dashboard/grid_dashboard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
@@ -31,8 +30,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-_buildButton({String text, int color, VoidCallback onClick}) =>
-    BuildButton().buildButton;
+// _buildButton({String text, int color, VoidCallback onClick}) =>
+//     BuildButton().buildButton;
 
 class Albums extends StatelessWidget {
   @override

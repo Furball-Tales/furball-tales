@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../frontend_settings.dart';
+import '../../main.dart';
+import '../../frontend_settings.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 

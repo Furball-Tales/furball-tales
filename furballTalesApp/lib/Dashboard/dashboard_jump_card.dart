@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'food_detail.dart';
-import 'walk_detail.dart';
-import 'weight_detail.dart';
+import 'food/food_detail.dart';
+import 'walk/walk_detail.dart';
+import 'weight/weight_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
 
@@ -135,49 +135,54 @@ class CustomCardState extends State<JumpCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      //text
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          heading,
-                          style: TextStyle(
-                            color: Color(textColor),
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-
-                      //icon
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Material(
-                          color: Color(materialColor),
-                          borderRadius: BorderRadius.circular(24),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                  right: 0.5,
-                                  top: 8.0,
-                                  child: Icon(icon, color: Colors.grey[600]),
-                                ),
-                                Icon(
-                                  icon,
-                                  color: Colors.grey[100],
-                                  size: 30,
-                                ),
-                              ],
+                  Flexible(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          //text
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              heading,
+                              style: TextStyle(
+                                color: Color(textColor),
+                                fontSize: 20,
+                              ),
                             ),
                           ),
-                        ),
+
+                          //icon
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Material(
+                              color: Color(materialColor),
+                              borderRadius: BorderRadius.circular(24),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Stack(
+                                  children: <Widget>[
+                                    Positioned(
+                                      right: 0.5,
+                                      top: 8.0,
+                                      child:
+                                          Icon(icon, color: Colors.grey[600]),
+                                    ),
+                                    Icon(
+                                      icon,
+                                      color: Colors.grey[100],
+                                      size: 30,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   )
                 ],
               ),

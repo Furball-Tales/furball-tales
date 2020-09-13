@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pet_card.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../frontend_settings.dart';
+import '../../frontend_settings.dart';
 
 class ListCardView {
   var allPetsData = [
