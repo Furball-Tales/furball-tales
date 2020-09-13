@@ -35,7 +35,7 @@ class About extends StatelessWidget {
     return Scaffold(
       appBar: GradientAppBar(
         "About Us",
-        true,
+        'back',
       ),
       backgroundColor: Color(baseColor),
       body: NeumorphicTheme(

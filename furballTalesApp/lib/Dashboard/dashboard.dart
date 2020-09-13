@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import './memo/memo.dart';
 import './grid_dashboard.dart';
 import '../app_bar.dart';
-import '../sign_in.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar("Furball Tales", false),
+      appBar: GradientAppBar(
+        "Dashboard",
+        'add',
+      ),
       backgroundColor: Colors.transparent,
       body: Column(
         children: [

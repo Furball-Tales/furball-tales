@@ -11,7 +11,7 @@ class Donation extends StatelessWidget {
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
         "Donation",
-        true,
+        'back',
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 0),

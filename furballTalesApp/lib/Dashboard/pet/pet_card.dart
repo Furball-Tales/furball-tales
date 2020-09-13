@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'pet_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../frontend_settings.dart';
+import '../../frontend_settings.dart';
 import 'package:firebase_database/firebase_database.dart';
-import '../sign_in.dart';
+import '../../sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
@@ -19,6 +19,8 @@ var baseColor = NeumorphicCardSettings.baseColor;
 var caveIntensity = NeumorphicCaveSettings.caveIntensity;
 var caveDepth = NeumorphicCaveSettings.caveDepth;
 var caveColor = NeumorphicCaveSettings.caveColor;
+
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
@@ -61,23 +63,45 @@ Future updateUrl(petProfilePicUrl) async {
 
 class PetCard extends StatefulWidget {
   String heroTag;
+  String birthday;
+  String name;
   String photo;
+  String sex;
 
-  PetCard(String heroTag, String photo) {
+  PetCard(
+    String heroTag,
+    String birthday,
+    String name,
+    String photo,
+    String sex,
+  ) {
     this.heroTag = heroTag;
+    this.birthday = birthday;
+    this.name = name;
     this.photo = photo;
+    this.sex = sex;
   }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return PetCardState(heroTag, photo);
+    return PetCardState(
+      heroTag,
+      birthday,
+      name,
+      photo,
+      sex,
+    );
   }
 }
 
 class PetCardState extends State<PetCard> {
   String heroTag;
+  String birthday;
+  String name;
   String photo;
+  String sex;
+
   var _hasPadding = false;
 
   File _image;
@@ -117,9 +141,18 @@ class PetCardState extends State<PetCard> {
     });
   }
 
-  PetCardState(String heroTag, String photo) {
+  PetCardState(
+    String heroTag,
+    String birthday,
+    String name,
+    String photo,
+    String sex,
+  ) {
     this.heroTag = heroTag;
+    this.birthday = birthday;
+    this.name = name;
     this.photo = photo;
+    this.sex = sex;
   }
 
   @override
@@ -198,9 +231,12 @@ class PetCardState extends State<PetCard> {
                                 ),
                               )
                             : Container(
-                                width: 80.0,
-                                height: 80.0,
-                                margin: EdgeInsets.only(bottom: 10),
+                                width: 70.0,
+                                height: 70.0,
+                                margin: EdgeInsets.only(
+                                  top: 3,
+                                  bottom: 1,
+                                ),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
@@ -214,47 +250,76 @@ class PetCardState extends State<PetCard> {
                   ),
                 ),
                 Flexible(
-                  child: Column(
-                    children: [
-                      Neumorphic(
-                        style: NeumorphicStyle(
-                            shape: NeumorphicShape.concave,
-                            depth: caveDepth,
-                            intensity: caveIntensity,
-                            lightSource: LightSource.topLeft,
-                            color: Color(caveColor)),
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 100,
-                          width: 110,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: 12,
-                              bottom: 12,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 2.0,
+                      left: 8.0,
+                      right: 8.0,
+                      bottom: 8.0,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Neumorphic(
+                            style: NeumorphicStyle(
+                                shape: NeumorphicShape.concave,
+                                depth: caveDepth,
+                                intensity: caveIntensity,
+                                lightSource: LightSource.topLeft,
+                                color: Color(caveColor)),
+                            child: Container(
+                              color: Colors.transparent,
+                              height: 80,
+                              width: 110,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: 12,
+                                  bottom: 12,
+                                ),
+                                child: StreamBuilder(
+                                    stream: databaseReference.onValue,
+                                    builder: (context, snap) {
+                                      return Container(
+                                        padding:
+                                            EdgeInsets.only(top: 12, left: 2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              name,
+                                              style: TextStyle(
+                                                color: Color(textBaseColor),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            Text(
+                                              sex,
+                                              style: TextStyle(
+                                                color: Color(textBaseColor),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            Text(
+                                              birthday,
+                                              style: TextStyle(
+                                                color: Color(textBaseColor),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            // Text('Weight: $_weight'),
+                                          ],
+                                        ),
+                                      );
+                                    }),
+                              ),
                             ),
-                            child: StreamBuilder(
-                                stream: databaseReference.onValue,
-                                builder: (context, snap) {
-                                  return Container(
-                                    padding: EdgeInsets.only(top: 12, left: 2),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text('Name: $_name'),
-                                        Text('Sex: $_sex'),
-                                        Text('Age: $_age'),
-                                        // Text('Weight: $_weight'),
-                                      ],
-                                    ),
-                                  );
-                                }),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],

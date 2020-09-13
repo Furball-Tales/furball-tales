@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
 import '../sign_in.dart';
+import '../frontend_settings.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -59,161 +63,175 @@ class _MedicalState extends State<Medical> {
   Widget build(BuildContext context) {
     // getData();
     return Scaffold(
+      backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
         "Medical History",
-        false,
+        'null',
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                    actions: <Widget>[
-                      FlatButton(
-                          onPressed: () {
-                            addHistory();
-                            Navigator.of(context).pop();
-                            dateValue = "Not Set";
-                          },
-                          child: Text("Add History"))
-                    ],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    title: Text("Add History"),
-                    content: Stack(
-                      overflow: Overflow.visible,
-                      children: <Widget>[
-                        Form(
-                            child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                  elevation: 4.0,
-                                  onPressed: () {
-                                    DatePicker.showDatePicker(context,
-                                        theme: DatePickerTheme(
-                                          containerHeight: 250.0,
-                                        ),
-                                        showTitleActions: true,
-                                        minTime: DateTime(2020, 1, 1),
-                                        maxTime: DateTime(2021, 12, 31),
-                                        onConfirm: (date) {
-                                      setState(() {
-                                        dateValue =
-                                            '${date.year}-${date.month}-${date.day}';
-                                      });
-                                    },
-                                        currentTime: DateTime.now(),
-                                        locale: LocaleType.en);
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 50.0,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Row(
-                                          children: <Widget>[
-                                            Container(
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.date_range,
-                                                    size: 15.0,
-                                                    color: Colors.blue,
-                                                  ),
-                                                  new Text(
-                                                    "$dateValue",
-                                                    style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15.0),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        Text(
-                                          "Change",
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15.0),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: TextFormField(
-                                    onChanged: (String hospitalValue) {
-                                      hospital = hospitalValue;
-                                    },
-                                    decoration:
-                                        InputDecoration(labelText: 'Hospital')),
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: TextFormField(
-                                      onChanged: (String veterinarianValue) {
-                                        veterinarian = veterinarianValue;
-                                      },
-                                      decoration: InputDecoration(
-                                          labelText: 'Vet Name'))),
-                              Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: TextFormField(
-                                      onChanged: (String vaccinationValue) {
-                                        vaccinations = vaccinationValue;
-                                      },
-                                      decoration: InputDecoration(
-                                          labelText: 'Vaccinations'))),
-                              Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: TextFormField(
-                                      onChanged: (String medicationValue) {
-                                        medications = medicationValue;
-                                      },
-                                      decoration: InputDecoration(
-                                          labelText: 'Medication'))),
-                              Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: TextFormField(
-                                      onChanged: (String weightValue) {
-                                        weight = weightValue;
-                                      },
-                                      decoration: InputDecoration(
-                                          labelText: 'Weight'))),
-                              Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: TextFormField(
-                                      onChanged: (String notesValue) {
-                                        notes = notesValue;
-                                      },
-                                      decoration:
-                                          InputDecoration(labelText: 'Notes'))),
-                            ],
+      floatingActionButton: NeumorphicTheme(
+        child: NeumorphicFloatingActionButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      actions: <Widget>[
+                        NeumorphicTheme(
+                          child: NeumorphicButton(
+                            child: const Text('Add'),
+                            onPressed: () {
+                              addHistory();
+                              Navigator.of(context).pop();
+                              dateValue = "Not Set";
+                            },
+                            style: NeumorphicStyle(
+                              color: Colors.white,
+                            ),
                           ),
-                        ))
+                        ),
                       ],
-                    ));
-              });
-        },
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      title: Text("Add History"),
+                      content: Stack(
+                        overflow: Overflow.visible,
+                        children: <Widget>[
+                          Form(
+                              child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                    elevation: 4.0,
+                                    onPressed: () {
+                                      DatePicker.showDatePicker(context,
+                                          theme: DatePickerTheme(
+                                            containerHeight: 250.0,
+                                          ),
+                                          showTitleActions: true,
+                                          minTime: DateTime(2020, 1, 1),
+                                          maxTime: DateTime(2021, 12, 31),
+                                          onConfirm: (date) {
+                                        setState(() {
+                                          dateValue =
+                                              '${date.year}-${date.month}-${date.day}';
+                                        });
+                                      },
+                                          currentTime: DateTime.now(),
+                                          locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 50.0,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.date_range,
+                                                      size: 15.0,
+                                                      color: Colors.blue,
+                                                    ),
+                                                    new Text(
+                                                      "$dateValue",
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 15.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                            "Change",
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: TextFormField(
+                                      onChanged: (String hospitalValue) {
+                                        hospital = hospitalValue;
+                                      },
+                                      decoration: InputDecoration(
+                                          labelText: 'Hospital')),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: TextFormField(
+                                        onChanged: (String veterinarianValue) {
+                                          veterinarian = veterinarianValue;
+                                        },
+                                        decoration: InputDecoration(
+                                            labelText: 'Vet Name'))),
+                                Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: TextFormField(
+                                        onChanged: (String vaccinationValue) {
+                                          vaccinations = vaccinationValue;
+                                        },
+                                        decoration: InputDecoration(
+                                            labelText: 'Vaccinations'))),
+                                Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: TextFormField(
+                                        onChanged: (String medicationValue) {
+                                          medications = medicationValue;
+                                        },
+                                        decoration: InputDecoration(
+                                            labelText: 'Medication'))),
+                                Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: TextFormField(
+                                        onChanged: (String weightValue) {
+                                          weight = weightValue;
+                                        },
+                                        decoration: InputDecoration(
+                                            labelText: 'Weight'))),
+                                Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: TextFormField(
+                                        onChanged: (String notesValue) {
+                                          notes = notesValue;
+                                        },
+                                        decoration: InputDecoration(
+                                            labelText: 'Notes'))),
+                              ],
+                            ),
+                          ))
+                        ],
+                      ));
+                });
+          },
+          child: Container(
+            color: Color(baseColor),
+            child: Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
+          tooltip: 'New History',
         ),
       ),
       body: StreamBuilder(

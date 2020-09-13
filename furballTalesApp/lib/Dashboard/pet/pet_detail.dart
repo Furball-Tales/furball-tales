@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../frontend_settings.dart';
+import '../../main.dart';
 
-var baseColor = NeumorphicCardSettings.baseColor;
+class PetDetail extends StatelessWidget {
+  String heroTag;
+  String photo;
 
-class WeightDetail extends StatelessWidget {
-  IconData icon;
-  String heading;
-  int color;
-
-  WeightDetail(IconData icon, String heading, int color) {
-    this.icon = icon;
-    this.heading = heading;
-    this.color = color;
+  PetDetail(String heroTag, String photo) {
+    this.heroTag = heroTag;
+    this.photo = photo;
   }
 
   @override
@@ -21,11 +16,11 @@ class WeightDetail extends StatelessWidget {
         backgroundColor:
             Colors.transparent, //Make background of overall Widget transparent
         body: Hero(
-            tag: heading,
+            tag: heroTag,
             child: Material(
                 type: MaterialType.transparency,
                 child: Container(
-                  color: Color(baseColor),
+                  color: Colors.white,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
@@ -56,10 +51,9 @@ class WeightDetail extends StatelessWidget {
             child: Stack(
           children: <Widget>[
             Center(
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 30,
+              child: Image.asset(
+                photo,
+                fit: BoxFit.cover,
               ),
             ),
             Column(
