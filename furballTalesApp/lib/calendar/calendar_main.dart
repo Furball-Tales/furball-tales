@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furballTalesApp/calendar/res/firestore_service.dart';
 import 'package:furballTalesApp/homepage.dart';
 import './res/event_firebase_service.dart';
 import './ui/pages/add_event.dart';
@@ -60,7 +61,8 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Calendar'),
+        title: Text('Furball Tales Calendar'),
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<List<EventModel>>(
           stream: eventDBS.streamList(),
@@ -142,34 +144,152 @@ class _CalendarState extends State<Calendar> {
                                     returnTimeOnly(event.eventTime),
                                 style: TextStyle(color: Colors.red),
                               ),
-                              Text(event.description),
+                              //Text(event.description),
                               // IconButton(
                               //   color: Colors.red,
                               //   icon: Icon(Icons.delete),
                               //   onPressed: () => _deleteNote(context, event.id),
                               // ),
                             ]),
-                        trailing: FlatButton(
-                            onPressed: () async {
-                              await eventDBS.removeItem(event.id);
-                              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Homepage()))
-                                  .whenComplete(() => {Navigator.pop(context)});
-                            },
-                            child: Text('delete')),
-                        // onTap: () {
-                        //   print(event);
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (_) => EventDetailsPage(
-                        //                 event: event,
-                        //               )
-                        //               )
-                        //               );
-                        // },
+                        // trailing: Row(
+                        //   mainAxisSize: MainAxisSize.min,
+                        //   children: <Widget>[
+                        //     IconButton(
+                        //       color: Colors.blue,
+                        //       icon: Icon(Icons.edit),
+                        //       onPressed: () => Navigator.push(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //             builder: (_) => AddEventPage(note: event),
+                        //           )),
+                        //     ),
+                        //     IconButton(
+                        //       color: Colors.red,
+                        //       icon: Icon(Icons.delete),
+                        //       onPressed: () => _deleteNote(context, event.id),
+                        //     ),
+                        //   ],
+                        // ),
+
+                        // trailing: FlatButton(
+                        //     onPressed: () {
+                        //       setState(() {
+                        //         String id = event.id;
+                        //         FirestoreService().deleteNote(id);
+                        //         //Navigator.of(context).pop();
+                        //       });
+
+                        //       // await eventDBS.removeItem(event.id);
+                        //       // Navigator.push(
+                        //       //         context,
+                        //       //         MaterialPageRoute(
+                        //       //             builder: (context) => Homepage()))
+                        //       //     .whenComplete(() => {Navigator.pop(context)});
+                        //     },
+                        //     child: Text('delete')),
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Icon(Icons.delete),
+                                        onPressed: () {
+                                          setState(() {
+                                            eventDBS.removeItem(event.id);
+                                            Navigator.of(context).pop();
+                                          });
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Icon(Icons.update),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AddEventPage(note: event),
+                                              ));
+                                          // setState(() {
+                                          //   eventDBS.removeItem(event.id);
+
+                                          //   Navigator.of(context).pop();
+                                          // });
+                                        },
+                                      ),
+                                    ],
+                                    title: Text(event.title),
+                                    titleTextStyle: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold),
+                                    titlePadding:
+                                        EdgeInsets.fromLTRB(20, 20, 0, 0),
+                                    content: IntrinsicHeight(
+                                      child: Column(children: <Widget>[
+                                        Row(children: [
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            child: Text("Event time: ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey,
+                                                  fontSize: 18.0,
+                                                )),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.fromLTRB(
+                                                  10, 0, 0, 0),
+                                              child: Text(
+                                                  returnTimeOnly(
+                                                      event.eventTime),
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                    fontSize: 18.0,
+                                                  )),
+                                            ),
+                                          ),
+                                        ]),
+                                        Row(children: [
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            child: Text("Details: ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey,
+                                                  fontSize: 18.0,
+                                                )),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.fromLTRB(
+                                                  10, 0, 0, 0),
+                                              child: Text(event.description,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                    fontSize: 18.0,
+                                                  )),
+                                            ),
+                                          ),
+                                        ]),
+                                      ]),
+                                    ));
+                              });
+
+                          // print(event);
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (_) => EventDetailsPage(
+                          //               event: event,
+                          //             )));
+                        },
                       )),
                 ],
               ),
@@ -186,39 +306,36 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  refresh() {
-    setState(() {});
-  }
+  // _deleteNote(BuildContext context, String id) async {
+  //   if (await _showConfirmationDialog(context)) {
+  //     try {
+  //       await eventDBS.removeItem(id);
+  //       Navigator.of(context).pop();
+  //     } catch (e) {
+  //       print(e);
+  //     }
+  //   }
+  // }
 
-  void _deleteNote(BuildContext context, String id) async {
-    if (await _showConfirmationDialog(context)) {
-      try {
-        await eventDBS.removeItem(id);
-        Navigator.of(context).pop();
-      } catch (e) {
-        print(e);
-      }
-    }
-  }
-
-  Future<bool> _showConfirmationDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (context) => AlertDialog(
-              content: Text("Are you sure you want to delete?"),
-              actions: <Widget>[
-                FlatButton(
-                  textColor: Colors.red,
-                  child: Text("Delete"),
-                  onPressed: () => Navigator.pop(context, true),
-                ),
-                FlatButton(
-                  textColor: Colors.black,
-                  child: Text("No"),
-                  onPressed: () => Navigator.pop(context, false),
-                ),
-              ],
-            ));
-  }
+  // Future<bool> _showConfirmationDialog(BuildContext context) async {
+  //   return showDialog(
+  //       context: context,
+  //       barrierDismissible: true,
+  //       builder: (context) => AlertDialog(
+  //             content: Text("Are you sure you want to delete?"),
+  //             actions: <Widget>[
+  //               FlatButton(
+  //                   textColor: Colors.red,
+  //                   child: Text("Delete"),
+  //                   onPressed: () {
+  //                     Navigator.pop(context, true);
+  //                   }),
+  //               FlatButton(
+  //                 textColor: Colors.black,
+  //                 child: Text("No"),
+  //                 onPressed: () => Navigator.pop(context, false),
+  //               ),
+  //             ],
+  //           ));
+  // }
 }

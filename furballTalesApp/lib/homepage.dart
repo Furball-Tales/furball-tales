@@ -44,9 +44,9 @@ class _MyAppState extends State<Homepage> {
   final List<Widget> _children = [
     Dashboard(),
     Albums(),
+    Calendar(),
     Medical(),
     Profile(),
-    Calendar(),
   ];
 
   @override
@@ -74,6 +74,13 @@ class _MyAppState extends State<Homepage> {
           ),
           BottomNavigationBarItem(
             icon: NeumorphicIcon(
+              Icons.calendar_today,
+              size: 30,
+            ),
+            title: Container(height: 12.0),
+          ),
+          BottomNavigationBarItem(
+            icon: NeumorphicIcon(
               Icons.local_hospital,
               size: 30,
             ),
@@ -82,13 +89,6 @@ class _MyAppState extends State<Homepage> {
           BottomNavigationBarItem(
             icon: NeumorphicIcon(
               Icons.perm_identity,
-              size: 30,
-            ),
-            title: Container(height: 12.0),
-          ),
-          BottomNavigationBarItem(
-            icon: NeumorphicIcon(
-              Icons.calendar_today,
               size: 30,
             ),
             title: Container(height: 12.0),

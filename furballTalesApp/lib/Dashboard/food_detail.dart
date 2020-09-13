@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../frontend_settings.dart';
 
-class FoodDetailPage extends StatelessWidget {
+var baseColor = NeumorphicCardSettings.baseColor;
+
+class FoodDetail extends StatelessWidget {
   IconData icon;
   String heading;
   int color;
 
-  FoodDetailPage(IconData icon, String heading, int color) {
+  FoodDetail(IconData icon, String heading, int color) {
     this.icon = icon;
     this.heading = heading;
     this.color = color;
@@ -16,7 +19,7 @@ class FoodDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor:
-            Colors.transparent, //Make background of overall Widget transparent
+            Color(baseColor), //Make background of overall Widget transparent
         body: Hero(
             tag: heading,
             child: Material(

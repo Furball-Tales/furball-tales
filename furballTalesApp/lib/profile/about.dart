@@ -3,8 +3,31 @@ import 'package:furballTalesApp/profile/project_details.dart';
 import 'team.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
+var accentBlue = NeumorphicCardSettings.accentBlue;
+var accentPink = NeumorphicCardSettings.accentPink;
+var accentYellow = NeumorphicCardSettings.accentYellow;
+var accentGold = NeumorphicCardSettings.accentGold;
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      title: 'Flutter Neumorphic',
+      home: About(),
+    );
+  }
+}
+
+_buildButton({String text, int color, VoidCallback onClick}) =>
+    BuildButton().buildButton;
 
 class About extends StatelessWidget {
   @override
@@ -14,173 +37,143 @@ class About extends StatelessWidget {
         "About Us",
         true,
       ),
-      // appBar: AppBar(
-      //   title: Text(
-      //     'About FurBallTales',
-      //     style: TextStyle(
-      //         fontWeight: FontWeight.bold, letterSpacing: 1.5, fontSize: 25),
-      //   ),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.cyanAccent[400],
-      //   leading: GestureDetector(
-      //       onTap: () {
-      //         Navigator.pop(context);
-      //       },
-      //       child: Icon(
-      //         Icons.arrow_back,
-      //       )),
-      // ),
       backgroundColor: Color(baseColor),
-      body: ListView(
-        //padding: const EdgeInsets.all(1),
-        children: <Widget>[
-          Container(
-            height: 85,
-            width: 30,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/mission.png'),
-                fit: BoxFit.fill,
-              ),
-              // shape: BoxShape.circle,
-            ),
-          ),
-          Center(
-              heightFactor: 1.2,
-              child: Text(
-                'Strengthening the bond of owners and pets, more than ever...',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.cyanAccent[700],
-                  wordSpacing: 8,
-                ),
-              )),
-          Divider(
-            color: Colors.cyanAccent[700],
-            thickness: 1,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Center(
+      body: NeumorphicTheme(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 24),
               child: Container(
-                  width: 200.0,
-                  height: 50.0,
-                  child: RaisedButton(
-                    child: Text('About Project'.toUpperCase(),
-                        style: TextStyle(fontSize: 20.0)),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProjectDet())
-                              );
-                    },
-                    color: Colors.cyan,
-                    textColor: Colors.white,
-                    splashColor: Colors.grey,
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  ))),
-          Divider(
-            height: 20,
-            color: Colors.cyanAccent[700],
-            thickness: 1,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Center(
-              child: Column(children: <Widget>[
-            Text(
-              'Our Team'.toUpperCase(),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                wordSpacing: 8,
+                height: 230,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/about_us.png'),
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
               ),
             ),
-            Container(
-                margin: EdgeInsets.all(10),
-                width: 200.0,
-                height: 50.0,
-                child: RaisedButton(
-                  child: Text('Ayumi Funaki', style: TextStyle(fontSize: 20.0)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Ayumi()));
-                  },
-                  color: Colors.cyan,
-                  textColor: Colors.white,
-                  splashColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                )),
-            Container(
-                margin: EdgeInsets.all(10),
-                width: 200.0,
-                height: 50.0,
-                child: RaisedButton(
-                  child: Text('Yuta Nomoto', style: TextStyle(fontSize: 20.0)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Yuta()));
-                  },
-                  color: Colors.cyan,
-                  textColor: Colors.white,
-                  splashColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                )),
-            Container(
-                margin: EdgeInsets.all(10),
-                width: 200.0,
-                height: 50.0,
-                child: RaisedButton(
-                  child:
-                      Text('Ryohei Mizuho', style: TextStyle(fontSize: 20.0)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Ryohei()));
-                  },
-                  color: Colors.cyan,
-                  textColor: Colors.white,
-                  splashColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                )),
-            Container(
-                margin: EdgeInsets.all(10),
-                width: 200.0,
-                height: 50.0,
-                child: RaisedButton(
-                  child: Text('Jimmy Wilson', style: TextStyle(fontSize: 20.0)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Jimmy()));
-                  },
-                  color: Colors.cyan,
-                  textColor: Colors.white,
-                  splashColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                )),
-            Container(
-                margin: EdgeInsets.all(10),
-                width: 200.0,
-                height: 50.0,
-                child: RaisedButton(
-                  child: Text('Mukhtar Otarbayev',
-                      style: TextStyle(fontSize: 20.0)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Mukhtar()));
-                  },
-                  color: Colors.cyan,
-                  textColor: Colors.white,
-                  splashColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                )),
-          ]))
-        ],
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 100,
+                  left: 100,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: NeumorphicText(
+                        "Our Project",
+                        style: NeumorphicStyle(
+                          depth: 4, //customize depth here
+                          color: Colors.white, //customize color here
+                        ),
+                        textStyle: NeumorphicTextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold //customize size here
+                            // AND others usual text style properties (fontFamily, fontWeight, ...)
+                            ),
+                      ),
+                    ),
+                    _buildButton()(
+                      text: "Furball Tails",
+                      color: accentGold,
+                      onClick: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ProjectDet();
+                        }));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 100,
+                  left: 100,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: NeumorphicText(
+                        "Our Team",
+                        style: NeumorphicStyle(
+                          depth: 4, //customize depth here
+                          color: Colors.white, //customize color here
+                        ),
+                        textStyle: NeumorphicTextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold //customize size here
+                            // AND others usual text style properties (fontFamily, fontWeight, ...)
+                            ),
+                      ),
+                    ),
+                    _buildButton()(
+                        text: "Ayumi Funaki",
+                        color: accentPink,
+                        onClick: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return Ayumi();
+                          }));
+                        },
+                        bottom: 20.0,
+                        fontSize: 18.0),
+                    _buildButton()(
+                        text: "Yuta Nomoto",
+                        color: accentBlue,
+                        onClick: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return Yuta();
+                          }));
+                        },
+                        bottom: 20.0,
+                        fontSize: 18.0),
+                    _buildButton()(
+                        text: "Ryohei Mizuho",
+                        color: accentPink,
+                        onClick: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return Ryohei();
+                          }));
+                        },
+                        bottom: 20.0,
+                        fontSize: 18.0),
+                    _buildButton()(
+                        text: "Jimmy Wilson",
+                        color: accentBlue,
+                        onClick: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return Jimmy();
+                          }));
+                        },
+                        bottom: 20.0,
+                        fontSize: 18.0),
+                    _buildButton()(
+                        text: "Mukhtar Otarbayev",
+                        color: accentPink,
+                        onClick: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return Mukhtar();
+                          }));
+                        },
+                        bottom: 20.0,
+                        fontSize: 17.0),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

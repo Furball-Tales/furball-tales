@@ -130,8 +130,9 @@ class _AddEventPageState extends State<AddEventPage> {
                                 await eventDBS.updateData(widget.note.id, {
                                   "title": _title.text,
                                   "description": _description.text,
-                                  "event_date": widget.note.eventDate,
-                                  "event_time": widget.note.eventTime
+                                  "event_date": _eventDate,
+                                  "event_time": formatTimeOfDaytoDateTime(
+                                      _eventDate, _eventTime)
                                 });
                               } else {
                                 await eventDBS.createItem(EventModel(

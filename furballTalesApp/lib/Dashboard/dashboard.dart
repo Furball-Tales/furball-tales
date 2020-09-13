@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import './memo.dart';
+import './memo/memo.dart';
 import './grid_dashboard.dart';
 import '../app_bar.dart';
+import '../sign_in.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Dashboard extends StatelessWidget {
   @override
@@ -12,7 +14,7 @@ class Dashboard extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: GridDashboard()),
-          Container(height: 70, child: MemoList())
+          Container(height: 55, child: MemoList())
         ],
       ),
     );

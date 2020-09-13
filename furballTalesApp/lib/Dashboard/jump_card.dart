@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'food_detail_page.dart';
+import 'food_detail.dart';
+import 'walk_detail.dart';
+import 'weight_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
 
@@ -11,7 +13,14 @@ var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
 
-class FoodCard extends StatefulWidget {
+_nextPage(icon, heading, textColor) {
+  if (heading == 'Food') return FoodDetail(icon, heading, textColor);
+  if (heading == 'Walk') return WalkDetail(icon, heading, textColor);
+  if (heading == 'Food') return FoodDetail(icon, heading, textColor);
+  if (heading == 'Weight') return WeightDetail(icon, heading, textColor);
+}
+
+class JumpCard extends StatefulWidget {
   IconData icon;
   String heading;
   int textColor;
@@ -21,7 +30,7 @@ class FoodCard extends StatefulWidget {
   double surfaceIntensity;
   int baseColor;
 
-  FoodCard(IconData icon, String heading, int textColor, int materialColor,
+  JumpCard(IconData icon, String heading, int textColor, int materialColor,
       double intensity, double depth, double surfaceIntensity, int baseColor) {
     this.icon = icon;
     this.heading = heading;
@@ -41,7 +50,7 @@ class FoodCard extends StatefulWidget {
   }
 }
 
-class CustomCardState extends State<FoodCard> {
+class CustomCardState extends State<JumpCard> {
   IconData icon;
   String heading;
   int textColor;
@@ -104,7 +113,7 @@ class CustomCardState extends State<FoodCard> {
               PageRouteBuilder(
                 transitionDuration: Duration(milliseconds: 500),
                 pageBuilder: (_, __, ___) =>
-                    FoodDetailPage(icon, heading, textColor),
+                    _nextPage(icon, heading, textColor),
               ));
         },
         onTapCancel: () {
@@ -145,20 +154,6 @@ class CustomCardState extends State<FoodCard> {
                       Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          boxShadow: [
-                            // BoxShadow(
-                            //   color: Colors.white,
-                            //   spreadRadius: -10,
-                            //   blurRadius: 17,
-                            //   offset: Offset(-5, -5),
-                            // ),
-                            // BoxShadow(
-                            //   color: Colors.black26,
-                            //   spreadRadius: -2,
-                            //   blurRadius: 10,
-                            //   offset: Offset(7, 7),
-                            // ),
-                          ],
                         ),
                         child: Material(
                           color: Color(materialColor),
