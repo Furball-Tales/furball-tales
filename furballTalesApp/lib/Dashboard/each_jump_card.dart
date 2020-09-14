@@ -14,9 +14,11 @@ var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
 
-_nextPage(icon, heading, textColor) {
-  if (heading == 'Weight') return Chart();
-}
+// var allChartData = List<Map<String, Object>> allChartData;
+
+// _nextPage(icon, heading, textColor) {
+//   if (heading == 'Weight') return Chart(allChartData);
+// }
 
 class EachJumpCard extends StatefulWidget {
   IconData icon;
@@ -27,9 +29,19 @@ class EachJumpCard extends StatefulWidget {
   double depth;
   double surfaceIntensity;
   int baseColor;
+  List<Map<String, Object>> allChartData;
 
-  EachJumpCard(IconData icon, String heading, int textColor, int materialColor,
-      double intensity, double depth, double surfaceIntensity, int baseColor) {
+  EachJumpCard(
+    IconData icon,
+    String heading,
+    int textColor,
+    int materialColor,
+    double intensity,
+    double depth,
+    double surfaceIntensity,
+    int baseColor,
+    List<Map<String, Object>> allChartData,
+  ) {
     this.icon = icon;
     this.heading = heading;
     this.textColor = textColor;
@@ -38,13 +50,23 @@ class EachJumpCard extends StatefulWidget {
     this.depth = depth;
     this.surfaceIntensity = surfaceIntensity;
     this.baseColor = baseColor;
+    this.allChartData = allChartData;
   }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return CustomCardState(icon, heading, textColor, materialColor, intensity,
-        depth, surfaceIntensity, baseColor);
+    return CustomCardState(
+      icon,
+      heading,
+      textColor,
+      materialColor,
+      intensity,
+      depth,
+      surfaceIntensity,
+      baseColor,
+      allChartData,
+    );
   }
 }
 
@@ -57,18 +79,21 @@ class CustomCardState extends State<EachJumpCard> {
   double depth;
   double surfaceIntensity;
   int baseColor;
+  List<Map<String, Object>> allChartData;
 
   var _hasPadding = false;
 
   CustomCardState(
-      IconData icon,
-      String heading,
-      int textColor,
-      int materialColor,
-      double intensity,
-      double depth,
-      double surfaceIntensity,
-      int baseColor) {
+    IconData icon,
+    String heading,
+    int textColor,
+    int materialColor,
+    double intensity,
+    double depth,
+    double surfaceIntensity,
+    int baseColor,
+    List<Map<String, Object>> allChartData,
+  ) {
     this.icon = icon;
     this.heading = heading;
     this.textColor = textColor;
@@ -77,6 +102,7 @@ class CustomCardState extends State<EachJumpCard> {
     this.depth = depth;
     this.surfaceIntensity = surfaceIntensity;
     this.baseColor = baseColor;
+    this.allChartData = allChartData;
   }
 
   @override

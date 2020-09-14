@@ -4,6 +4,7 @@ import 'walk/walk_detail.dart';
 import 'weight/weight_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
+import 'chart_dammy_data.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
@@ -13,11 +14,231 @@ var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
 
+var allChartData = [
+  {
+    'key': '2020-09-11=17:25:57:351',
+    'petName': 'Jimmy',
+    'data': {
+      'food': [
+        {
+          'dateTime': '2020, 8, 21',
+          'value': 300,
+        },
+        {
+          'dateTime': '2020, 8, 22',
+          'value': 300,
+        },
+      ],
+      'walk': [
+        {
+          'dateTime': '2020, 8, 23',
+          'value': 30,
+        },
+        {
+          'dateTime': '2020, 8, 24',
+          'value': 90,
+        },
+      ],
+      'weight': [
+        {
+          'dateTime': '2020, 8, 25',
+          'value': 1450,
+        },
+        {
+          'dateTime': '2020, 8, 26',
+          'value': 1890,
+        },
+      ],
+    }
+  },
+  {
+    'key': '2020-09-11=17:25:57:352',
+    'petName': 'Anny',
+    'data': {
+      'food': [
+        {
+          'dateTime': '2020, 8, 21',
+          'value': 300,
+        },
+        {
+          'dateTime': '2020, 8, 22',
+          'value': 300,
+        },
+      ],
+      'walk': [
+        {
+          'dateTime': '2020, 8, 23',
+          'value': 30,
+        },
+        {
+          'dateTime': '2020, 8, 24',
+          'value': 90,
+        },
+      ],
+      'weight': [
+        {
+          'dateTime': '2020, 8, 25',
+          'value': 1450,
+        },
+        {
+          'dateTime': '2020, 8, 26',
+          'value': 1890,
+        },
+      ],
+    }
+  },
+  {
+    'key': '2020-09-11=17:25:57:353',
+    'petName': 'Angy',
+    'data': {
+      'food': [
+        {
+          'dateTime': '2020, 8, 21',
+          'value': 300,
+        },
+        {
+          'dateTime': '2020, 8, 22',
+          'value': 300,
+        },
+      ],
+      'walk': [
+        {
+          'dateTime': '2020, 8, 23',
+          'value': 30,
+        },
+        {
+          'dateTime': '2020, 8, 24',
+          'value': 90,
+        },
+      ],
+      'weight': [
+        {
+          'dateTime': '2020, 8, 25',
+          'value': 1450,
+        },
+        {
+          'dateTime': '2020, 8, 26',
+          'value': 1890,
+        },
+      ],
+    }
+  },
+  {
+    'key': '2020-09-11=17:25:57:354',
+    'petName': 'Jiro',
+    'data': {
+      'food': [
+        {
+          'dateTime': '2020, 8, 21',
+          'value': 300,
+        },
+        {
+          'dateTime': '2020, 8, 22',
+          'value': 300,
+        },
+      ],
+      'walk': [
+        {
+          'dateTime': '2020, 8, 23',
+          'value': 30,
+        },
+        {
+          'dateTime': '2020, 8, 24',
+          'value': 90,
+        },
+      ],
+      'weight': [
+        {
+          'dateTime': '2020, 8, 25',
+          'value': 1450,
+        },
+        {
+          'dateTime': '2020, 8, 26',
+          'value': 1890,
+        },
+      ],
+    }
+  },
+  {
+    'key': '2020-09-11=17:25:57:355',
+    'petName': 'Suga Yoshihide',
+    'data': {
+      'food': [
+        {
+          'dateTime': '2020, 8, 21',
+          'value': 300,
+        },
+        {
+          'dateTime': '2020, 8, 22',
+          'value': 300,
+        },
+      ],
+      'walk': [
+        {
+          'dateTime': '2020, 8, 23',
+          'value': 30,
+        },
+        {
+          'dateTime': '2020, 8, 24',
+          'value': 90,
+        },
+      ],
+      'weight': [
+        {
+          'dateTime': '2020, 8, 25',
+          'value': 1450,
+        },
+        {
+          'dateTime': '2020, 8, 26',
+          'value': 1890,
+        },
+      ],
+    }
+  },
+  {
+    'key': '2020-09-11=17:25:57:356',
+    'petName': 'Nozomi Sasaki',
+    'data': {
+      'food': [
+        {
+          'dateTime': '2020, 8, 21',
+          'value': 300,
+        },
+        {
+          'dateTime': '2020, 8, 22',
+          'value': 300,
+        },
+      ],
+      'walk': [
+        {
+          'dateTime': '2020, 8, 23',
+          'value': 30,
+        },
+        {
+          'dateTime': '2020, 8, 24',
+          'value': 90,
+        },
+      ],
+      'weight': [
+        {
+          'dateTime': '2020, 8, 25',
+          'value': 1450,
+        },
+        {
+          'dateTime': '2020, 8, 26',
+          'value': 1890,
+        },
+      ],
+    }
+  },
+];
+
 _nextPage(icon, heading, textColor) {
   if (heading == 'Food') return FoodDetail(icon, heading, textColor);
   if (heading == 'Walk') return WalkDetail(icon, heading, textColor);
   if (heading == 'Food') return FoodDetail(icon, heading, textColor);
-  if (heading == 'Weight') return WeightDetail(icon, heading, textColor);
+  if (heading == 'Weight')
+    return WeightDetail(icon, heading, textColor, allChartData);
 }
 
 class JumpCard extends StatefulWidget {
