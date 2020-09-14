@@ -218,3 +218,6 @@ class ChartDammyData {
     },
   ];
 }
+
+// DataPoint<DateTime>(
+//   value: 3120.5, xAxis: DateTime(2019, 9, 27)),

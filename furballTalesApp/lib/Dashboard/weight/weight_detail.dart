@@ -32,7 +32,7 @@ class WeightDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: GradientAppBar(
-          "Weight Chart History",
+          "Weight History",
           'back',
         ),
         backgroundColor:
@@ -60,6 +60,7 @@ class WeightDetail extends StatelessWidget {
                   ),
                   child: EachJumpCard(
                     Icons.line_weight,
+                    heading,
                     allChartData[i]['petName'],
                     mildBlueGreen,
                     mildBlueGreen,
