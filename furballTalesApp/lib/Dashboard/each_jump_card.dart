@@ -138,7 +138,7 @@ class CustomCardState extends State<EachJumpCard> {
                 transitionDuration: Duration(milliseconds: 500),
                 pageBuilder: (_, __, ___) =>
                     // _nextPage(icon, heading, textColor),
-                    Chart(),
+                    Chart(heading, allChartData),
               ));
         },
         onTapCancel: () {
