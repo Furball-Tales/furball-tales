@@ -2,7 +2,6 @@ import 'package:intl/intl.dart' as intl;
 import 'package:bezier_chart/bezier_chart.dart';
 import 'package:flutter/material.dart';
 import '../app_bar.dart';
-// import 'chart_dammy_data.dart';
 
 class Chart extends StatefulWidget {
   String petName;
@@ -11,8 +10,6 @@ class Chart extends StatefulWidget {
   Chart(petName, allChartData) {
     this.petName = petName;
     this.allChartData = allChartData;
-    // print(allChartData);
-    print(petName);
   }
 
   @override
@@ -22,6 +19,7 @@ class Chart extends StatefulWidget {
 class _ChartState extends State<Chart> {
   DateTime fromDate;
   DateTime toDate;
+  String petName;
   dynamic allChartData;
 
   @override
@@ -29,8 +27,8 @@ class _ChartState extends State<Chart> {
     super.initState();
     fromDate = DateTime(2019, 09, 1);
     toDate = DateTime(2019, 09, 30);
-    this.allChartData = allChartData;
-    print(allChartData);
+    petName = widget.petName;
+    allChartData = widget.allChartData;
   }
 
   @override
@@ -40,7 +38,7 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
-    // dynamic allChartData;
+    dynamic allChartData;
     final date1 = toDate.subtract(Duration(days: 2));
     final date2 = toDate.subtract(Duration(days: 3));
 
