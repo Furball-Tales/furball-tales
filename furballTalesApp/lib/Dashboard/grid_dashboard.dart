@@ -10,6 +10,7 @@ import 'dashboard_jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
 import '../initial_registration.dart';
+import '../get_allPetsData.dart';
 
 void main() => runApp(MyApp());
 
@@ -133,7 +134,7 @@ class _GridDashboardState extends State<GridDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    readAllPetsData();
+    // readAllPetsData();
     readPetdata();
     readUrl();
     return Scaffold(
