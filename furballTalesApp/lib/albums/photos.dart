@@ -7,11 +7,11 @@ import 'package:path/path.dart';
 import 'dart:io';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'dart:math';
-import 'dart:typed_data';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
+import 'singlePhoto.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -154,6 +154,12 @@ class _PhotosState extends State<Photos> {
                     itemBuilder: (context, index) => InkResponse(
                       child:
                           new _Tile(index, _sizes[index], item[index]["link"]),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute<void>(
+                            builder: (BuildContext context) {
+                          return SinglePhoto(item[index]["link"]);
+                        }));
+                      },
                       onLongPress: () {
                         showDialog(
                             context: context,
@@ -187,7 +193,7 @@ class _PhotosState extends State<Photos> {
                     staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
                   );
                 } else
-                  return Text("No Photos");
+                  return Center(child: Text("No Photos"));
               },
             ),
           ),
@@ -227,42 +233,8 @@ class _Tile extends StatelessWidget {
               ),
             ],
           ),
-          new Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: new Column(
-              children: <Widget>[
-                new Text(
-                  'Image number $index',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                new Text(
-                  'Width: ${size.width}',
-                  style: const TextStyle(color: Colors.grey),
-                ),
-                new Text(
-                  'Height: ${size.height}',
-                  style: const TextStyle(color: Colors.grey),
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );
   }
 }
-
-// GridView.builder(
-//                     itemCount: item.length,
-//                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                       crossAxisCount: 2,
-//                       crossAxisSpacing: 10,
-//                       mainAxisSpacing: 10,
-//                     ),
-//                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-//                     itemBuilder: (context, index) {
-//                       return GridTile(
-//                         child: Text(item[index]["link"]),
-//                       );
-//                     },
-//                   );
