@@ -1,6 +1,11 @@
+import 'package:furballTalesApp/app_bar.dart';
+import 'package:furballTalesApp/frontend_settings.dart';
+
 import '../../model/event.dart';
 import 'package:flutter/material.dart';
 import '../../res/event_firebase_service.dart';
+
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class AddEventPage extends StatefulWidget {
   final EventModel note;
@@ -36,6 +41,7 @@ class _AddEventPageState extends State<AddEventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(baseColor),
       appBar: AppBar(
         title: Text(widget.note != null ? "Edit Event" : "Add event"),
       ),
@@ -73,7 +79,9 @@ class _AddEventPageState extends State<AddEventPage> {
                       (value.isEmpty) ? "Please Enter description" : null,
                   style: style,
                   decoration: InputDecoration(
-                      labelText: "description",
+                      fillColor: Colors.white,
+                      filled: true,
+                      labelText: "Description",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                 ),
