@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'homepage.dart';
 import 'initial_registration.dart';
+import 'get_allPetsData.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -41,9 +42,9 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          checkPetData().whenComplete(() => {
+          readAllPetsData().whenComplete(() => {
                 print("existData: $existData"),
-                if (existData)
+                if (allPetsData.length > 0)
                   {
                     Navigator.of(context).push(
                       MaterialPageRoute(
