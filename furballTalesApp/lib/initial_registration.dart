@@ -75,14 +75,11 @@ Future createPetdata(birthday, petName, petProfilePicUrl, sex) async {
 }
 
 Future updatePetImage(var imageFile) async {
-  print("1=========updatePetImage");
   await readAllPetsData();
-  print("2=========updatePetImage");
-  var key = allPetsData[0]['key'];
-  print("key: $key");
-  var uploadUrl = await uploadImage(imageFile, key);
+  var petId = allPetsData[0]['key'];
+  var uploadUrl = await uploadImage(imageFile, petId);
 
-  updateUrl(uploadUrl);
+  updateUrl(uploadUrl, petId);
 }
 
 Future checkPetData() async {
