@@ -3,6 +3,10 @@ import '../../main.dart';
 import '../../frontend_settings.dart';
 import '../each_jump_card.dart';
 import '../../app_bar.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../../sign_in.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -37,6 +41,69 @@ class WeightDetail extends StatelessWidget {
         ),
         backgroundColor:
             Color(baseColor), //Make background of overall Widget transparent
+        floatingActionButton: NeumorphicTheme(
+          child: NeumorphicFloatingActionButton(
+            tooltip: 'New Weight',
+            child: Container(
+              color: Color(baseColor),
+              child: Icon(
+                Icons.add,
+                size: 30,
+              ),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    actions: <Widget>[
+                      NeumorphicTheme(
+                        child: NeumorphicButton(
+                          child: const Text('Add'),
+                          onPressed: () {
+                            () {};
+                            Navigator.of(context).pop();
+                          },
+                          style: NeumorphicStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    title: Text("Add Weight"),
+                    content: Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Form(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    maxLength: 20,
+                                    onChanged: (String _newAlbumValue) {
+                                      // newAlbumName = _newAlbumValue;
+                                    },
+                                    decoration:
+                                        InputDecoration(labelText: 'Album'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [

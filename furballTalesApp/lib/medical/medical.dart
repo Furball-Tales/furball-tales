@@ -8,14 +8,6 @@ import '../frontend_settings.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: Colors.blue,
-          accentColor: Colors.green),
-    ));
-
 class Medical extends StatefulWidget {
   @override
   _MedicalState createState() => _MedicalState();
@@ -694,11 +686,9 @@ class _MedicalState extends State<Medical> {
                                                 ])
                                           ],
                                         ),
-                                      )
-                                      );
+                                      ));
                                 });
-                          }
-                          ),
+                          }),
                     );
                   });
             } else {

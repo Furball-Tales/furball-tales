@@ -27,7 +27,7 @@ class ChartDammyData {
         'weight': [
           {
             'dateTime': '2020, 8, 25',
-            'value': 1450,
+            'value': 1450.9,
           },
           {
             'dateTime': '2020, 8, 26',

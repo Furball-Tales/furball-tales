@@ -85,6 +85,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
       backgroundColor: Colors.transparent,
       floatingActionButton: NeumorphicTheme(
         child: NeumorphicFloatingActionButton(
+          tooltip: 'New Album',
           child: Container(
             color: Color(baseColor),
             child: Icon(
@@ -136,7 +137,6 @@ class _ImageGridItemState extends State<ImageGridItem> {
               },
             );
           },
-          tooltip: 'New Album',
         ),
       ),
       body: Column(
