@@ -48,9 +48,17 @@ class _ChartState extends State<Chart> {
     final date1 = toDate.subtract(Duration(days: 2));
     final date2 = toDate.subtract(Duration(days: 3));
 
+    dynamic data = [
+      DataPoint<DateTime>(value: 2340.5, xAxis: DateTime(2019, 9, 24)),
+      DataPoint<DateTime>(value: 2340.5, xAxis: DateTime(2019, 9, 25)),
+      DataPoint<DateTime>(value: 2115.21, xAxis: DateTime(2019, 9, 26)),
+      DataPoint<DateTime>(value: 3120.5, xAxis: DateTime(2019, 9, 27)),
+      DataPoint<DateTime>(value: 3235.9, xAxis: DateTime(2019, 9, 30)),
+    ];
+
     for (var i = 0; i < allChartData.length; i++) {
       if (allChartData[i]['petName'] == petName) {
-        dynamic data = allChartData[i];
+        // dynamic data = allChartData[i];
 
         return Scaffold(
           appBar: AppBar(
@@ -123,27 +131,24 @@ class _ChartState extends State<Chart> {
                   },
                   bubbleLabelDateTimeBuilder:
                       (DateTime value, BezierChartScale scaleType) {
-                    final newFormat = intl.DateFormat('EEE d');
+                    final newFormat = intl.DateFormat('MMM d EEE');
                     return "${newFormat.format(value)}\n";
                   },
                   series: [
                     BezierLine(
-                      label: "Duty",
-                      onMissingValue: (dateTime) {
-                        return 3120.5;
+                      label: "grams",
+                      data: data,
+                      onMissingValue: (DateTime dateTime) {
+                        double lastValue = 0;
+
+                        for (final dataPoint in data) {
+                          if (dataPoint.xAxis.isAfter(dateTime)) {
+                            lastValue = dataPoint.value;
+                            break;
+                          }
+                        }
+                        return lastValue;
                       },
-                      data: [
-                        DataPoint<DateTime>(
-                            value: 2340.5, xAxis: DateTime(2019, 9, 24)),
-                        DataPoint<DateTime>(
-                            value: 2340.5, xAxis: DateTime(2019, 9, 25)),
-                        DataPoint<DateTime>(
-                            value: 2115.21, xAxis: DateTime(2019, 9, 26)),
-                        DataPoint<DateTime>(
-                            value: 3120.5, xAxis: DateTime(2019, 9, 27)),
-                        DataPoint<DateTime>(
-                            value: 3235.9, xAxis: DateTime(2019, 9, 30)),
-                      ],
                     ),
                   ],
                   config: BezierChartConfig(
