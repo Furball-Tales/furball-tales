@@ -79,8 +79,8 @@ Object petName = allPetsData;
   addWalk() {
   Map<String, String> walk = {
     "key": '$key',
-    "petName": '$petName'
-    "Date": "$date",
+    "petName": '$petName',
+    "Date": '$date',
     "Dog Enjoyment": '$walkRating',
     "Walk": '$walkDuration',
     "Number of Poops": '$poopTimes',
@@ -93,35 +93,36 @@ Object petName = allPetsData;
 }
 
 
-    // List<ListItem> _dropdownItems = [
-    //           ListItem(1, "First Value"),
-    //           ListItem(2, "Second Item"),
-    //           ListItem(3, "Third Item"),
-    //           ListItem(4, "Fourth Item")
-    //         ];
+List<ListItem> petNames = List();
+  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
+  ListItem _selectedItem;
+  makePetsList() {
+    for (var i = 0; i < allPetsData.length; i++) {
+      ListItem newListItem = ListItem(i + 1, allPetsData[i]['data']['petName']);
+      petNames.add(newListItem);
+    }
+    print(petNames);
+  }
 
-    //         List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-    //         ListItem _selectedItem;
+  void initState() {
+    super.initState();
+    makePetsList();
+    _dropdownMenuItems = buildDropDownMenuItems(petNames);
+    _selectedItem = _dropdownMenuItems[0].value;
+  }
+  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<ListItem>> items = List();
+    for (ListItem listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem.name),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
+  }
 
-    //         void initState() {
-    //           super.initState();
-    //           _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
-    //           _selectedItem = _dropdownMenuItems[0].value;
-
-    //         }
-
-    //         List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-    //           List<DropdownMenuItem<ListItem>> items = List();
-    //           for (ListItem listItem in listItems) {
-    //             items.add(
-    //               DropdownMenuItem(
-    //                 child: Text(listItem.name),
-    //                 value: listItem,
-    //               ),
-    //             );
-    //           }
-    //           return items;
-    //         }
 
   void rightButtonPressed() {
     setState(() {
@@ -133,12 +134,6 @@ Object petName = allPetsData;
           builder: (BuildContext context){
             int _poopRating = 0;
             int _poopTimes = 0;
-            
-
-          
-
-
-
             return StatefulBuilder(builder:(context, setState){
               return AlertDialog(
                 actions: <Widget>[
@@ -168,20 +163,7 @@ Object petName = allPetsData;
                           child: Column(
                             mainAxisSize: MainAxisSize.min, 
                             children: <Widget>[
-
-                              // Padding(
-                              //   padding: const EdgeInsets.all(3.0),
-                              //   child: DropdownButton<ListItem>(
-                              //     value: _selectedItem,
-                              //     items: _dropdownMenuItems,
-                              //     onChanged:(value){
-                              //       setState((){
-                              //         _selectedItem = value;
-                              //       });
-                              //     }
-                              //   ),
-                              // ),
-                              Text("Yay! You walked for $walkDuration min today!", 
+                            Text("Yay! You walked for $walkDuration min today!", 
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -190,7 +172,20 @@ Object petName = allPetsData;
                               SizedBox(
                                 height: 10.0,
                               ),
-                              heading("How much did your Dog enjoy the walk?"),
+                            heading("Who did you walk?"),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: DropdownButton<ListItem>(
+                                  value: _selectedItem,
+                                  items: _dropdownMenuItems,
+                                  onChanged:(value){
+                                    setState((){
+                                      _selectedItem = value;
+                                    });
+                                  }
+                                ),
+                              ),
+                              heading("How did your Furball enjoy the walk?"),
                               Padding(
                                 padding: const EdgeInsets.all(3.0),
                                 child: RatingBar(
@@ -363,7 +358,7 @@ var buttonSurfaceIntensity = NeumorphicButtonSettings.buttonSurfaceIntensity;
             ),
           ),
           SizedBox(
-            height: 10.0,
+            height: 8.0,
           ),
         ],
       );
