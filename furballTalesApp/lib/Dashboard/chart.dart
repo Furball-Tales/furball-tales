@@ -53,10 +53,20 @@ class _ChartState extends State<Chart> {
         dynamic data = allChartData[i];
 
         return Scaffold(
-          appBar: GradientAppBar(
-            heading + ' History of ' + petName,
-            'back',
+          appBar: AppBar(
+            title: Text(
+              heading + ' History of ' + petName,
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 18.0,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            automaticallyImplyLeading: true,
           ),
+          extendBodyBehindAppBar: true,
           // IconButton(
           //     icon: Icon(Icons.today),
           //     onPressed: () {
@@ -71,64 +81,82 @@ class _ChartState extends State<Chart> {
           //         fromDate = DateTime(2019, 08, 1);
           //       });
           //     }),
-          body: Center(
-            child: Container(
-              color: Colors.red,
-              //height: MediaQuery.of(context).size.height / 2,
-              //width: MediaQuery.of(context).size.width,
-              child: BezierChart(
-                fromDate: fromDate,
-                bezierChartScale: BezierChartScale.WEEKLY,
-                toDate: toDate,
-                onIndicatorVisible: (val) {
-                  // print(allChartData);
-                  print("Indicator Visible :$val");
-                },
-                onDateTimeSelected: (datetime) {
-                  print("selected datetime: $datetime");
-                },
-                selectedDate: toDate,
-                //this is optional
-                footerDateTimeBuilder:
-                    (DateTime value, BezierChartScale scaleType) {
-                  final newFormat = intl.DateFormat('dd/MMM');
-                  return newFormat.format(value);
-                },
-                bubbleLabelDateTimeBuilder:
-                    (DateTime value, BezierChartScale scaleType) {
-                  final newFormat = intl.DateFormat('EEE d');
-                  return "${newFormat.format(value)}\n";
-                },
-                series: [
-                  BezierLine(
-                    label: "Duty",
-                    onMissingValue: (dateTime) {
-                      return 3120.5;
-                    },
-                    data: [
-                      DataPoint<DateTime>(
-                          value: 2340.5, xAxis: DateTime(2019, 9, 24)),
-                      DataPoint<DateTime>(
-                          value: 2340.5, xAxis: DateTime(2019, 9, 25)),
-                      DataPoint<DateTime>(
-                          value: 2115.21, xAxis: DateTime(2019, 9, 26)),
-                      DataPoint<DateTime>(
-                          value: 3120.5, xAxis: DateTime(2019, 9, 27)),
-                      DataPoint<DateTime>(
-                          value: 3235.9, xAxis: DateTime(2019, 9, 30)),
-                    ],
-                  ),
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                colors: [
+                  const Color(0xffe4a972).withOpacity(0.6),
+                  const Color(0xff9941d8).withOpacity(0.6),
                 ],
-                config: BezierChartConfig(
-                  updatePositionOnTap: true,
-                  bubbleIndicatorValueFormat:
-                      intl.NumberFormat("###,##0.00", "en_US"),
-                  verticalIndicatorStrokeWidth: 1.0,
-                  verticalIndicatorColor: Colors.white30,
-                  showVerticalIndicator: true,
-                  verticalIndicatorFixedPosition: false,
-                  backgroundColor: Colors.transparent,
-                  footerHeight: 40.0,
+                stops: const [
+                  0.0,
+                  1.0,
+                ],
+              ),
+            ),
+            child: Center(
+              child: Container(
+                color: Colors.transparent,
+                //height: MediaQuery.of(context).size.height / 2,
+                //width: MediaQuery.of(context).size.width,
+                child: BezierChart(
+                  fromDate: fromDate,
+                  bezierChartScale: BezierChartScale.WEEKLY,
+                  toDate: toDate,
+                  onIndicatorVisible: (val) {
+                    // print(allChartData);
+                    print("Indicator Visible :$val");
+                  },
+                  onDateTimeSelected: (datetime) {
+                    print("selected datetime: $datetime");
+                  },
+                  selectedDate: toDate,
+                  //this is optional
+                  footerDateTimeBuilder:
+                      (DateTime value, BezierChartScale scaleType) {
+                    final newFormat = intl.DateFormat('dd/MMM');
+                    return newFormat.format(value);
+                  },
+                  bubbleLabelDateTimeBuilder:
+                      (DateTime value, BezierChartScale scaleType) {
+                    final newFormat = intl.DateFormat('EEE d');
+                    return "${newFormat.format(value)}\n";
+                  },
+                  series: [
+                    BezierLine(
+                      label: "Duty",
+                      onMissingValue: (dateTime) {
+                        return 3120.5;
+                      },
+                      data: [
+                        DataPoint<DateTime>(
+                            value: 2340.5, xAxis: DateTime(2019, 9, 24)),
+                        DataPoint<DateTime>(
+                            value: 2340.5, xAxis: DateTime(2019, 9, 25)),
+                        DataPoint<DateTime>(
+                            value: 2115.21, xAxis: DateTime(2019, 9, 26)),
+                        DataPoint<DateTime>(
+                            value: 3120.5, xAxis: DateTime(2019, 9, 27)),
+                        DataPoint<DateTime>(
+                            value: 3235.9, xAxis: DateTime(2019, 9, 30)),
+                      ],
+                    ),
+                  ],
+                  config: BezierChartConfig(
+                    updatePositionOnTap: true,
+                    bubbleIndicatorValueFormat:
+                        intl.NumberFormat("###,##0.00", "en_US"),
+                    verticalIndicatorStrokeWidth: 1.0,
+                    verticalIndicatorColor: Colors.white,
+                    showVerticalIndicator: true,
+                    verticalIndicatorFixedPosition: false,
+                    backgroundColor: Colors.transparent,
+                    footerHeight: 40.0,
+                  ),
                 ),
               ),
             ),
