@@ -4,9 +4,7 @@ import '../../frontend_settings.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../../sign_in.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 class ElapsedTime {
   final int hundreds;
@@ -47,8 +45,8 @@ int walkDuration;
 DateTime date= DateTime.now();
 int poopRating = 0;
 Object poopQuality = ["dry like a desert", "rainbow colored", "sweet like candy", "like a waterfall", "Same as Mine! Poop Buddies!"];
-double _rating;
-Object walkRating = [Icons.sentiment_very_dissatisfied, Icons.sentiment_dissatisfied, Icons.sentiment_neutral, Icons.sentiment_satisfied, Icons.sentiment_very_satisfied];
+int walkRating = 0;
+Object walk = [Icons.sentiment_very_dissatisfied, Icons.sentiment_dissatisfied, Icons.sentiment_neutral, Icons.sentiment_satisfied, Icons.sentiment_very_satisfied];
 String comments;
 int poopTimes = 0;
 String key;
@@ -87,187 +85,196 @@ String key;
         showDialog(
           context: context,
           builder: (BuildContext context){
-            return AlertDialog(
-              actions: <Widget>[
-                NeumorphicTheme(
-                  child: NeumorphicButton(
-                    child: const Text('Add Walk'),
-                    onPressed: (){
-                      addWalk();
-                      Navigator.of(context).pop();
-                    },
-                    style: NeumorphicStyle(
-                      color: Colors.white,
-                    )
-                  ),
-                )
-              ],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8)),
-                title: Text("How was your walk?"),
-                content: Stack(
-                  overflow: Overflow.visible,
-                  children: <Widget>[
-                    Form(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min, 
-                          children: <Widget>[
-                            Text("Yay! You walked for $walkDuration min today!", 
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15,
-                            )),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            heading("How much did your Dog enjoy the walk?"),
-                            Padding(
-                              padding: const EdgeInsets.all(3.0),
-                              child: RatingBar(
-                                itemCount: 5,
-                                itemBuilder: (context, index) {
-                                  switch(index) {
-                                    case 0: 
-                                    return Icon(
-                                      Icons.sentiment_very_dissatisfied,
-                                      color: Colors.red,
-                                    );
-                                    case 1:
-                                      return Icon(
-                                          Icons.sentiment_dissatisfied,
-                                          color: Colors.redAccent,
-                                      );
-                                    case 2:
-                                      return Icon(
-                                          Icons.sentiment_neutral,
-                                          color: Colors.amber,
-                                      );
-                                    case 3:
-                                      return Icon(
-                                          Icons.sentiment_satisfied,
-                                          color: Colors.lightGreen,
-                                      );
-                                    case 4:
-                                        return Icon(
-                                          Icons.sentiment_very_satisfied,
-                                          color: Colors.green,
-                                        );
-                                  }
-                                },
-                                onRatingUpdate: (rating) {
-                                  setState(() {
-                                    _rating = rating;
-                                  });
-                                }
+            int _poopRating = 0;
+            int _poopTimes = 0;
+            return StatefulBuilder(builder:(context, setState){
+              return AlertDialog(
+                actions: <Widget>[
+                  NeumorphicTheme(
+                    child: NeumorphicButton(
+                      child: const Text('Add Walk'),
+                      onPressed: (){
+                        addWalk();
+                        Navigator.of(context).pop();
+                        poopRating = 0;
+                        poopTimes = 0;
+                      },
+                      style: NeumorphicStyle(
+                        color: Colors.white,
+                      )
+                    ),
+                  )
+                ],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+                  title: Text("How was your walk?"),
+                  content: Stack(
+                    overflow: Overflow.visible,
+                    children: <Widget>[
+                      Form(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min, 
+                            children: <Widget>[
+                              Text("Yay! You walked for $walkDuration min today!", 
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                              )),
+                              SizedBox(
+                                height: 10.0,
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  heading("How many times did your Dog poop?"),
-                                  DropdownButton(
-                                    value: poopTimes,
-                                    items: [
-                                      DropdownMenuItem(
-                                        child: Text("0", style: TextStyle(fontSize:15.0)),
-                                        value: 0,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("1", style: TextStyle(fontSize:15.0)),
-                                        value: 1,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("2", style: TextStyle(fontSize:15.0)),
-                                        value: 2,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("3", style: TextStyle(fontSize:15.0)),
-                                        value: 3,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("4", style: TextStyle(fontSize:15.0)),
-                                        value: 4,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("5", style: TextStyle(fontSize:15.0)),
-                                        value: 5,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("5+", style: TextStyle(fontSize:15.0)),
-                                        value: 6,
-                                      ),
-                                    ],
-                                    onChanged:(value) {
-                                      setState((){
-                                        poopTimes = value;
-                                        print(poopTimes);
-                                      });
+                              heading("How much did your Dog enjoy the walk?"),
+                              Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: RatingBar(
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) {
+                                    switch(index) {
+                                      case 0: 
+                                      return Icon(
+                                        Icons.sentiment_very_dissatisfied,
+                                        color: Colors.red,
+                                      );
+                                      case 1:
+                                        return Icon(
+                                            Icons.sentiment_dissatisfied,
+                                            color: Colors.redAccent,
+                                        );
+                                      case 2:
+                                        return Icon(
+                                            Icons.sentiment_neutral,
+                                            color: Colors.amber,
+                                        );
+                                      case 3:
+                                        return Icon(
+                                            Icons.sentiment_satisfied,
+                                            color: Colors.lightGreen,
+                                        );
+                                      case 4:
+                                          return Icon(
+                                            Icons.sentiment_very_satisfied,
+                                            color: Colors.green,
+                                          );
                                     }
-                                  ),
-                                ],
-                              )
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  heading("How was the poop consistency?"),
-                                  DropdownButton(
-                                    value: poopRating,
-                                    items: [
-                                      DropdownMenuItem(
-                                        child: Text("dry like a desert", style: TextStyle(fontSize:15.0)),
-                                        value: 0,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("rainbow colored", style: TextStyle(fontSize:15.0)),
-                                        value: 1,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("sweet like candy", style: TextStyle(fontSize:15.0)),
-                                        value: 2,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("like a waterfall", style: TextStyle(fontSize:15.0)),
-                                        value: 3,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Same as mine! Poop buddies!", style: TextStyle(fontSize:15.0)),
-                                        value: 4,
-                                      ),
-                                    ],
-                                    onChanged:(value) {
-                                      setState((){
-                                        poopRating = value;
-                                        print(poopRating);
-                                      });
-                                    }
-                                  ),
-                                ],
-                              )
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: TextFormField(
-                                onChanged: (String commentValue){
-                                  comments = commentValue;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Comments'
+                                  },
+                                  onRatingUpdate: (rating) {
+                                    setState(() {
+                                      walk = rating;
+                                    });
+                                  }
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Column(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    heading("How many times did your Dog poop?"),
+                                    DropdownButton(
+                                      value: _poopTimes,
+                                      items: [
+                                        DropdownMenuItem(
+                                          child: Text("0", style: TextStyle(fontSize:15.0)),
+                                          value: 0,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("1", style: TextStyle(fontSize:15.0)),
+                                          value: 1,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("2", style: TextStyle(fontSize:15.0)),
+                                          value: 2,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("3", style: TextStyle(fontSize:15.0)),
+                                          value: 3,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("4", style: TextStyle(fontSize:15.0)),
+                                          value: 4,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("5", style: TextStyle(fontSize:15.0)),
+                                          value: 5,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("5+", style: TextStyle(fontSize:15.0)),
+                                          value: 6,
+                                        ),
+                                      ],
+                                      onChanged:(value) {
+                                        setState((){
+                                          _poopTimes = value;
+                                          print(_poopTimes);
+                                          poopTimes = _poopTimes;
+                                        });
+                                      }
+                                    ),
+                                  ],
+                                )
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Column(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    heading("How was the poop consistency?"),
+                                    DropdownButton(
+                                      value: _poopRating,
+                                      items: [
+                                        DropdownMenuItem(
+                                          child: Text("dry like a desert", style: TextStyle(fontSize:15.0)),
+                                          value: 0,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("rainbow colored", style: TextStyle(fontSize:15.0)),
+                                          value: 1,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("sweet like candy", style: TextStyle(fontSize:15.0)),
+                                          value: 2,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("like a waterfall", style: TextStyle(fontSize:15.0)),
+                                          value: 3,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text("Same as mine! Poop buddies!", style: TextStyle(fontSize:15.0)),
+                                          value: 4,
+                                        ),
+                                      ],
+                                      onChanged:(value) {
+                                        setState((){
+                                          _poopRating = value;
+                                          print(_poopRating);
+                                          poopRating = _poopRating;
+                                        });
+                                      }
+                                    ),
+                                  ],
+                                )
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: TextFormField(
+                                  onChanged: (String commentValue){
+                                    comments = commentValue;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Comments'
+                                  )
                                 )
                               )
-                            )
-                          ]
+                            ]
+                          )
                         )
                       )
-                    )
-                  ]
-              )
+                    ]
+                )
+              );
+            },
             );
           }
         );
