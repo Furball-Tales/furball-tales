@@ -141,7 +141,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
     final DateTime selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
+      firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
     if (selected != null) {
