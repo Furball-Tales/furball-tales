@@ -113,7 +113,6 @@ class _MedicalState extends State<Medical> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                         
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: RaisedButton(

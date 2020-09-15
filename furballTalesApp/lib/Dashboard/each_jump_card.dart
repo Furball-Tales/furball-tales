@@ -14,76 +14,109 @@ var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
 
-_nextPage(icon, heading, textColor) {
-  if (heading == 'Weight') return Chart();
-}
+// var allChartData = List<Map<String, Object>> allChartData;
+
+// _nextPage(icon, heading, textColor) {
+//   if (heading == 'Weight') return Chart(allChartData);
+// }
 
 class EachJumpCard extends StatefulWidget {
   IconData icon;
   String heading;
+  String petName;
   int textColor;
   int materialColor;
   double intensity;
   double depth;
   double surfaceIntensity;
   int baseColor;
+  List<Map<String, Object>> allChartData;
 
-  EachJumpCard(IconData icon, String heading, int textColor, int materialColor,
-      double intensity, double depth, double surfaceIntensity, int baseColor) {
+  EachJumpCard(
+    IconData icon,
+    String heading,
+    String petName,
+    int textColor,
+    int materialColor,
+    double intensity,
+    double depth,
+    double surfaceIntensity,
+    int baseColor,
+    List<Map<String, Object>> allChartData,
+  ) {
     this.icon = icon;
     this.heading = heading;
+    this.petName = petName;
     this.textColor = textColor;
     this.materialColor = materialColor;
     this.intensity = intensity;
     this.depth = depth;
     this.surfaceIntensity = surfaceIntensity;
     this.baseColor = baseColor;
+    this.allChartData = allChartData;
   }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return CustomCardState(icon, heading, textColor, materialColor, intensity,
-        depth, surfaceIntensity, baseColor);
+    return CustomCardState(
+      icon,
+      heading,
+      petName,
+      textColor,
+      materialColor,
+      intensity,
+      depth,
+      surfaceIntensity,
+      baseColor,
+      allChartData,
+    );
   }
 }
 
 class CustomCardState extends State<EachJumpCard> {
   IconData icon;
   String heading;
+  String petName;
   int textColor;
   int materialColor;
   double intensity;
   double depth;
   double surfaceIntensity;
   int baseColor;
+  List<Map<String, Object>> allChartData;
 
   var _hasPadding = false;
 
   CustomCardState(
-      IconData icon,
-      String heading,
-      int textColor,
-      int materialColor,
-      double intensity,
-      double depth,
-      double surfaceIntensity,
-      int baseColor) {
+    IconData icon,
+    String heading,
+    String petName,
+    int textColor,
+    int materialColor,
+    double intensity,
+    double depth,
+    double surfaceIntensity,
+    int baseColor,
+    List<Map<String, Object>> allChartData,
+  ) {
     this.icon = icon;
     this.heading = heading;
+    this.petName = petName;
     this.textColor = textColor;
     this.materialColor = materialColor;
     this.intensity = intensity;
     this.depth = depth;
     this.surfaceIntensity = surfaceIntensity;
     this.baseColor = baseColor;
+    this.allChartData = allChartData;
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Hero(
-      tag: heading,
+      tag: petName,
       child: Material(
         type: MaterialType.transparency,
         child: content(),
@@ -102,7 +135,8 @@ class CustomCardState extends State<EachJumpCard> {
           });
         },
         onTap: () {
-          print('Card tapped.');
+          print(heading);
+          // print(petName);
           setState(() {
             _hasPadding = false;
           });
@@ -112,7 +146,7 @@ class CustomCardState extends State<EachJumpCard> {
                 transitionDuration: Duration(milliseconds: 500),
                 pageBuilder: (_, __, ___) =>
                     // _nextPage(icon, heading, textColor),
-                    Chart(),
+                    Chart(heading, petName, allChartData),
               ));
         },
         onTapCancel: () {
@@ -141,7 +175,7 @@ class CustomCardState extends State<EachJumpCard> {
                       Padding(
                         padding: const EdgeInsets.all(8),
                         child: Text(
-                          heading,
+                          petName,
                           style: TextStyle(
                             color: Color(textColor),
                             fontSize: 20,

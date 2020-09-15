@@ -9,7 +9,8 @@ import 'pet/list_card_view.dart';
 import 'dashboard_jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
-import '../initial_registration.dart';
+// import '../initial_registration.dart';
+import '../get_allPetsData.dart';
 
 void main() => runApp(MyApp());
 
@@ -53,42 +54,42 @@ var caveColor = NeumorphicCaveSettings.caveColor;
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
 
-var _url;
-var _name;
-var _sex;
-var _age;
-var _petId;
+// var _url;
+// var _name;
+// var _sex;
+// var _age;
+// var _petId;
 
-Future readPetdata() async {
-  var readData;
-  await databaseReference.once().then((DataSnapshot snapshot) {
-    snapshot.value.forEach((index, data) => {_petId = index, readData = data});
-  });
-  _name = await readData["petName"];
-  _sex = await readData["sex"];
-  var readBirthday = await readData["birthday"];
-  DateTime birthday = DateTime.parse(readBirthday);
-  Duration differenceDays = DateTime.now().difference(birthday);
-  _age = (differenceDays.inDays / 365).floor().toString();
-  // _weight = await readData["weight"];
-}
+// Future readPetdata() async {
+//   var readData;
+//   await databaseReference.once().then((DataSnapshot snapshot) {
+//     snapshot.value.forEach((index, data) => {_petId = index, readData = data});
+//   });
+//   _name = await readData["petName"];
+//   _sex = await readData["sex"];
+//   var readBirthday = await readData["birthday"];
+//   DateTime birthday = DateTime.parse(readBirthday);
+//   Duration differenceDays = DateTime.now().difference(birthday);
+//   _age = (differenceDays.inDays / 365).floor().toString();
+//   // _weight = await readData["weight"];
+// }
 
-Future readUrl() async {
-  var readData;
-  await databaseReference.once().then((DataSnapshot snapshot) {
-    snapshot.value.forEach((index, data) => {readData = data});
-  });
-  _url = await readData["petProfilePicUrl"];
-}
+// Future readUrl() async {
+//   var readData;
+//   await databaseReference.once().then((DataSnapshot snapshot) {
+//     snapshot.value.forEach((index, data) => {readData = data});
+//   });
+//   _url = await readData["petProfilePicUrl"];
+// }
 
-Future updateUrl(petProfilePicUrl) async {
-  var key = allPetsData[0]['key'];
-  print("======key: $key");
+Future updateUrl(petProfilePicUrl, petId) async {
+  // var key = allPetsData[0]['key'];
+  // print("======key: $key");
   // var readIndex;
   // await databaseReference.once().then((DataSnapshot snapshot) {
   //   snapshot.value.forEach((index, data) => {readIndex = index});
   // });
-  databaseReference.child(key).update({'petProfilePicUrl': petProfilePicUrl});
+  databaseReference.child(petId).update({'petProfilePicUrl': petProfilePicUrl});
 }
 
 Future<String> uploadImage(var imageFile, petId) async {
@@ -115,27 +116,27 @@ Future<String> uploadImage(var imageFile, petId) async {
 }
 
 class _GridDashboardState extends State<GridDashboard> {
-  File _image;
+  // File _image;
   final picker = ImagePicker();
 
-  Future selectImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    _image = File(pickedFile.path);
+  // Future selectImage() async {
+  //   final pickedFile = await picker.getImage(source: ImageSource.gallery);
+  //   _image = File(pickedFile.path);
 
-    var uploadUrl = await uploadImage(_image, _petId);
-    updateUrl(uploadUrl);
-    await readUrl();
+  //   var uploadUrl = await uploadImage(_image, _petId);
+  //   updateUrl(uploadUrl);
+  //   await readUrl();
 
-    setState(() {
-      _image = File(pickedFile.path);
-    });
-  }
+  //   setState(() {
+  //     _image = File(pickedFile.path);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    readAllPetsData();
-    readPetdata();
-    readUrl();
+    // readAllPetsData();
+    // readPetdata();
+    // readUrl();
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: StaggeredGridView.count(

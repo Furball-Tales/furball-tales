@@ -5,6 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../../sign_in.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../get_allPetsData.dart';
 
 class ElapsedTime {
   final int hundreds;
@@ -18,6 +19,7 @@ class ElapsedTime {
   });
 }
 
+
 class Dependencies {
 
   final List<ValueChanged<ElapsedTime>> timerListeners = <ValueChanged<ElapsedTime>>[];
@@ -25,6 +27,15 @@ class Dependencies {
   final Stopwatch stopwatch = new Stopwatch();
   final int timerMillisecondsRefreshRate = 30;
 }
+
+class ListItem {
+  int value;
+  String name;
+
+  ListItem(this.value, this.name);
+}
+
+
 
 class TimerPage extends StatefulWidget {
   TimerPage({Key key}) : super(key: key);
@@ -50,6 +61,9 @@ Object walk = [Icons.sentiment_very_dissatisfied, Icons.sentiment_dissatisfied, 
 String comments;
 int poopTimes = 0;
 String key;
+Object petName = allPetsData;
+
+  
 
 
   void leftButtonPressed() {
@@ -65,6 +79,7 @@ String key;
   addWalk() {
   Map<String, String> walk = {
     "key": '$key',
+    "petName": '$petName'
     "Date": "$date",
     "Dog Enjoyment": '$walkRating',
     "Walk": '$walkDuration',
@@ -77,6 +92,37 @@ String key;
   });
 }
 
+
+    // List<ListItem> _dropdownItems = [
+    //           ListItem(1, "First Value"),
+    //           ListItem(2, "Second Item"),
+    //           ListItem(3, "Third Item"),
+    //           ListItem(4, "Fourth Item")
+    //         ];
+
+    //         List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
+    //         ListItem _selectedItem;
+
+    //         void initState() {
+    //           super.initState();
+    //           _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
+    //           _selectedItem = _dropdownMenuItems[0].value;
+
+    //         }
+
+    //         List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    //           List<DropdownMenuItem<ListItem>> items = List();
+    //           for (ListItem listItem in listItems) {
+    //             items.add(
+    //               DropdownMenuItem(
+    //                 child: Text(listItem.name),
+    //                 value: listItem,
+    //               ),
+    //             );
+    //           }
+    //           return items;
+    //         }
+
   void rightButtonPressed() {
     setState(() {
       walkDuration = dependencies.stopwatch.elapsedMilliseconds~/60000;
@@ -87,6 +133,12 @@ String key;
           builder: (BuildContext context){
             int _poopRating = 0;
             int _poopTimes = 0;
+            
+
+          
+
+
+
             return StatefulBuilder(builder:(context, setState){
               return AlertDialog(
                 actions: <Widget>[
@@ -116,6 +168,19 @@ String key;
                           child: Column(
                             mainAxisSize: MainAxisSize.min, 
                             children: <Widget>[
+
+                              // Padding(
+                              //   padding: const EdgeInsets.all(3.0),
+                              //   child: DropdownButton<ListItem>(
+                              //     value: _selectedItem,
+                              //     items: _dropdownMenuItems,
+                              //     onChanged:(value){
+                              //       setState((){
+                              //         _selectedItem = value;
+                              //       });
+                              //     }
+                              //   ),
+                              // ),
                               Text("Yay! You walked for $walkDuration min today!", 
                               textAlign: TextAlign.left,
                               style: TextStyle(

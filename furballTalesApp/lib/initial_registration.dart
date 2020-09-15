@@ -11,6 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import './dashboard/grid_dashboard.dart';
 import 'frontend_settings.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'get_allPetsData.dart';
 
 var textBaseColor = NeumorphicCardSettings.textBaseColor;
 var baseColor = NeumorphicCardSettings.baseColor;
@@ -46,20 +47,20 @@ class InitialRegistration extends StatefulWidget {
 }
 
 // var _url;
-var allPetsData = [];
+// var allPetsData = [];
 bool existData;
 
-Future readAllPetsData() async {
-  await databaseReference.orderByKey().once().then((DataSnapshot snapshot) {
-    snapshot.value.forEach((key, data) => {
-          allPetsData.add({"key": key, "data": data})
-        });
-    allPetsData.sort((a, b) => b['key'].compareTo(a['key']));
-  });
-  print("Out allPetsData: $allPetsData");
-  print("Out allPetsData[0]: ${allPetsData[0]}");
-  print("allPetsData[0]['key']: ${allPetsData[0]['key']}");
-}
+// Future readAllPetsData() async {
+//   await databaseReference.orderByKey().once().then((DataSnapshot snapshot) {
+//     snapshot.value.forEach((key, data) => {
+//           allPetsData.add({"key": key, "data": data})
+//         });
+//     allPetsData.sort((a, b) => b['key'].compareTo(a['key']));
+//   });
+//   print("Out allPetsData: $allPetsData");
+//   print("Out allPetsData[0]: ${allPetsData[0]}");
+//   print("allPetsData[0]['key']: ${allPetsData[0]['key']}");
+// }
 
 Future createPetdata(birthday, petName, petProfilePicUrl, sex) async {
   String nowDateText =
@@ -74,14 +75,11 @@ Future createPetdata(birthday, petName, petProfilePicUrl, sex) async {
 }
 
 Future updatePetImage(var imageFile) async {
-  print("1=========updatePetImage");
   await readAllPetsData();
-  print("2=========updatePetImage");
-  var key = allPetsData[0]['key'];
-  print("key: $key");
-  var uploadUrl = await uploadImage(imageFile, key);
+  var petId = allPetsData[0]['key'];
+  var uploadUrl = await uploadImage(imageFile, petId);
 
-  updateUrl(uploadUrl);
+  updateUrl(uploadUrl, petId);
 }
 
 Future checkPetData() async {
@@ -366,11 +364,12 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                                     _petNameController.text,
                                     _url,
                                     _petSexController.text),
-                                updatePetImage(imageData),
-                                setState(
-                                  () {
-                                    funcIndex = "Homepage";
-                                  },
+                                updatePetImage(imageData).whenComplete(
+                                  () => setState(
+                                    () {
+                                      funcIndex = "Homepage";
+                                    },
+                                  ),
                                 ),
                               }
                             else

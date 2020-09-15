@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:furballTalesApp/app_bar.dart';
 import 'package:furballTalesApp/calendar/res/firestore_service.dart';
+import 'package:furballTalesApp/frontend_settings.dart';
 import 'package:furballTalesApp/homepage.dart';
 import './res/event_firebase_service.dart';
 import './ui/pages/add_event.dart';
 import './ui/pages/view_event.dart';
 import './model/event.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 //import './res/firestore_service.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Calendar',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: HomePage(),
-//       routes: {
-//         "add_event": (_) => AddEventPage(),
-//       },
-//     );
-//   }
-// }
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class Calendar extends StatefulWidget {
   @override
@@ -53,16 +40,16 @@ class _CalendarState extends State<Calendar> {
       if (data[date] == null) data[date] = [];
       data[date].add(event);
     });
-    print(data);
     return data;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Furball Tales Calendar'),
-        automaticallyImplyLeading: false,
+      backgroundColor: Color(baseColor),
+      appBar: GradientAppBar(
+        "Furball Tales Calendar",
+        'null',
       ),
       body: StreamBuilder<List<EventModel>>(
           stream: eventDBS.streamList(),
@@ -101,13 +88,6 @@ class _CalendarState extends State<Calendar> {
                     onDaySelected: (date, events) {
                       setState(() {
                         _selectedEvents = events;
-                        // ..._selectedEvents.sort((a, b) {
-                        //   var adate =
-                        //       a['event_time']; //before -> var adate = a.expiry;
-                        //   var bdate =
-                        //       b['event_time']; //before -> var bdate = b.expiry;
-                        //   return adate.compareTo(bdate);
-                        // });
                       });
                     },
                     builders: CalendarBuilders(
@@ -135,58 +115,21 @@ class _CalendarState extends State<Calendar> {
                     calendarController: _controller,
                   ),
                   ..._selectedEvents.map((event) => ListTile(
-                        title: Text(event.title),
+                        title: Text(
+                          event.title,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                "Appoinment time: " +
+                                "Event time: " +
                                     returnTimeOnly(event.eventTime),
-                                style: TextStyle(color: Colors.red),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              //Text(event.description),
-                              // IconButton(
-                              //   color: Colors.red,
-                              //   icon: Icon(Icons.delete),
-                              //   onPressed: () => _deleteNote(context, event.id),
-                              // ),
                             ]),
-                        // trailing: Row(
-                        //   mainAxisSize: MainAxisSize.min,
-                        //   children: <Widget>[
-                        //     IconButton(
-                        //       color: Colors.blue,
-                        //       icon: Icon(Icons.edit),
-                        //       onPressed: () => Navigator.push(
-                        //           context,
-                        //           MaterialPageRoute(
-                        //             builder: (_) => AddEventPage(note: event),
-                        //           )),
-                        //     ),
-                        //     IconButton(
-                        //       color: Colors.red,
-                        //       icon: Icon(Icons.delete),
-                        //       onPressed: () => _deleteNote(context, event.id),
-                        //     ),
-                        //   ],
-                        // ),
-
-                        // trailing: FlatButton(
-                        //     onPressed: () {
-                        //       setState(() {
-                        //         String id = event.id;
-                        //         FirestoreService().deleteNote(id);
-                        //         //Navigator.of(context).pop();
-                        //       });
-
-                        //       // await eventDBS.removeItem(event.id);
-                        //       // Navigator.push(
-                        //       //         context,
-                        //       //         MaterialPageRoute(
-                        //       //             builder: (context) => Homepage()))
-                        //       //     .whenComplete(() => {Navigator.pop(context)});
-                        //     },
-                        //     child: Text('delete')),
                         onTap: () {
                           showDialog(
                               context: context,
@@ -211,11 +154,6 @@ class _CalendarState extends State<Calendar> {
                                                 builder: (context) =>
                                                     AddEventPage(note: event),
                                               ));
-                                          // setState(() {
-                                          //   eventDBS.removeItem(event.id);
-
-                                          //   Navigator.of(context).pop();
-                                          // });
                                         },
                                       ),
                                     ],
@@ -230,39 +168,39 @@ class _CalendarState extends State<Calendar> {
                                       child: Column(children: <Widget>[
                                         Row(children: [
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(
-                                                10, 0, 0, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 0, 0),
                                             child: Text("Event time: ",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
-                                                  fontSize: 18.0,
+                                                  color: Colors.red,
+                                                  fontSize: 16.0,
                                                 )),
                                           ),
                                           Expanded(
                                             child: Container(
                                               margin: EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
+                                                  0, 0, 0, 0),
                                               child: Text(
                                                   returnTimeOnly(
                                                       event.eventTime),
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.grey,
-                                                    fontSize: 18.0,
+                                                    color: Colors.red,
+                                                    fontSize: 16.0,
                                                   )),
                                             ),
                                           ),
                                         ]),
                                         Row(children: [
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(
-                                                10, 0, 0, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 0, 0),
                                             child: Text("Details: ",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.grey,
-                                                  fontSize: 18.0,
+                                                  fontSize: 14.0,
                                                 )),
                                           ),
                                           Expanded(
@@ -273,7 +211,7 @@ class _CalendarState extends State<Calendar> {
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.grey,
-                                                    fontSize: 18.0,
+                                                    fontSize: 14.0,
                                                   )),
                                             ),
                                           ),
@@ -281,61 +219,28 @@ class _CalendarState extends State<Calendar> {
                                       ]),
                                     ));
                               });
-
-                          // print(event);
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (_) => EventDetailsPage(
-                          //               event: event,
-                          //             )));
                         },
                       )),
                 ],
               ),
             );
           }),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        //onPressed: () => Navigator.pushNamed(context, 'add_event'),
-        onPressed: () => {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddEventPage()))
-        },
+      floatingActionButton: NeumorphicTheme(
+        child: NeumorphicFloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddEventPage()));
+          },
+          child: Container(
+            color: Color(baseColor),
+            child: Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
+          tooltip: 'New Event',
+        ),
       ),
     );
   }
-
-  // _deleteNote(BuildContext context, String id) async {
-  //   if (await _showConfirmationDialog(context)) {
-  //     try {
-  //       await eventDBS.removeItem(id);
-  //       Navigator.of(context).pop();
-  //     } catch (e) {
-  //       print(e);
-  //     }
-  //   }
-  // }
-
-  // Future<bool> _showConfirmationDialog(BuildContext context) async {
-  //   return showDialog(
-  //       context: context,
-  //       barrierDismissible: true,
-  //       builder: (context) => AlertDialog(
-  //             content: Text("Are you sure you want to delete?"),
-  //             actions: <Widget>[
-  //               FlatButton(
-  //                   textColor: Colors.red,
-  //                   child: Text("Delete"),
-  //                   onPressed: () {
-  //                     Navigator.pop(context, true);
-  //                   }),
-  //               FlatButton(
-  //                 textColor: Colors.black,
-  //                 child: Text("No"),
-  //                 onPressed: () => Navigator.pop(context, false),
-  //               ),
-  //             ],
-  //           ));
-  // }
 }

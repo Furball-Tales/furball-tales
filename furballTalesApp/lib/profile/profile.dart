@@ -64,93 +64,96 @@ class Profile extends StatelessWidget {
               fit: BoxFit.cover),
         ),
         child: NeumorphicTheme(
-          child: SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 32.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 47,
-                          backgroundImage: NetworkImage('$image'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0, bottom: 8),
-                          child: Text(
-                            '$name',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.cyanAccent[700],
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 32.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 47,
+                            backgroundImage: NetworkImage('$image'),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 30.0, bottom: 8),
+                            child: Text(
+                              '$name',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.cyanAccent[700],
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          '$email',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[500],
-                            letterSpacing: 0.2,
+                          Text(
+                            '$email',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[500],
+                              letterSpacing: 0.2,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  // SizedBox(
-                  //   height: 50.0,
-                  //   width: 200,
-                  //   child: Divider(
-                  //     color: Colors.teal[200],
-                  //   ),
-                  // ),
-                  //   this is about page-----------------------------------------
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 200,
-                      right: 100,
-                      left: 100,
+                    // SizedBox(
+                    //   height: 50.0,
+                    //   width: 200,
+                    //   child: Divider(
+                    //     color: Colors.teal[200],
+                    //   ),
+                    // ),
+                    //   this is about page-----------------------------------------
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 200,
+                        right: 100,
+                        left: 100,
+                      ),
+                      child: Column(
+                        children: [
+                          _buildButton()(
+                            text: "About Us",
+                            color: accentBlue,
+                            onClick: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return About();
+                              }));
+                            },
+                          ),
+                          _buildButton()(
+                            text: "Donation",
+                            color: accentGold,
+                            onClick: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return Donation();
+                              }));
+                            },
+                          ),
+                          _buildButton()(
+                            text: "Logout",
+                            color: accentPink,
+                            onClick: () {
+                              signOutGoogle();
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(builder: (context) {
+                                return LoginPage();
+                              }), ModalRoute.withName('/'));
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      children: [
-                        _buildButton()(
-                          text: "About Us",
-                          color: accentBlue,
-                          onClick: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return About();
-                            }));
-                          },
-                        ),
-                        _buildButton()(
-                          text: "Donation",
-                          color: accentGold,
-                          onClick: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return Donation();
-                            }));
-                          },
-                        ),
-                        _buildButton()(
-                          text: "Logout",
-                          color: accentPink,
-                          onClick: () {
-                            signOutGoogle();
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(builder: (context) {
-                              return LoginPage();
-                            }), ModalRoute.withName('/'));
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
