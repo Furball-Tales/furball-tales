@@ -203,49 +203,51 @@ class PetCardState extends State<PetCard> {
                               color: Colors.transparent,
                               height: 80,
                               width: 110,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  left: 12,
-                                  bottom: 12,
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 12,
+                                    bottom: 12,
+                                  ),
+                                  child: StreamBuilder(
+                                      stream: databaseReference.onValue,
+                                      builder: (context, snap) {
+                                        return Container(
+                                          padding:
+                                              EdgeInsets.only(top: 12, left: 2),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                name,
+                                                style: TextStyle(
+                                                  color: Color(textBaseColor),
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              Text(
+                                                sex,
+                                                style: TextStyle(
+                                                  color: Color(textBaseColor),
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              Text(
+                                                birthday,
+                                                style: TextStyle(
+                                                  color: Color(textBaseColor),
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              // Text('Weight: $_weight'),
+                                            ],
+                                          ),
+                                        );
+                                      }),
                                 ),
-                                child: StreamBuilder(
-                                    stream: databaseReference.onValue,
-                                    builder: (context, snap) {
-                                      return Container(
-                                        padding:
-                                            EdgeInsets.only(top: 12, left: 2),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              name,
-                                              style: TextStyle(
-                                                color: Color(textBaseColor),
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            Text(
-                                              sex,
-                                              style: TextStyle(
-                                                color: Color(textBaseColor),
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            Text(
-                                              birthday,
-                                              style: TextStyle(
-                                                color: Color(textBaseColor),
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            // Text('Weight: $_weight'),
-                                          ],
-                                        ),
-                                      );
-                                    }),
                               ),
                             ),
                           ),
