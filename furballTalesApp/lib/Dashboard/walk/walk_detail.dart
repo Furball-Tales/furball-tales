@@ -1,18 +1,19 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter/material.dart';
-import 'package:furballTalesApp/timerUI.dart';
-import '../app_bar.dart';
+import 'timerUI.dart';
+import '../../app_bar.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
 
 
-class WalkDetailPage extends StatelessWidget {
+
+class WalkDetail extends StatelessWidget {
   IconData icon;
   String heading;
   int color;
 
-  WalkDetailPage(IconData icon, String heading, int color) {
+  WalkDetail(IconData icon, String heading, int color) {
     this.icon = icon;
     this.heading = heading;
     this.color = color;
@@ -65,9 +66,9 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(
+      appBar: GradientAppBar (
         "Walk History",
-        true,
+        "null"
       ),
       bottomNavigationBar: MotionTabBar(
         labels: [

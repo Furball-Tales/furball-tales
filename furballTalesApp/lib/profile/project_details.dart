@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
-
-import '../frontend_settings.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
@@ -10,6 +8,8 @@ var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
 var accentYellow = NeumorphicCardSettings.accentYellow;
 var accentGold = NeumorphicCardSettings.accentGold;
+
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
 
 class ProjectDet extends StatelessWidget {
   @override
@@ -20,7 +20,7 @@ class ProjectDet extends StatelessWidget {
         backgroundColor: Color(baseColor),
         appBar: GradientAppBar(
           "Furball Tales Way",
-          true,
+          'back',
         ),
         body: SingleChildScrollView(
           child: Column(children: [
@@ -75,7 +75,7 @@ class ProjectDet extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontSize: 18,
-                                    color: Colors.grey[900],
+                                    color: Color(textBaseColor),
                                   ),
                                 ),
                               ],
@@ -116,7 +116,7 @@ class ProjectDet extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontSize: 18,
-                                    color: Colors.grey[900],
+                                    color: Color(textBaseColor),
                                   ),
                                 ),
                               ],
@@ -155,11 +155,11 @@ class ProjectDet extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 12.0),
                                   child: Text(
-                                    "- Becoming a leading and lasting company in the pet app industry.",
+                                    "- Communicate and share everything as a lasting team.",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.grey[900],
+                                      color: Color(textBaseColor),
                                     ),
                                   ),
                                 ),
@@ -170,7 +170,7 @@ class ProjectDet extends StatelessWidget {
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.grey[900],
+                                      color: Color(textBaseColor),
                                     ),
                                   ),
                                 ),
@@ -179,7 +179,7 @@ class ProjectDet extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontSize: 18,
-                                    color: Colors.grey[900],
+                                    color: Color(textBaseColor),
                                   ),
                                 ),
                               ],
@@ -228,7 +228,7 @@ class ProjectDet extends StatelessWidget {
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.grey[900],
+                                color: Color(textBaseColor),
                               ),
                             ),
                           ),

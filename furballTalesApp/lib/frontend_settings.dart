@@ -8,10 +8,16 @@ class NeumorphicCardSettings {
   static int accentYellow = 0xffFFE319;
   static int accentGold = 0xffD4BF15;
 
+  static int mildBlueGreen = 0xff2ecaf2;
+  static int mildBlue = 0xff198df8;
+  static int mildDarkBlue = 0xff0f4ffb;
+
   static double intensity = 0.7;
   static double depth = 8.0;
   static double surfaceIntensity = 0.1;
   static int baseColor = 0xFFEEEEEE;
+
+  static int textBaseColor = 0xFF616161; // Colors.grey[700]
 }
 
 class NeumorphicCaveSettings {
@@ -33,6 +39,7 @@ class BuildButton {
     VoidCallback onClick,
     double bottom = 27.0,
     double fontSize = 20,
+    FontWeight fontWeight = FontWeight.normal,
   }) {
     return NeumorphicButton(
       margin: EdgeInsets.only(bottom: bottom),
@@ -61,7 +68,8 @@ class BuildButton {
             color: Color(color), //customize color here
           ),
           textStyle: NeumorphicTextStyle(
-            fontSize: fontSize, //customize size here
+            fontSize: fontSize,
+            fontWeight: fontWeight, //customize size here
             // AND others usual text style properties (fontFamily, fontWeight, ...)
           ),
         ),

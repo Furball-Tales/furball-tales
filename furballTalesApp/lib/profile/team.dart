@@ -11,7 +11,7 @@ class Ayumi extends StatelessWidget {
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
         "Bio",
-        true,
+        'back',
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -104,7 +104,7 @@ class Yuta extends StatelessWidget {
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
         "Bio",
-        true,
+        'back',
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -197,7 +197,7 @@ class Ryohei extends StatelessWidget {
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
         "Bio",
-        true,
+        'back',
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -290,7 +290,7 @@ class Jimmy extends StatelessWidget {
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
         "Bio",
-        true,
+        'back',
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),
@@ -383,7 +383,7 @@ class Mukhtar extends StatelessWidget {
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
         "Bio",
-        true,
+        'back',
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0),

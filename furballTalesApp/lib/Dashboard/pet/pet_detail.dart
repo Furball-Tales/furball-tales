@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 
-class DetailPage extends StatelessWidget {
+class PetDetail extends StatelessWidget {
   String heroTag;
   String photo;
 
-  DetailPage(String heroTag, String photo) {
+  PetDetail(String heroTag, String photo) {
     this.heroTag = heroTag;
     this.photo = photo;
   }

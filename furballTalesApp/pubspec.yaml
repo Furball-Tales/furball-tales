@@ -34,9 +34,14 @@ dependencies:
   flutter_neumorphic: ^3.0.1
   image_picker: ^0.6.7
   transparent_image: ^1.0.0
-  google_maps_flutter:
-  numberpicker:
-  motion_tab_bar: ^0.1.4
+  table_calendar: ^2.2.3
+  cloud_firestore: ^0.13.5
+  firebase_helpers: ^0.1.0
+  intl: ^0.16.1
+  bezier_chart: "^1.0.16"
+  motion_tab_bar:
+  flutter_rating_bar:
+  dropdown_formfield:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

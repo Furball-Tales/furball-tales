@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../frontend_settings.dart';
+import '../../main.dart';
+import '../../frontend_settings.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
-class FoodDetailPage extends StatelessWidget {
+class FoodDetail extends StatelessWidget {
   IconData icon;
   String heading;
   int color;
 
-  FoodDetailPage(IconData icon, String heading, int color) {
+  FoodDetail(IconData icon, String heading, int color) {
     this.icon = icon;
     this.heading = heading;
     this.color = color;

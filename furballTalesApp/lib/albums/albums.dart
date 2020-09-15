@@ -3,7 +3,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'photos.dart';
 import '../sign_in.dart';
-import '../Dashboard/grid_dashboard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
@@ -31,8 +30,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-_buildButton({String text, int color, VoidCallback onClick}) =>
-    BuildButton().buildButton;
+// _buildButton({String text, int color, VoidCallback onClick}) =>
+//     BuildButton().buildButton;
 
 class Albums extends StatelessWidget {
   @override
@@ -52,7 +51,8 @@ class ImageGridItem extends StatefulWidget {
 class _ImageGridItemState extends State<ImageGridItem> {
   final databaseReference =
       FirebaseDatabase.instance.reference().child("$id").child("albums");
-  // FirebaseDatabase.instance.reference().child("images");
+  final storageReference =
+      FirebaseStorage.instance.ref().child("$id").child("images");
 
   var newAlbumName = "";
 
@@ -84,7 +84,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
       key: _scaffoldKey,
       appBar: GradientAppBar(
         "Albums",
-        false,
+        'null',
       ),
       backgroundColor: Colors.transparent,
       floatingActionButton: NeumorphicTheme(
@@ -102,57 +102,24 @@ class _ImageGridItemState extends State<ImageGridItem> {
               builder: (BuildContext context) {
                 return AlertDialog(
                     actions: <Widget>[
-                      Container(
-                          margin: EdgeInsets.all(8),
-                          width: 130,
-                          child: Neumorphic(
-                              style: NeumorphicStyle(
-                                  shape: NeumorphicShape.concave,
-                                  surfaceIntensity: surfaceIntensity,
-                                  depth: depth,
-                                  intensity: intensity,
-                                  lightSource: LightSource.topLeft,
-                                  color: Color(baseColor)),
-                              child: FlatButton(
-                                  onPressed: () {
-                                    createAlbum();
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.photo_album,
-                                        size: 25,
-                                        color: Colors.pink[400],
-                                      ),
-                                      Text(
-                                        "Add Album",
-                                        style: TextStyle(
-                                            fontFamily: 'BalooBhai',
-                                            fontSize: 17.0),
-                                      )
-                                    ],
-                                  ))))
+                      NeumorphicTheme(
+                        child: NeumorphicButton(
+                          child: const Text('Add'),
+                          onPressed: () {
+                            createAlbum();
+                            Navigator.of(context).pop();
+                          },
+                          style: NeumorphicStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ],
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     title: Text("Add Album"),
                     content:
                         Stack(overflow: Overflow.visible, children: <Widget>[
-                      Positioned(
-                        right: -50.0,
-                        top: -50.0,
-                        child: InkResponse(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: CircleAvatar(
-                            child: Icon(Icons.close),
-                          ),
-                        ),
-                      ),
                       Form(
                           child: SingleChildScrollView(
                               child: Column(
@@ -161,11 +128,12 @@ class _ImageGridItemState extends State<ImageGridItem> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: TextFormField(
-                                  onChanged: (String _newAlbumValue) {
-                                    newAlbumName = _newAlbumValue;
-                                  },
-                                  decoration:
-                                      InputDecoration(labelText: 'Album')),
+                                maxLength: 20,
+                                onChanged: (String _newAlbumValue) {
+                                  newAlbumName = _newAlbumValue;
+                                },
+                                decoration: InputDecoration(labelText: 'Album'),
+                              ),
                             )
                           ])))
                     ]));
@@ -230,6 +198,24 @@ class _ImageGridItemState extends State<ImageGridItem> {
                                       onPressed: () {
                                         setState(() {
                                           String key = item[index]['key'];
+                                          if (data[item[index]["key"]]
+                                                  ['pictures'] !=
+                                              null) {
+                                            List<Map<String, dynamic>>
+                                                dummyListMap = new List();
+                                            data[item[index]["key"]]['pictures']
+                                                .forEach((key, mapValue) {
+                                              dummyListMap.add(
+                                                  Map<String, dynamic>.from(
+                                                      mapValue));
+                                            });
+                                            dummyListMap.forEach((key) {
+                                              storageReference
+                                                  .child(
+                                                      key["imgName"].toString())
+                                                  .delete();
+                                            });
+                                          }
                                           databaseReference
                                               .child('$key')
                                               .remove();
@@ -247,7 +233,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
                     },
                   );
                 } else
-                  return Text("No Albums");
+                  return Center(child: Text("No Albums"));
               },
             ),
           ),
@@ -282,46 +268,48 @@ Widget MyItems(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    heading,
-                    style: TextStyle(
-                      color: Color(textColor),
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Material(
-                    color: Color(materialColor),
-                    borderRadius: BorderRadius.circular(24),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            right: -2.5,
-                            top: 7.0,
-                            child: Icon(icon, color: Colors.grey[600]),
-                          ),
-                          Icon(
-                            icon,
-                            color: Colors.grey[100],
-                            size: 30,
-                          ),
-                        ],
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      heading,
+                      style: TextStyle(
+                        color: Color(textColor),
+                        fontSize: 15,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Material(
+                      color: Color(materialColor),
+                      borderRadius: BorderRadius.circular(24),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned(
+                              right: -2.5,
+                              top: 7.0,
+                              child: Icon(icon, color: Colors.grey[600]),
+                            ),
+                            Icon(
+                              icon,
+                              color: Colors.grey[100],
+                              size: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
