@@ -85,6 +85,13 @@ class PetCardState extends State<PetCard> {
     });
   }
 
+  String calculateAge(String stringBirthday) {
+    DateTime dataBirthday = DateTime.parse(stringBirthday);
+    Duration differenceDays = DateTime.now().difference(dataBirthday);
+    var _age = (differenceDays.inDays / 365).floor().toString();
+    return _age;
+  }
+
   PetCardState(
     String heroTag,
     String birthday,
@@ -93,7 +100,7 @@ class PetCardState extends State<PetCard> {
     String sex,
   ) {
     this.heroTag = heroTag;
-    this.birthday = birthday;
+    this.birthday = calculateAge(birthday);
     this.name = name;
     this.photo = photo;
     this.sex = sex;
