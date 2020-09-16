@@ -1,8 +1,10 @@
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter/material.dart';
-import '../../main.dart';
-import '../../frontend_settings.dart';
-
-var baseColor = NeumorphicCardSettings.baseColor;
+import 'timerUI.dart';
+import '../../app_bar.dart';
+import 'package:motion_tab_bar/motiontabbar.dart';
+import 'package:motion_tab_bar/MotionTabBarView.dart';
+import 'package:motion_tab_bar/MotionTabController.dart';
 
 class WalkDetail extends StatelessWidget {
   IconData icon;
@@ -14,86 +16,83 @@ class WalkDetail extends StatelessWidget {
     this.heading = heading;
     this.color = color;
   }
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Time",
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Walk(),
+    );
+  }
+}
+
+class Walk extends StatefulWidget {
+  Walk({Key key}) : super(key: key);
+  @override
+  _WalkState createState() => _WalkState();
+}
+
+class _WalkState extends State<Walk> with TickerProviderStateMixin {
+  MotionTabController _tabController;
+  int hour = 0;
+  int min = 0;
+  int sec = 0;
+  bool started = true;
+  bool stopped = true;
+  int timeForTimer = 0;
+  String timeToDisplay = "";
+  bool checkTimer = true;
+  Stopwatch stopwatch = new Stopwatch();
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = MotionTabController(initialIndex: 0, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor:
-            Colors.transparent, //Make background of overall Widget transparent
-        body: Hero(
-            tag: heading,
-            child: Material(
-                type: MaterialType.transparency,
-                child: Container(
-                  color: Color(baseColor),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          height: 300,
-                          child: imageContents(context),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 500,
-                          child: Text('content'),
-                        ),
-                      )
-                    ],
-                  ),
-                ))));
-  }
-
-  // Image Widget
-  Widget imageContents(BuildContext context) {
-    double statusBarHeight = MediaQuery.of(context).padding.top;
-    return Container(
-        height: 277,
-        color: Colors.white,
-        child: Container(
-            child: Stack(
-          children: <Widget>[
-            Center(
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 30,
-              ),
+      appBar: GradientAppBar("Walk History", "null"),
+      bottomNavigationBar: MotionTabBar(
+        labels: ["Walk", "Statistics", "History"],
+        initialSelectedTab: "Walk",
+        tabIconColor: Colors.grey,
+        tabSelectedColor: Colors.blue,
+        onTabItemSelected: (int value) {
+          print(value);
+          setState(() {
+            _tabController.index = value;
+          });
+        },
+        icons: [Icons.directions_walk, Icons.table_chart, Icons.history],
+        textStyle: TextStyle(color: Colors.blue),
+      ),
+      body: MotionTabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          Container(child: TimerPage()),
+          Container(
+            child: Center(
+              child: Text("Stats"),
             ),
-            Column(
-              verticalDirection: VerticalDirection.down,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: statusBarHeight),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(),
-                        Container(
-                          child: RaisedButton(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                            ),
-                            color: Color(0xff00b8d4),
-                            shape: CircleBorder(),
-                            onPressed: () {
-                              Navigator.pop(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return MyApp();
-                                }),
-                              );
-                            },
-                          ),
-                        )
-                      ]),
-                )
-              ],
-            )
-          ],
-        )));
+          ),
+          Container(
+            child: Center(
+              child: Text("History"),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

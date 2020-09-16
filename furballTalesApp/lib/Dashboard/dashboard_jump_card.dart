@@ -16,9 +16,9 @@ var baseColor = NeumorphicCardSettings.baseColor;
 dynamic allChartData = ChartDammyData().allChartData;
 
 _nextPage(icon, heading, textColor) {
-  if (heading == 'Food') return FoodDetail(icon, heading, textColor);
   if (heading == 'Walk') return WalkDetail(icon, heading, textColor);
-  if (heading == 'Food') return FoodDetail(icon, heading, textColor);
+  if (heading == 'Food')
+    return FoodDetail(icon, heading, textColor, allChartData);
   if (heading == 'Weight')
     return WeightDetail(icon, heading, textColor, allChartData);
 }

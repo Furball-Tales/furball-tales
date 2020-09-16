@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -5,8 +6,24 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
+import '../get_allPetsData.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
+
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.blue,
+          accentColor: Colors.green),
+    ));
+
+class ListItem {
+  int value;
+  String name;
+
+  ListItem(this.value, this.name);
+}
 
 class Medical extends StatefulWidget {
   @override
@@ -14,11 +31,47 @@ class Medical extends StatefulWidget {
 }
 
 class _MedicalState extends State<Medical> {
+  DateTime medicalDate;
+
   final databaseReference =
-      FirebaseDatabase.instance.reference().child('$id').child('vetinfos');
+      FirebaseDatabase.instance.reference().child('$id').child('pets');
+
+  List<ListItem> petNames = List();
+  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
+  ListItem _selectedItem;
+  makePetsList() {
+    for (var i = 0; i < allPetsData.length; i++) {
+      ListItem newListItem = ListItem(i + 1, allPetsData[i]['data']['petName']);
+      petNames.add(newListItem);
+    }
+    print(petNames);
+  }
+
+  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<ListItem>> items = List();
+    for (ListItem listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem.name),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    medicalDate = DateTime.now();
+    makePetsList();
+    _dropdownMenuItems = buildDropDownMenuItems(petNames);
+    _selectedItem = _dropdownMenuItems[0].value;
+    dateValue = '${medicalDate.year}-${medicalDate.month}-${medicalDate.day}';
+  }
 
   List history = List();
-  String dateValue = "Not set";
+  String dateValue;
   String hospital = "";
   String veterinarian = "";
   String vaccinations = "";
@@ -26,18 +79,21 @@ class _MedicalState extends State<Medical> {
   String weight = "";
   String notes = "";
   String key = "";
-  String updateDateValue = "Not set";
+  String updateDateValue;
   String updateHospital = "";
   String updateVeterinarian = "";
   String updateVaccinations = "";
   String updateMedications = "";
   String updateWeight = "";
   String updateNotes = "";
+  String petName = allPetsData[0]['data']['petName'];
+  String selectedKey = allPetsData[0]['key'];
 
   addHistory() {
     //Map
     Map<String, String> history = {
       "Date": '$dateValue',
+      "Name": '$petName',
       "Hospital": '$hospital',
       "Veterinarian": '$veterinarian',
       "Vaccinations": '$vaccinations',
@@ -46,13 +102,52 @@ class _MedicalState extends State<Medical> {
       "Notes": '$notes'
     };
 
-    databaseReference.push().set(history).whenComplete(() {
+    for (var i = 0; i < allPetsData.length; i++) {
+      if (i + 1 == _selectedItem.value) {
+        selectedKey = allPetsData[i]['key'];
+      }
+    }
+
+    databaseReference
+        .child('$selectedKey')
+        .child('vetinfos')
+        .push()
+        .set(history)
+        .whenComplete(() {
       print("Medical history created");
+    });
+  }
+
+  addWeight() {
+    Map<String, String> weightInfo = {
+      "Date": '$dateValue',
+      "Weight": '$weight'
+    };
+
+    for (var i = 0; i < allPetsData.length; i++) {
+      if (i + 1 == _selectedItem.value) {
+        selectedKey = allPetsData[i]['key'];
+      }
+    }
+
+    databaseReference
+        .child('$selectedKey')
+        .child('weight')
+        .push()
+        .set(weightInfo)
+        .whenComplete(() {
+      print("weight history created");
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final database = FirebaseDatabase.instance
+        .reference()
+        .child('$id')
+        .child('pets')
+        .child('$selectedKey')
+        .child('vetinfos');
     // getData();
     return Scaffold(
       backgroundColor: Color(baseColor),
@@ -66,154 +161,173 @@ class _MedicalState extends State<Medical> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                      actions: <Widget>[
-                        NeumorphicTheme(
-                          child: NeumorphicButton(
-                            child: const Text('Add'),
-                            onPressed: () {
-                              addHistory();
-                              Navigator.of(context).pop();
-                              dateValue = "Not Set";
-                            },
-                            style: NeumorphicStyle(
-                              color: Colors.white,
+                  DateTime currentdate = DateTime.now();
+                  return StatefulBuilder(builder: (context, setState) {
+                    return AlertDialog(
+                        actions: <Widget>[
+                          NeumorphicTheme(
+                            child: NeumorphicButton(
+                              child: const Text('Add'),
+                              onPressed: () {
+                                addHistory();
+                                addWeight();
+                                Navigator.of(context).pop();
+                                dateValue =
+                                    '${currentdate.year}-${currentdate.month}-${currentdate.day}';
+                              },
+                              style: NeumorphicStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      title: Text("Add History"),
-                      content: Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Form(
-                              child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                    elevation: 4.0,
-                                    onPressed: () {
-                                      DatePicker.showDatePicker(context,
-                                          theme: DatePickerTheme(
-                                            containerHeight: 250.0,
-                                          ),
-                                          showTitleActions: true,
-                                          minTime: DateTime(2020, 1, 1),
-                                          maxTime: DateTime(2021, 12, 31),
-                                          onConfirm: (date) {
-                                        setState(() {
-                                          dateValue =
-                                              '${date.year}-${date.month}-${date.day}';
-                                        });
-                                      },
-                                          currentTime: DateTime.now(),
-                                          locale: LocaleType.en);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: 50.0,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Row(
-                                            children: <Widget>[
-                                              Container(
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      Icons.date_range,
-                                                      size: 15.0,
-                                                      color: Colors.blue,
-                                                    ),
-                                                    new Text(
-                                                      "$dateValue",
-                                                      style: TextStyle(
-                                                          color: Colors.grey,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15.0),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Text(
-                                            "Change",
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: TextFormField(
-                                      onChanged: (String hospitalValue) {
-                                        hospital = hospitalValue;
-                                      },
-                                      decoration: InputDecoration(
-                                          labelText: 'Hospital')),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: TextFormField(
-                                        onChanged: (String veterinarianValue) {
-                                          veterinarian = veterinarianValue;
-                                        },
-                                        decoration: InputDecoration(
-                                            labelText: 'Vet Name'))),
-                                Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: TextFormField(
-                                        onChanged: (String vaccinationValue) {
-                                          vaccinations = vaccinationValue;
-                                        },
-                                        decoration: InputDecoration(
-                                            labelText: 'Vaccinations'))),
-                                Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: TextFormField(
-                                        onChanged: (String medicationValue) {
-                                          medications = medicationValue;
-                                        },
-                                        decoration: InputDecoration(
-                                            labelText: 'Medication'))),
-                                Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: TextFormField(
-                                        onChanged: (String weightValue) {
-                                          weight = weightValue;
-                                        },
-                                        decoration: InputDecoration(
-                                            labelText: 'Weight'))),
-                                Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: TextFormField(
-                                        onChanged: (String notesValue) {
-                                          notes = notesValue;
-                                        },
-                                        decoration: InputDecoration(
-                                            labelText: 'Notes'))),
-                              ],
-                            ),
-                          ))
                         ],
-                      ));
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        title: Text("Add History"),
+                        content: Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Form(
+                                child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: DropdownButton<ListItem>(
+                                        value: _selectedItem,
+                                        items: _dropdownMenuItems,
+                                        style: TextStyle(color: Colors.grey),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _selectedItem = value;
+                                          });
+                                          print(
+                                              'this is the allPetsData $allPetsData');
+                                        }),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0)),
+                                      elevation: 4.0,
+                                      onPressed: () async {
+                                        DateTime picked = await showDatePicker(
+                                            context: context,
+                                            initialDate: currentdate,
+                                            firstDate:
+                                                DateTime(currentdate.year - 5),
+                                            lastDate:
+                                                DateTime(currentdate.year + 5));
+                                        if (picked != null) {
+                                          setState(() {
+                                            currentdate = picked;
+                                            dateValue =
+                                                '${currentdate.year}-${currentdate.month}-${currentdate.day}';
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: 50.0,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Icon(
+                                                        Icons.date_range,
+                                                        size: 15.0,
+                                                        color: Colors.blue,
+                                                      ),
+                                                      new Text(
+                                                        "${currentdate.year} - ${currentdate.month} - ${currentdate.day}",
+                                                        style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15.0),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            Text(
+                                              "Change",
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: TextFormField(
+                                        onChanged: (String hospitalValue) {
+                                          hospital = hospitalValue;
+                                        },
+                                        decoration: InputDecoration(
+                                            labelText: 'Hospital')),
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: TextFormField(
+                                          onChanged:
+                                              (String veterinarianValue) {
+                                            veterinarian = veterinarianValue;
+                                          },
+                                          decoration: InputDecoration(
+                                              labelText: 'Vet Name'))),
+                                  Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: TextFormField(
+                                          onChanged: (String vaccinationValue) {
+                                            vaccinations = vaccinationValue;
+                                          },
+                                          decoration: InputDecoration(
+                                              labelText: 'Vaccinations'))),
+                                  Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: TextFormField(
+                                          onChanged: (String medicationValue) {
+                                            medications = medicationValue;
+                                          },
+                                          decoration: InputDecoration(
+                                              labelText: 'Medication'))),
+                                  Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: TextFormField(
+                                          onChanged: (String weightValue) {
+                                            weight = weightValue;
+                                          },
+                                          decoration: InputDecoration(
+                                              labelText: 'Weight'))),
+                                  Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: TextFormField(
+                                          onChanged: (String notesValue) {
+                                            notes = notesValue;
+                                          },
+                                          decoration: InputDecoration(
+                                              labelText: 'Notes'))),
+                                ],
+                              ),
+                            ))
+                          ],
+                        ));
+                  });
                 });
           },
           child: Container(
@@ -227,7 +341,7 @@ class _MedicalState extends State<Medical> {
         ),
       ),
       body: StreamBuilder(
-          stream: databaseReference.onValue,
+          stream: database.onValue,
           builder: (context, snap) {
             if (snap.hasData &&
                 !snap.hasError &&
@@ -285,237 +399,218 @@ class _MedicalState extends State<Medical> {
                                             showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                    actions: <Widget>[
-                                                      FlatButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                            databaseReference
-                                                                .child('$key')
-                                                                .update({
-                                                              "Key": '$key',
-                                                              "Date":
-                                                                  "$updateDateValue",
-                                                              "Hospital":
-                                                                  "$updateHospital",
-                                                              "Veterinarian":
-                                                                  "$updateVeterinarian",
-                                                              "Vaccinations":
-                                                                  "$updateVaccinations",
-                                                              "Medications":
-                                                                  "$updateMedications",
-                                                              "Weight":
-                                                                  "$updateWeight",
-                                                              "Notes":
-                                                                  "$updateNotes",
-                                                            });
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                          child: Text(
-                                                              "Update History"))
-                                                    ],
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8)),
-                                                    title:
-                                                        Text("Update History"),
-                                                    content: Stack(
-                                                      overflow:
-                                                          Overflow.visible,
-                                                      children: <Widget>[
-                                                        Form(
-                                                            child:
-                                                                SingleChildScrollView(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: <Widget>[
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        5.0),
-                                                                child:
-                                                                    RaisedButton(
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              5.0)),
-                                                                  elevation:
-                                                                      4.0,
-                                                                  onPressed:
-                                                                      () {
-                                                                    DatePicker.showDatePicker(
-                                                                        context,
-                                                                        theme:
-                                                                            DatePickerTheme(
-                                                                          containerHeight:
-                                                                              250.0,
-                                                                        ),
-                                                                        showTitleActions:
-                                                                            true,
-                                                                        minTime: DateTime(
-                                                                            2020,
-                                                                            1,
-                                                                            1),
-                                                                        maxTime: DateTime(
-                                                                            2021,
-                                                                            12,
-                                                                            31),
-                                                                        onChanged:
-                                                                            (date) {
-                                                                      setState(
-                                                                          () {
-                                                                        updateDateValue =
-                                                                            '${date.year}-${date.month}-${date.day}';
-                                                                      });
-                                                                      print(
-                                                                          dateValue);
-                                                                    },
-                                                                        currentTime:
-                                                                            DateTime
-                                                                                .now(),
-                                                                        locale:
-                                                                            LocaleType.en);
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    height:
-                                                                        50.0,
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Row(
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Container(
-                                                                              child: Row(
-                                                                                children: <Widget>[
-                                                                                  Icon(
-                                                                                    Icons.date_range,
-                                                                                    size: 15.0,
-                                                                                    color: Colors.blue,
-                                                                                  ),
-                                                                                  Text(
-                                                                                    "$updateDateValue",
-                                                                                    style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15.0),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                        Text(
-                                                                          "Change",
-                                                                          style: TextStyle(
-                                                                              color: Colors.grey,
-                                                                              fontWeight: FontWeight.bold,
-                                                                              fontSize: 15.0),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            5.0),
-                                                                child:
-                                                                    TextFormField(
-                                                                        initialValue:
-                                                                            updateHospital,
-                                                                        onChanged:
-                                                                            (String
-                                                                                hospitalValue) {
-                                                                          updateHospital =
-                                                                              hospitalValue;
-                                                                        },
-                                                                        decoration:
-                                                                            InputDecoration(labelText: 'Hospital')),
-                                                              ),
-                                                              Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              5.0),
-                                                                  child: TextFormField(
-                                                                      initialValue: updateVeterinarian,
-                                                                      onChanged: (String veterinarianValue) {
-                                                                        updateVeterinarian =
-                                                                            veterinarianValue;
-                                                                      },
-                                                                      decoration: InputDecoration(labelText: 'Vet Name'))),
-                                                              Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              5.0),
-                                                                  child: TextFormField(
-                                                                      initialValue: updateVaccinations,
-                                                                      onChanged: (String vaccinationValue) {
-                                                                        updateVaccinations =
-                                                                            vaccinationValue;
-                                                                      },
-                                                                      decoration: InputDecoration(labelText: 'Vaccinations'))),
-                                                              Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              5.0),
-                                                                  child: TextFormField(
-                                                                      initialValue: updateMedications,
-                                                                      onChanged: (String medicationValue) {
-                                                                        updateMedications =
-                                                                            medicationValue;
-                                                                      },
-                                                                      decoration: InputDecoration(labelText: 'Medication'))),
-                                                              Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              5.0),
-                                                                  child: TextFormField(
-                                                                      initialValue: updateWeight,
-                                                                      onChanged: (String weightValue) {
-                                                                        updateWeight =
-                                                                            weightValue;
-                                                                      },
-                                                                      decoration: InputDecoration(labelText: 'Weight'))),
-                                                              Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              5.0),
-                                                                  child: TextFormField(
-                                                                      initialValue: updateNotes,
-                                                                      onChanged: (String notesValue) {
-                                                                        updateNotes =
-                                                                            notesValue;
-                                                                      },
-                                                                      decoration: InputDecoration(labelText: 'Notes'))),
-                                                            ],
-                                                          ),
-                                                        ))
+                                                DateTime updatedate =
+                                                    DateTime.now();
+                                                return StatefulBuilder(builder:
+                                                    (context, setState) {
+                                                  return AlertDialog(
+                                                      actions: <Widget>[
+                                                        FlatButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              databaseReference
+                                                                  .child('$key')
+                                                                  .update({
+                                                                "Key": '$key',
+                                                                "Date":
+                                                                    "$updateDateValue",
+                                                                "Hospital":
+                                                                    "$updateHospital",
+                                                                "Veterinarian":
+                                                                    "$updateVeterinarian",
+                                                                "Vaccinations":
+                                                                    "$updateVaccinations",
+                                                                "Medications":
+                                                                    "$updateMedications",
+                                                                "Weight":
+                                                                    "$updateWeight",
+                                                                "Notes":
+                                                                    "$updateNotes",
+                                                              });
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text(
+                                                                "Update History"))
                                                       ],
-                                                    ));
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8)),
+                                                      title: Text(
+                                                          "Update History"),
+                                                      content: Stack(
+                                                        overflow:
+                                                            Overflow.visible,
+                                                        children: <Widget>[
+                                                          Form(
+                                                              child:
+                                                                  SingleChildScrollView(
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: <
+                                                                  Widget>[
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          5.0),
+                                                                  child:
+                                                                      RaisedButton(
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5.0)),
+                                                                    elevation:
+                                                                        4.0,
+                                                                    onPressed:
+                                                                        () async {
+                                                                      DateTime picked = await showDatePicker(
+                                                                          context:
+                                                                              context,
+                                                                          initialDate:
+                                                                              updatedate,
+                                                                          firstDate: DateTime(updatedate.year -
+                                                                              5),
+                                                                          lastDate:
+                                                                              DateTime(updatedate.year + 5));
+                                                                      if (picked !=
+                                                                          null) {
+                                                                        setState(
+                                                                            () {
+                                                                          updatedate =
+                                                                              picked;
+                                                                          updateDateValue =
+                                                                              '${updatedate.year}-${updatedate.month}-${updatedate.day}';
+                                                                        });
+                                                                      }
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Container(
+                                                                                child: Row(
+                                                                                  children: <Widget>[
+                                                                                    Icon(
+                                                                                      Icons.date_range,
+                                                                                      size: 15.0,
+                                                                                      color: Colors.blue,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "$updateDateValue",
+                                                                                      style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15.0),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Text(
+                                                                            "Change",
+                                                                            style: TextStyle(
+                                                                                color: Colors.grey,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 15.0),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              5.0),
+                                                                  child: TextFormField(
+                                                                      initialValue: updateHospital,
+                                                                      onChanged: (String hospitalValue) {
+                                                                        updateHospital =
+                                                                            hospitalValue;
+                                                                      },
+                                                                      decoration: InputDecoration(labelText: 'Hospital')),
+                                                                ),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            5.0),
+                                                                    child: TextFormField(
+                                                                        initialValue: updateVeterinarian,
+                                                                        onChanged: (String veterinarianValue) {
+                                                                          updateVeterinarian =
+                                                                              veterinarianValue;
+                                                                        },
+                                                                        decoration: InputDecoration(labelText: 'Vet Name'))),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            5.0),
+                                                                    child: TextFormField(
+                                                                        initialValue: updateVaccinations,
+                                                                        onChanged: (String vaccinationValue) {
+                                                                          updateVaccinations =
+                                                                              vaccinationValue;
+                                                                        },
+                                                                        decoration: InputDecoration(labelText: 'Vaccinations'))),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            5.0),
+                                                                    child: TextFormField(
+                                                                        initialValue: updateMedications,
+                                                                        onChanged: (String medicationValue) {
+                                                                          updateMedications =
+                                                                              medicationValue;
+                                                                        },
+                                                                        decoration: InputDecoration(labelText: 'Medication'))),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            5.0),
+                                                                    child: TextFormField(
+                                                                        initialValue: updateWeight,
+                                                                        onChanged: (String weightValue) {
+                                                                          updateWeight =
+                                                                              weightValue;
+                                                                        },
+                                                                        decoration: InputDecoration(labelText: 'Weight'))),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            5.0),
+                                                                    child: TextFormField(
+                                                                        initialValue: updateNotes,
+                                                                        onChanged: (String notesValue) {
+                                                                          updateNotes =
+                                                                              notesValue;
+                                                                        },
+                                                                        decoration: InputDecoration(labelText: 'Notes'))),
+                                                              ],
+                                                            ),
+                                                          ))
+                                                        ],
+                                                      ));
+                                                });
                                               },
                                             );
                                           },
@@ -531,6 +626,33 @@ class _MedicalState extends State<Medical> {
                                       content: IntrinsicHeight(
                                         child: Column(
                                           children: <Widget>[
+                                            Row(children: [
+                                              Container(
+                                                margin: EdgeInsets.fromLTRB(
+                                                    20, 0, 0, 0),
+                                                child: Text("Name:",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.grey,
+                                                      fontSize: 18.0,
+                                                    )),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  margin: EdgeInsets.fromLTRB(
+                                                      20, 0, 0, 0),
+                                                  child:
+                                                      Text(item[index]["Name"],
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.grey,
+                                                            fontSize: 18.0,
+                                                          )),
+                                                ),
+                                              ),
+                                            ]),
                                             Row(children: [
                                               Container(
                                                 margin: EdgeInsets.fromLTRB(
