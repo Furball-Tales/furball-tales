@@ -102,6 +102,13 @@ class Profile extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Center(
+                      child: CircleAvatar(
+                        radius: 80,
+                        backgroundImage: AssetImage('assets/logo.png'),
+                        backgroundColor: Color(baseColor),
+                      ),
+                    ),
                     // SizedBox(
                     //   height: 50.0,
                     //   width: 200,
@@ -112,7 +119,7 @@ class Profile extends StatelessWidget {
                     //   this is about page-----------------------------------------
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 200,
+                        top: 40,
                         right: 100,
                         left: 100,
                       ),
