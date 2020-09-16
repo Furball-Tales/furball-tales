@@ -119,6 +119,25 @@ class _GridDashboardState extends State<GridDashboard> {
   // File _image;
   final picker = ImagePicker();
 
+  String frontGreeting;
+
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      frontGreeting = 'Morning';
+    } else if (hour < 17) {
+      frontGreeting = 'Afternoon';
+    } else {
+      frontGreeting = 'Evening';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.greeting();
+  }
+
   // Future selectImage() async {
   //   final pickedFile = await picker.getImage(source: ImageSource.gallery);
   //   _image = File(pickedFile.path);
@@ -146,20 +165,26 @@ class _GridDashboardState extends State<GridDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: <Widget>[
           // Top(),
-          Column(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              NeumorphicText(
-                "  Good Morning,\n$name.",
-                style: NeumorphicStyle(
-                  depth: 4, //customize depth here
-                  color: Colors.white, //customize color here
+              Image(
+                image: AssetImage('assets/logo.png'),
+                width: 100.0,
+              ),
+              Center(
+                child: NeumorphicText(
+                  "Good ${this.frontGreeting}\n$name!",
+                  style: NeumorphicStyle(
+                    depth: 4, //customize depth here
+                    color: Colors.black87, //customize color here
+                  ),
+                  textStyle: NeumorphicTextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold //customize size here
+                      // AND others usual text style properties (fontFamily, fontWeight, ...)
+                      ),
                 ),
-                textStyle: NeumorphicTextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold //customize size here
-                    // AND others usual text style properties (fontFamily, fontWeight, ...)
-                    ),
               ),
             ],
           ),
