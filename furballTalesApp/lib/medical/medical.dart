@@ -70,7 +70,6 @@ class _MedicalState extends State<Medical> {
     _dropdownMenuItems = buildDropDownMenuItems(petNames);
     _selectedItem = _dropdownMenuItems[0].value;
     dateValue = '${medicalDate.year}-${medicalDate.month}-${medicalDate.day}';
-
   }
 
   List history = List();
