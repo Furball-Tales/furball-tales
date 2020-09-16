@@ -47,7 +47,6 @@ class _MedicalState extends State<Medical> {
     print(petNames);
   }
 
-
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
     List<DropdownMenuItem<ListItem>> items = List();
     for (ListItem listItem in listItems) {
@@ -69,13 +68,6 @@ class _MedicalState extends State<Medical> {
     _dropdownMenuItems = buildDropDownMenuItems(petNames);
     _selectedItem = _dropdownMenuItems[0].value;
     dateValue = '${medicalDate.year}-${medicalDate.month}-${medicalDate.day}';
-
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    medicalDate = DateTime.now();
   }
 
   List history = List();
@@ -110,13 +102,18 @@ class _MedicalState extends State<Medical> {
       "Notes": '$notes'
     };
 
-      for (var i = 0; i < allPetsData.length; i++) {
+    for (var i = 0; i < allPetsData.length; i++) {
       if (i + 1 == _selectedItem.value) {
         selectedKey = allPetsData[i]['key'];
       }
     }
 
-    databaseReference.child('$selectedKey').child('vetinfos').push().set(history).whenComplete(() {
+    databaseReference
+        .child('$selectedKey')
+        .child('vetinfos')
+        .push()
+        .set(history)
+        .whenComplete(() {
       print("Medical history created");
     });
   }
@@ -127,20 +124,30 @@ class _MedicalState extends State<Medical> {
       "Weight": '$weight'
     };
 
-      for (var i = 0; i < allPetsData.length; i++) {
+    for (var i = 0; i < allPetsData.length; i++) {
       if (i + 1 == _selectedItem.value) {
         selectedKey = allPetsData[i]['key'];
       }
     }
 
-    databaseReference.child('$selectedKey').child('weight').push().set(weightInfo).whenComplete(() {
+    databaseReference
+        .child('$selectedKey')
+        .child('weight')
+        .push()
+        .set(weightInfo)
+        .whenComplete(() {
       print("weight history created");
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final database = FirebaseDatabase.instance.reference().child('$id').child('pets').child('$selectedKey').child('vetinfos');
+    final database = FirebaseDatabase.instance
+        .reference()
+        .child('$id')
+        .child('pets')
+        .child('$selectedKey')
+        .child('vetinfos');
     // getData();
     return Scaffold(
       backgroundColor: Color(baseColor),
@@ -165,7 +172,8 @@ class _MedicalState extends State<Medical> {
                                 addHistory();
                                 addWeight();
                                 Navigator.of(context).pop();
-                                dateValue = '${currentdate.year}-${currentdate.month}-${currentdate.day}';
+                                dateValue =
+                                    '${currentdate.year}-${currentdate.month}-${currentdate.day}';
                               },
                               style: NeumorphicStyle(
                                 color: Colors.white,
@@ -180,23 +188,23 @@ class _MedicalState extends State<Medical> {
                           overflow: Overflow.visible,
                           children: <Widget>[
                             Form(
-                            child: SingleChildScrollView(
+                                child: SingleChildScrollView(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: DropdownButton<ListItem>(
-                                      value: _selectedItem,
-                                      items: _dropdownMenuItems,
-                                      style: TextStyle(color: Colors.grey),
-                                      onChanged:(value){
-                                        setState((){
-                                          _selectedItem = value;
-                                        });
-                                        print('this is the allPetsData $allPetsData');
-                                      }
-                                    ),
+                                        value: _selectedItem,
+                                        items: _dropdownMenuItems,
+                                        style: TextStyle(color: Colors.grey),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _selectedItem = value;
+                                          });
+                                          print(
+                                              'this is the allPetsData $allPetsData');
+                                        }),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
@@ -634,14 +642,14 @@ class _MedicalState extends State<Medical> {
                                                 child: Container(
                                                   margin: EdgeInsets.fromLTRB(
                                                       20, 0, 0, 0),
-                                                  child: Text(
-                                                      item[index]["Name"],
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.grey,
-                                                        fontSize: 18.0,
-                                                      )),
+                                                  child:
+                                                      Text(item[index]["Name"],
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.grey,
+                                                            fontSize: 18.0,
+                                                          )),
                                                 ),
                                               ),
                                             ]),

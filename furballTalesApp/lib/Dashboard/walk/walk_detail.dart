@@ -6,8 +6,6 @@ import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
 
-
-
 class WalkDetail extends StatelessWidget {
   IconData icon;
   String heading;
@@ -32,15 +30,14 @@ class WalkDetail extends StatelessWidget {
 }
 
 class Walk extends StatefulWidget {
-  Walk({Key key}) : super(key:key);
+  Walk({Key key}) : super(key: key);
   @override
   _WalkState createState() => _WalkState();
 }
 
-class _WalkState extends State<Walk> with TickerProviderStateMixin{
-
+class _WalkState extends State<Walk> with TickerProviderStateMixin {
   MotionTabController _tabController;
-  int hour = 0; 
+  int hour = 0;
   int min = 0;
   int sec = 0;
   bool started = true;
@@ -50,56 +47,47 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin{
   bool checkTimer = true;
   Stopwatch stopwatch = new Stopwatch();
 
-
-@override
-  void initState(){
+  @override
+  void initState() {
     super.initState();
-    _tabController = MotionTabController(initialIndex:0, vsync: this);
+    _tabController = MotionTabController(initialIndex: 0, vsync: this);
   }
 
-@override 
-  void dispose(){
+  @override
+  void dispose() {
     super.dispose();
     _tabController.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar (
-        "Walk History",
-        "null"
-      ),
+      appBar: GradientAppBar("Walk History", "null"),
       bottomNavigationBar: MotionTabBar(
-        labels: [
-          "Walk", "Statistics", "History"
-        ],
+        labels: ["Walk", "Statistics", "History"],
         initialSelectedTab: "Walk",
         tabIconColor: Colors.grey,
         tabSelectedColor: Colors.blue,
         onTabItemSelected: (int value) {
           print(value);
-          setState((){
+          setState(() {
             _tabController.index = value;
           });
         },
-        icons: [
-          Icons.directions_walk, Icons.table_chart, Icons.history
-        ],
+        icons: [Icons.directions_walk, Icons.table_chart, Icons.history],
         textStyle: TextStyle(color: Colors.blue),
       ),
       body: MotionTabBarView(
         controller: _tabController,
-        children:<Widget>[
-          Container(child: TimerPage()
-          ),
-          Container(child:
-            Center(
+        children: <Widget>[
+          Container(child: TimerPage()),
+          Container(
+            child: Center(
               child: Text("Stats"),
             ),
           ),
-          Container(child:
-            Center(
+          Container(
+            child: Center(
               child: Text("History"),
             ),
           ),
