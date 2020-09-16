@@ -36,7 +36,6 @@ class ListItem {
 }
 
 
-
 class TimerPage extends StatefulWidget {
   TimerPage({Key key}) : super(key: key);
   
@@ -48,22 +47,18 @@ class TimerPageState extends State<TimerPage> {
   final Dependencies dependencies = new Dependencies();
 
 
-final databaseReference = FirebaseDatabase.instance.reference().child('$id').child('walk');
-
-
 List history = List();
 int walkDuration;
 DateTime date= DateTime.now();
 int poopRating = 0;
 Object poopQuality = ["dry like a desert", "rainbow colored", "sweet like candy", "like a waterfall", "Same as Mine! Poop Buddies!"];
-int walkRating = 0;
+double walkRating;
 Object walk = [Icons.sentiment_very_dissatisfied, Icons.sentiment_dissatisfied, Icons.sentiment_neutral, Icons.sentiment_satisfied, Icons.sentiment_very_satisfied];
 String comments;
 int poopTimes = 0;
 String key;
-Object petName = allPetsData;
-
-  
+Object petName = allPetsData;  
+String selectedKey = allPetsData[0]['key'];
 
 
   void leftButtonPressed() {
@@ -76,10 +71,12 @@ Object petName = allPetsData;
     });
   }
 
-  addWalk() {
+
+addWalk() {
+  final databaseReference = FirebaseDatabase.instance.reference().child('$id').child('pets');
+
   Map<String, String> walk = {
-    "key": '$key',
-    "petName": '$petName',
+    "key": '$selectedKey',
     "Date": '$date',
     "Dog Enjoyment": '$walkRating',
     "Walk": '$walkDuration',
@@ -87,7 +84,14 @@ Object petName = allPetsData;
     "Poop Quality": '$poopRating',
     "Comments": '$comments'
   };
-  databaseReference.push().set(walk).whenComplete(() {
+  
+    for (var i = 0; i < allPetsData.length; i++) {
+      if (i + 1 == _selectedItem.value) {
+        selectedKey = allPetsData[i]['key'];
+      }
+    }
+
+  databaseReference.child('$selectedKey').child('walk').push().set(walk).whenComplete(() {
     print('walk history created');
   });
 }
@@ -132,8 +136,8 @@ List<ListItem> petNames = List();
         showDialog(
           context: context,
           builder: (BuildContext context){
-            int _poopRating = 0;
-            int _poopTimes = 0;
+            int _poopRating = 1;
+            int _poopTimes = 1;
             return StatefulBuilder(builder:(context, setState){
               return AlertDialog(
                 actions: <Widget>[
@@ -145,6 +149,8 @@ List<ListItem> petNames = List();
                         Navigator.of(context).pop();
                         poopRating = 0;
                         poopTimes = 0;
+                        walkRating = 1.0;
+                        dependencies.stopwatch.reset();
                       },
                       style: NeumorphicStyle(
                         color: Colors.white,
@@ -221,7 +227,8 @@ List<ListItem> petNames = List();
                                   },
                                   onRatingUpdate: (rating) {
                                     setState(() {
-                                      walk = rating;
+                                      print(rating);
+                                      walkRating = rating;
                                     });
                                   }
                                 ),
@@ -367,7 +374,7 @@ var buttonSurfaceIntensity = NeumorphicButtonSettings.buttonSurfaceIntensity;
     TextStyle roundTextStyle = const TextStyle(fontSize: 16.0, color: Colors.white);
     return new RaisedButton(
       child: new Text(text, style: roundTextStyle),
-      color: Colors.red,
+      color: Colors.grey,
       onPressed: callback);
   }
 
@@ -394,8 +401,8 @@ var buttonSurfaceIntensity = NeumorphicButtonSettings.buttonSurfaceIntensity;
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                buildStart(dependencies.stopwatch.isRunning ? "stop" : "start", rightButtonPressed),
-                buildReset("reset", leftButtonPressed),
+                buildStart(dependencies.stopwatch.isRunning ? "Stop Walk" : "Begin Walk", rightButtonPressed),
+                buildReset("Cancel", leftButtonPressed),
               ],
             ),
           ),
