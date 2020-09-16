@@ -7,6 +7,8 @@ import '../../sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+import '../grid_dashboard.dart';
+import '../../get_allPetsData.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
@@ -21,45 +23,6 @@ var caveDepth = NeumorphicCaveSettings.caveDepth;
 var caveColor = NeumorphicCaveSettings.caveColor;
 
 var textBaseColor = NeumorphicCardSettings.textBaseColor;
-
-final databaseReference =
-    FirebaseDatabase.instance.reference().child('$id').child('pets');
-
-var _url;
-var _name;
-var _sex;
-var _age;
-
-Future readPetdata() async {
-  var readData;
-  await databaseReference.once().then((DataSnapshot snapshot) {
-    snapshot.value.forEach((index, data) => {readData = data});
-  });
-  _name = await readData["petName"];
-  _sex = await readData["sex"];
-  var readBirthday = await readData["birthday"];
-  DateTime birthday = DateTime.parse(readBirthday);
-  Duration differenceDays = DateTime.now().difference(birthday);
-  _age = (differenceDays.inDays / 365).floor().toString();
-}
-
-Future readUrl() async {
-  var readData;
-  await databaseReference.once().then((DataSnapshot snapshot) {
-    snapshot.value.forEach((index, data) => {readData = data});
-  });
-  _url = await readData["petProfilePicUrl"];
-}
-
-Future updateUrl(petProfilePicUrl) async {
-  var readIndex;
-  await databaseReference.once().then((DataSnapshot snapshot) {
-    snapshot.value.forEach((index, data) => {readIndex = index});
-  });
-  databaseReference
-      .child(readIndex)
-      .update({'petProfilePicUrl': petProfilePicUrl});
-}
 
 class PetCard extends StatefulWidget {
   String heroTag;
@@ -107,38 +70,26 @@ class PetCardState extends State<PetCard> {
   File _image;
   final picker = ImagePicker();
 
-  Future<String> uploadImage(var imageFile) async {
-    StorageReference ref = FirebaseStorage.instance
-        .ref()
-        .child('$id')
-        .child("profileImage")
-        .child("profileImage.jpg");
-    StorageUploadTask uploadTask =
-        ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
-    final snapshot = await uploadTask.onComplete;
-    var downUrl;
-    if (snapshot.error == null) {
-      downUrl = await snapshot.ref.getDownloadURL();
-    } else {
-      print(snapshot.error);
-      downUrl = null;
-    }
-    String url = downUrl.toString();
-
-    return url;
-  }
-
   Future selectImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     _image = File(pickedFile.path);
 
-    var uploadUrl = await uploadImage(_image);
-    updateUrl(uploadUrl);
-    await readUrl();
+    var uploadUrl = await uploadImage(_image, this.heroTag);
+    updateUrl(uploadUrl, this.heroTag);
+    // await readUrl();
+    this.photo = uploadUrl;
+    readAllPetsData();
 
     setState(() {
       _image = File(pickedFile.path);
     });
+  }
+
+  String calculateAge(String stringBirthday) {
+    DateTime dataBirthday = DateTime.parse(stringBirthday);
+    Duration differenceDays = DateTime.now().difference(dataBirthday);
+    var _age = (differenceDays.inDays / 365).floor().toString();
+    return _age;
   }
 
   PetCardState(
@@ -149,7 +100,7 @@ class PetCardState extends State<PetCard> {
     String sex,
   ) {
     this.heroTag = heroTag;
-    this.birthday = birthday;
+    this.birthday = calculateAge(birthday);
     this.name = name;
     this.photo = photo;
     this.sex = sex;
@@ -218,33 +169,21 @@ class PetCardState extends State<PetCard> {
                     child: StreamBuilder(
                       stream: databaseReference.onValue,
                       builder: (context, snap) {
-                        return (_url != null)
-                            ? Container(
-                                width: 115.0,
-                                height: 115.0,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(_url),
-                                  ),
-                                ),
-                              )
-                            : Container(
-                                width: 70.0,
-                                height: 70.0,
-                                margin: EdgeInsets.only(
-                                  top: 3,
-                                  bottom: 1,
-                                ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(photo),
-                                  ),
-                                ),
-                              );
+                        return Container(
+                          width: 70.0,
+                          height: 70.0,
+                          margin: EdgeInsets.only(
+                            top: 3,
+                            bottom: 1,
+                          ),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(photo),
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ),
