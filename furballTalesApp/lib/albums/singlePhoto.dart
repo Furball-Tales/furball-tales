@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
+import 'package:photo_view/photo_view.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -15,12 +16,11 @@ class SinglePhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(
-        "Full Screen",
-        'back',
-      ),
+      // appBar: GradientAppBar(
+      //   "Full Screen",
+      //   'back',
+      // ),
       body: Container(
-        // The blue background emphasizes that it's a new route.
         color: Color(baseColor),
         padding: const EdgeInsets.all(16.0),
         alignment: Alignment.topLeft,
@@ -55,9 +55,11 @@ class PhotoHero extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: onTap,
-            child: Image.network(
-              photo,
-              fit: BoxFit.contain,
+            child: PhotoView(
+              imageProvider: NetworkImage(
+                photo,
+              ),
+              backgroundDecoration: BoxDecoration(color: Color(baseColor)),
             ),
           ),
         ),
