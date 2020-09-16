@@ -33,7 +33,6 @@ class Medical extends StatefulWidget {
 class _MedicalState extends State<Medical> {
   DateTime medicalDate;
 
-
   final databaseReference =
       FirebaseDatabase.instance.reference().child('$id').child('pets');
 
@@ -71,6 +70,12 @@ class _MedicalState extends State<Medical> {
     _selectedItem = _dropdownMenuItems[0].value;
     dateValue = '${medicalDate.year}-${medicalDate.month}-${medicalDate.day}';
 
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    medicalDate = DateTime.now();
   }
 
   List history = List();
