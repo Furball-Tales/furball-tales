@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'pet_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../frontend_settings.dart';
-import 'package:firebase_database/firebase_database.dart';
-import '../../sign_in.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import '../grid_dashboard.dart';
 import '../../get_allPetsData.dart';
@@ -47,7 +44,6 @@ class PetCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return PetCardState(
       heroTag,
       birthday,
@@ -108,7 +104,6 @@ class PetCardState extends State<PetCard> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Hero(
       tag: heroTag,
       child: Material(
@@ -137,7 +132,13 @@ class PetCardState extends State<PetCard> {
               context,
               PageRouteBuilder(
                 transitionDuration: Duration(milliseconds: 500),
-                pageBuilder: (_, __, ___) => PetDetail(heroTag, photo),
+                pageBuilder: (_, __, ___) => PetDetail(
+                  heroTag,
+                  birthday,
+                  name,
+                  photo,
+                  sex,
+                ),
               ));
         },
         onTapCancel: () {
@@ -179,7 +180,7 @@ class PetCardState extends State<PetCard> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                               image: NetworkImage(photo),
                             ),
                           ),
@@ -243,7 +244,7 @@ class PetCardState extends State<PetCard> {
                                                 ),
                                               ),
                                               Text(
-                                                birthday,
+                                                birthday + ' yrs',
                                                 style: TextStyle(
                                                   color: Color(textBaseColor),
                                                   fontSize: 12,
