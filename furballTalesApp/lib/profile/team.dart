@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app_bar.dart';
 import '../frontend_settings.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -74,23 +75,25 @@ class Ayumi extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30.0),
-              Row(
-                children: <Widget>[
-                  CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: AssetImage('assets/github.png')),
-                  SizedBox(width: 10.0),
-                  Text(
-                    'Ayumi426',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20.0,
-                      letterSpacing: 1.3,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
+              InkWell(
+                  child: Row(
+                    children: <Widget>[
+                      CircleAvatar(
+                          radius: 20.0,
+                          backgroundImage: AssetImage('assets/github.png')),
+                      SizedBox(width: 10.0),
+                      Text(
+                        'Ayumi426',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20.0,
+                          letterSpacing: 1.3,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                  onTap: () => launch('https://github.com/Ayumi426')),
             ],
           ),
         ),
@@ -168,22 +171,25 @@ class Yuta extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.0),
-            Row(
-              children: <Widget>[
-                CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: AssetImage('assets/github.png')),
-                SizedBox(width: 10.0),
-                Text(
-                  'namitry',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    letterSpacing: 1.3,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
+            InkWell(
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                      radius: 20.0,
+                      backgroundImage: AssetImage('assets/github.png')),
+                  SizedBox(width: 10.0),
+                  Text(
+                    'namitry',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      letterSpacing: 1.3,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
+              onTap: () => launch('https://github.com/namitry'),
             ),
           ],
         ),
@@ -261,22 +267,25 @@ class Ryohei extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.0),
-            Row(
-              children: <Widget>[
-                CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: AssetImage('assets/github.png')),
-                SizedBox(width: 10.0),
-                Text(
-                  'Ryohei03',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    letterSpacing: 1.3,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
+            InkWell(
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                      radius: 20.0,
+                      backgroundImage: AssetImage('assets/github.png')),
+                  SizedBox(width: 10.0),
+                  Text(
+                    'Ryohei03',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      letterSpacing: 1.3,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
+              onTap: () => launch('https://github.com/Ryohei03'),
             ),
           ],
         ),
@@ -354,22 +363,25 @@ class Jimmy extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.0),
-            Row(
-              children: <Widget>[
-                CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: AssetImage('assets/github.png')),
-                SizedBox(width: 10.0),
-                Text(
-                  'jimmytwilson',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    letterSpacing: 1.3,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
+            InkWell(
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                      radius: 20.0,
+                      backgroundImage: AssetImage('assets/github.png')),
+                  SizedBox(width: 10.0),
+                  Text(
+                    'jimmytwilson',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      letterSpacing: 1.3,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
+              onTap: () => launch('https://github.com/jimmytwilson'),
             ),
           ],
         ),
@@ -447,22 +459,25 @@ class Mukhtar extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.0),
-            Row(
-              children: <Widget>[
-                CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: AssetImage('assets/github.png')),
-                SizedBox(width: 10.0),
-                Text(
-                  'MukhtarKaz',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    letterSpacing: 1.3,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
+            InkWell(
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                      radius: 20.0,
+                      backgroundImage: AssetImage('assets/github.png')),
+                  SizedBox(width: 10.0),
+                  Text(
+                    'MukhtarKaz',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      letterSpacing: 1.3,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
+              onTap: () => launch('https://github.com/MukhtarKaz'),
             ),
           ],
         ),

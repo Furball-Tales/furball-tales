@@ -23,6 +23,7 @@ var baseColor = NeumorphicCardSettings.baseColor;
 class EachJumpCard extends StatefulWidget {
   IconData icon;
   String heading;
+  String petName;
   int textColor;
   int materialColor;
   double intensity;
@@ -34,6 +35,7 @@ class EachJumpCard extends StatefulWidget {
   EachJumpCard(
     IconData icon,
     String heading,
+    String petName,
     int textColor,
     int materialColor,
     double intensity,
@@ -44,6 +46,7 @@ class EachJumpCard extends StatefulWidget {
   ) {
     this.icon = icon;
     this.heading = heading;
+    this.petName = petName;
     this.textColor = textColor;
     this.materialColor = materialColor;
     this.intensity = intensity;
@@ -59,6 +62,7 @@ class EachJumpCard extends StatefulWidget {
     return CustomCardState(
       icon,
       heading,
+      petName,
       textColor,
       materialColor,
       intensity,
@@ -73,6 +77,7 @@ class EachJumpCard extends StatefulWidget {
 class CustomCardState extends State<EachJumpCard> {
   IconData icon;
   String heading;
+  String petName;
   int textColor;
   int materialColor;
   double intensity;
@@ -86,6 +91,7 @@ class CustomCardState extends State<EachJumpCard> {
   CustomCardState(
     IconData icon,
     String heading,
+    String petName,
     int textColor,
     int materialColor,
     double intensity,
@@ -96,6 +102,7 @@ class CustomCardState extends State<EachJumpCard> {
   ) {
     this.icon = icon;
     this.heading = heading;
+    this.petName = petName;
     this.textColor = textColor;
     this.materialColor = materialColor;
     this.intensity = intensity;
@@ -109,7 +116,7 @@ class CustomCardState extends State<EachJumpCard> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Hero(
-      tag: heading,
+      tag: petName,
       child: Material(
         type: MaterialType.transparency,
         child: content(),
@@ -128,7 +135,8 @@ class CustomCardState extends State<EachJumpCard> {
           });
         },
         onTap: () {
-          print('Card tapped.');
+          print(heading);
+          // print(petName);
           setState(() {
             _hasPadding = false;
           });
@@ -138,7 +146,7 @@ class CustomCardState extends State<EachJumpCard> {
                 transitionDuration: Duration(milliseconds: 500),
                 pageBuilder: (_, __, ___) =>
                     // _nextPage(icon, heading, textColor),
-                    Chart(),
+                    Chart(heading, petName, allChartData),
               ));
         },
         onTapCancel: () {
@@ -167,7 +175,7 @@ class CustomCardState extends State<EachJumpCard> {
                       Padding(
                         padding: const EdgeInsets.all(8),
                         child: Text(
-                          heading,
+                          petName,
                           style: TextStyle(
                             color: Color(textColor),
                             fontSize: 20,
