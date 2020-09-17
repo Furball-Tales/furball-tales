@@ -5,6 +5,7 @@ import '../../app_bar.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
+import 'walkHistory.dart';
 
 class WalkDetail extends StatelessWidget {
   IconData icon;
@@ -64,7 +65,7 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin {
     return Scaffold(
       appBar: GradientAppBar("Walk History", "null"),
       bottomNavigationBar: MotionTabBar(
-        labels: ["Walk", "Statistics", "History"],
+        labels: ["Walk", "History", "Statistics"],
         initialSelectedTab: "Walk",
         tabIconColor: Colors.grey,
         tabSelectedColor: Colors.blue,
@@ -74,21 +75,17 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin {
             _tabController.index = value;
           });
         },
-        icons: [Icons.directions_walk, Icons.table_chart, Icons.history],
+        icons: [Icons.directions_walk, Icons.history, Icons.table_chart],
         textStyle: TextStyle(color: Colors.blue),
       ),
       body: MotionTabBarView(
         controller: _tabController,
         children: <Widget>[
           Container(child: TimerPage()),
+          Container(child: WalkHistory()),
           Container(
             child: Center(
-              child: Text("Stats"),
-            ),
-          ),
-          Container(
-            child: Center(
-              child: Text("History"),
+              child: Text("Statistics"),
             ),
           ),
         ],
