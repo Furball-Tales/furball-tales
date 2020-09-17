@@ -34,28 +34,35 @@ class _ChartState extends State<Chart> {
     petName = widget.petName;
     allChartData = widget.allChartData;
     DateTime parseDateString(String str) {
-      final splitted = str.split(",").map(int.parse).toList();
+      final splitted = str.split("-").map(int.parse).toList();
       return DateTime(splitted[0], splitted[1], splitted[2]);
     }
 
-    //   for (int i = 0; i < allChartData.length; i++) {
-    //     if (allChartData[i]['data']['petName'] != widget.petName) continue;
+    for (int i = 0; i < allChartData.length; i++) {
+      if (allChartData[i]['data']['petName'] != petName) continue;
 
-    //     final weightData =
-    //         (allChartData[i]['data'] as Map<String, Map<String, Map>>)['weight'];
+      print(allChartData[i]['data']['weight']);
+      // headingはすべて小文字にする
+      // headingに応じて、取ってくるvalueの位置を変更する
+      // またｈは、もう諦めて別ファイルを作ってしまう
+      // 値が0のときの挙動
+      // 最新までずっと同じ描画にしておく
 
-    //     print(weightData);
+      final headingData =
+          Map<String, dynamic>.from(allChartData[i]['data']['weight']);
 
-    //     for (int j = 0; j < weightData.length; j++) {
-    //       data.add(
-    //         DataPoint<DateTime>(
-    //           value: weightData[j]['value'].toDouble(),
-    //           xAxis: parseDateString(weightData[j]['dateTime']),
-    //         ),
-    //       );
-    //     }
-    //   }
-    //   data.forEach(print);
+      // if (heading == 'weight') var indicator = 'Weight';
+      // if (heading == 'food') var indicator = 'BowlPercent';
+
+      for (var value in headingData.values) {
+        data.add(
+          DataPoint<DateTime>(
+            value: double.parse(value['Weight']),
+            xAxis: parseDateString(value['Date']),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -146,7 +153,7 @@ class _ChartState extends State<Chart> {
               },
               series: [
                 BezierLine(
-                  label: "grams",
+                  label: "Kg",
                   data: data,
                   onMissingValue: (DateTime dateTime) {
                     double lastValue = 0;

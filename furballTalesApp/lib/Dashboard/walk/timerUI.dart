@@ -64,7 +64,6 @@ String selectedKey = allPetsData[0]['key'];
   void leftButtonPressed() {
     setState(() {
       if (dependencies.stopwatch.isRunning) {
-        print("${dependencies.stopwatch.elapsedMilliseconds}");
       } else {
         dependencies.stopwatch.reset();
       }
@@ -72,11 +71,11 @@ String selectedKey = allPetsData[0]['key'];
   }
 
 
-addWalk() {
-  final databaseReference = FirebaseDatabase.instance.reference().child('$id').child('pets');
+  addWalk() {
+    final databaseReference = FirebaseDatabase.instance.reference().child('$id').child('pets');
 
   Map<String, String> walk = {
-    "key": '$selectedKey',
+    "petKey": '$selectedKey',
     "Date": '$date',
     "Dog Enjoyment": '$walkRating',
     "Walk": '$walkDuration',
@@ -105,7 +104,6 @@ List<ListItem> petNames = List();
       ListItem newListItem = ListItem(i + 1, allPetsData[i]['data']['petName']);
       petNames.add(newListItem);
     }
-    print(petNames);
   }
 
   void initState() {
@@ -150,6 +148,7 @@ List<ListItem> petNames = List();
                         poopRating = 0;
                         poopTimes = 0;
                         walkRating = 1.0;
+                        print(allPetsData);
                         dependencies.stopwatch.reset();
                       },
                       style: NeumorphicStyle(
@@ -227,7 +226,6 @@ List<ListItem> petNames = List();
                                   },
                                   onRatingUpdate: (rating) {
                                     setState(() {
-                                      print(rating);
                                       walkRating = rating;
                                     });
                                   }
@@ -274,7 +272,6 @@ List<ListItem> petNames = List();
                                       onChanged:(value) {
                                         setState((){
                                           _poopTimes = value;
-                                          print(_poopTimes);
                                           poopTimes = _poopTimes;
                                         });
                                       }
@@ -315,7 +312,6 @@ List<ListItem> petNames = List();
                                       onChanged:(value) {
                                         setState((){
                                           _poopRating = value;
-                                          print(_poopRating);
                                           poopRating = _poopRating;
                                         });
                                       }

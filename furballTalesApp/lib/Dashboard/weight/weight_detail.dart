@@ -7,6 +7,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../../sign_in.dart';
+import '../../get_allPetsData.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -36,6 +37,13 @@ class WeightDetail extends StatefulWidget {
   _WeightDetail createState() => _WeightDetail();
 }
 
+class ListItem {
+  int value;
+  String name;
+
+  ListItem(this.value, this.name);
+}
+
 class _WeightDetail extends State<WeightDetail> {
   IconData icon;
   String heading;
@@ -55,23 +63,65 @@ class _WeightDetail extends State<WeightDetail> {
   }
 
   final databaseReference =
-      FirebaseDatabase.instance.reference().child('$id').child('vetinfos');
+      FirebaseDatabase.instance.reference().child('$id').child('pets');
 
-  List history = List();
+  DateTime weightDate;
   String dateValue = "Not set";
   String weight = "";
-  String key = "";
-  String updateDateValue = "Not set";
-  String updateWeight = "";
 
-  addHistory() {
+  ListItem chosenPet;
+  List<ListItem> petNames = List();
+  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
+  ListItem _selectedPet;
+
+  makePetsList() {
+    for (var i = 0; i < allPetsData.length; i++) {
+      ListItem newListItem = ListItem(i + 1, allPetsData[i]['data']['petName']);
+      petNames.add(newListItem);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    weightDate = DateTime.now();
+    makePetsList();
+    _dropdownMenuItems = buildDropDownMenuItems(petNames);
+    _selectedPet = _dropdownMenuItems[0].value;
+  }
+
+  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<ListItem>> items = List();
+    for (ListItem listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem.name),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
+  }
+
+  addWeight() {
     //Map
-    Map<String, String> history = {
+    Map<String, String> weightObj = {
       "Date": '$dateValue',
       "Weight": '$weight',
     };
+    String selectedKey;
+    for (var i = 0; i < allPetsData.length; i++) {
+      if (i + 1 == _selectedPet.value) {
+        selectedKey = allPetsData[i]['key'];
+      }
+    }
 
-    databaseReference.push().set(history).whenComplete(() {
+    databaseReference
+        .child(selectedKey)
+        .child("weight")
+        .push()
+        .set(weightObj)
+        .whenComplete(() {
       print("Weight history created");
     });
   }
@@ -100,118 +150,131 @@ class _WeightDetail extends State<WeightDetail> {
           ),
           onPressed: () {
             showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  actions: <Widget>[
-                    NeumorphicTheme(
-                      child: NeumorphicButton(
-                        child: const Text('Add'),
-                        onPressed: () {
-                          addHistory();
-                          Navigator.of(context).pop();
-                          dateValue = "Not Set";
-                        },
-                        style: NeumorphicStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  title: Text("Add Weight"),
-                  content: Stack(
-                    overflow: Overflow.visible,
-                    children: <Widget>[
-                      Form(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                  elevation: 4.0,
-                                  onPressed: () {
-                                    DatePicker.showDatePicker(context,
-                                        theme: DatePickerTheme(
-                                          containerHeight: 250.0,
-                                        ),
-                                        showTitleActions: true,
-                                        minTime: DateTime(2020, 1, 1),
-                                        maxTime: DateTime(2021, 12, 31),
-                                        onConfirm: (date) {
-                                      setState(() {
-                                        dateValue =
-                                            '${date.year}-${date.month}-${date.day}';
-                                      });
-                                    },
-                                        currentTime: DateTime.now(),
-                                        locale: LocaleType.en);
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 50.0,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Row(
+                context: context,
+                builder: (BuildContext context) {
+                  DateTime currentdate = DateTime.now();
+
+                  return StatefulBuilder(builder: (context, setState) {
+                    return AlertDialog(
+                        actions: <Widget>[
+                          NeumorphicTheme(
+                            child: NeumorphicButton(
+                              child: const Text('Add'),
+                              onPressed: () {
+                                addWeight();
+                                Navigator.of(context).pop();
+                                dateValue = "Not Set";
+                              },
+                              style: NeumorphicStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        title: Text("Add History"),
+                        content: Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Form(
+                                child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: DropdownButton<ListItem>(
+                                        value: _selectedPet,
+                                        items: _dropdownMenuItems,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _selectedPet = value;
+                                          });
+                                        }),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0)),
+                                      elevation: 4.0,
+                                      onPressed: () async {
+                                        DateTime picked = await showDatePicker(
+                                            context: context,
+                                            initialDate: currentdate,
+                                            firstDate:
+                                                DateTime(currentdate.year - 5),
+                                            lastDate:
+                                                DateTime(currentdate.year + 5));
+                                        if (picked != null) {
+                                          setState(() {
+                                            currentdate = picked;
+                                            dateValue =
+                                                '${currentdate.year}-${currentdate.month}-${currentdate.day}';
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: 50.0,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Container(
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.date_range,
-                                                    size: 15.0,
-                                                    color: Colors.blue,
+                                            Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Icon(
+                                                        Icons.date_range,
+                                                        size: 15.0,
+                                                        color: Colors.blue,
+                                                      ),
+                                                      new Text(
+                                                        "${currentdate.year} - ${currentdate.month} - ${currentdate.day}",
+                                                        style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15.0),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  new Text(
-                                                    "$dateValue",
-                                                    style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15.0),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
+                                                )
+                                              ],
+                                            ),
+                                            Text(
+                                              "Change",
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15.0),
+                                            ),
                                           ],
                                         ),
-                                        Text(
-                                          "Change",
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15.0),
-                                        ),
-                                      ],
+                                      ),
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  color: Colors.white,
-                                ),
+                                  Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: TextFormField(
+                                        onChanged: (String weightValue) {
+                                          weight = weightValue;
+                                        },
+                                        decoration: InputDecoration(
+                                            labelText: 'Weight (kg)')),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: TextFormField(
-                                      onChanged: (String weightValue) {
-                                        weight = weightValue;
-                                      },
-                                      decoration: InputDecoration(
-                                          labelText: 'Weight (kg)'))),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            );
+                            ))
+                          ],
+                        ));
+                  });
+                });
           },
         ),
       ),
@@ -227,7 +290,7 @@ class _WeightDetail extends State<WeightDetail> {
                     child: Text(''),
                   ),
                 )),
-            for (var i = 0; i < allChartData.length; i++)
+            for (var i = 0; i < allPetsData.length; i++)
               Container(
                 // giving some mergin
                 margin: EdgeInsets.only(
@@ -239,7 +302,7 @@ class _WeightDetail extends State<WeightDetail> {
                 child: EachJumpCard(
                   Icons.line_weight,
                   heading,
-                  allChartData[i]['data']['petName'],
+                  allPetsData[i]['data']['petName'],
                   mildBlueGreen,
                   mildBlueGreen,
                   intensity,
