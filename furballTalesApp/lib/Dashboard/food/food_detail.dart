@@ -20,13 +20,13 @@ class FoodDetail extends StatefulWidget {
   IconData icon;
   String heading;
   int color;
-  List<Map<String, Object>> allChartData;
+  List<dynamic> allChartData;
 
   FoodDetail(
     IconData icon,
     String heading,
     int color,
-    List<Map<String, Object>> allChartData,
+    List<dynamic> allChartData,
   ) {
     this.icon = icon;
     this.heading = heading;

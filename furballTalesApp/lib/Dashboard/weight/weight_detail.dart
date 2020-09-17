@@ -18,13 +18,13 @@ class WeightDetail extends StatefulWidget {
   IconData icon;
   String heading;
   int color;
-  List<Map<String, Object>> allChartData;
+  List<dynamic> allChartData;
 
   WeightDetail(
     IconData icon,
     String heading,
     int color,
-    List<Map<String, Object>> allChartData,
+    List<dynamic> allChartData,
   ) {
     this.icon = icon;
     this.heading = heading;
@@ -40,13 +40,13 @@ class _WeightDetail extends State<WeightDetail> {
   IconData icon;
   String heading;
   int color;
-  List<Map<String, Object>> allChartData;
+  List<dynamic> allChartData;
 
   WeightDetail(
     IconData icon,
     String heading,
     int color,
-    List<Map<String, Object>> allChartData,
+    List<dynamic> allChartData,
   ) {
     this.icon = icon;
     this.heading = heading;
@@ -202,7 +202,7 @@ class _WeightDetail extends State<WeightDetail> {
                                         weight = weightValue;
                                       },
                                       decoration: InputDecoration(
-                                          labelText: 'Weight (g)'))),
+                                          labelText: 'Weight (kg)'))),
                             ],
                           ),
                         ),
@@ -239,7 +239,7 @@ class _WeightDetail extends State<WeightDetail> {
                 child: EachJumpCard(
                   Icons.line_weight,
                   heading,
-                  allChartData[i]['petName'],
+                  allChartData[i]['data']['petName'],
                   mildBlueGreen,
                   mildBlueGreen,
                   intensity,

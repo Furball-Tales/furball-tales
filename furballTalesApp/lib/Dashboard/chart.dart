@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Chart extends StatefulWidget {
   String heading;
   String petName;
-  dynamic allChartData;
+  List<dynamic> allChartData;
 
   Chart(heading, petName, allChartData) {
     this.heading = heading;
@@ -23,7 +23,7 @@ class _ChartState extends State<Chart> {
   DateTime toDate;
   String heading;
   String petName;
-  dynamic allChartData;
+  List<dynamic> allChartData;
 
   @override
   void initState() {
@@ -33,23 +33,29 @@ class _ChartState extends State<Chart> {
     heading = widget.heading;
     petName = widget.petName;
     allChartData = widget.allChartData;
-
-    for (int i = 0; i < allChartData.length; i++) {
-      if (allChartData[i]['name'] != widget.petName) break;
-
-      final weightData =
-          (allChartData[i]['data'] as Map<String, List>)['weight'];
-      for (int j = 0; j < weightData.length; j++) {
-        data.add(
-          DataPoint<DateTime>(
-            value: weightData[j]['value'],
-            xAxis: DateTime(2020, 8, 24),
-          ),
-        );
-      }
+    DateTime parseDateString(String str) {
+      final splitted = str.split(",").map(int.parse).toList();
+      return DateTime(splitted[0], splitted[1], splitted[2]);
     }
-    print(data);
-    data.forEach(print);
+
+    //   for (int i = 0; i < allChartData.length; i++) {
+    //     if (allChartData[i]['data']['petName'] != widget.petName) continue;
+
+    //     final weightData =
+    //         (allChartData[i]['data'] as Map<String, Map<String, Map>>)['weight'];
+
+    //     print(weightData);
+
+    //     for (int j = 0; j < weightData.length; j++) {
+    //       data.add(
+    //         DataPoint<DateTime>(
+    //           value: weightData[j]['value'].toDouble(),
+    //           xAxis: parseDateString(weightData[j]['dateTime']),
+    //         ),
+    //       );
+    //     }
+    //   }
+    //   data.forEach(print);
   }
 
   @override
@@ -62,15 +68,8 @@ class _ChartState extends State<Chart> {
     heading = widget.heading;
     petName = widget.petName;
     allChartData = widget.allChartData;
-    final date1 = toDate.subtract(Duration(days: 2));
-    final date2 = toDate.subtract(Duration(days: 3));
-
-    // for (var i = 0; i < allChartData.length; i++) {
-    //   if (allChartData[i]['petName'] == petName) {
-    //     for (var j = 0; j < allChartData[i]['data']['weight'].length; j++) {
-    //       dynamic eachWeight = allChartData[i]['data']['weight'][j]['value'];
-    //       print(eachWeight);
-    //       print(allChartData[i]['data']['weight'][j].length);
+    // final date1 = toDate.subtract(Duration(days: 2));
+    // final date2 = toDate.subtract(Duration(days: 3));
 
     return Scaffold(
       appBar: AppBar(
@@ -128,9 +127,7 @@ class _ChartState extends State<Chart> {
               bezierChartScale: BezierChartScale.WEEKLY,
               toDate: toDate,
               onIndicatorVisible: (val) {
-                // print(allChartData);
                 print("Indicator Visible :$val");
-                print('${data[0].value}');
               },
               onDateTimeSelected: (datetime) {
                 print("selected datetime: $datetime");
