@@ -5,6 +5,7 @@ import 'about.dart';
 import 'donation.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
+import '../tutorial_slider.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
