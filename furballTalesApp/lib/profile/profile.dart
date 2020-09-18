@@ -5,6 +5,7 @@ import 'about.dart';
 import 'donation.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
+import '../tutorial_slider.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
@@ -126,12 +127,22 @@ class Profile extends StatelessWidget {
                       child: Column(
                         children: [
                           _buildButton()(
-                            text: "About Us",
+                            text: "About",
                             color: accentBlue,
                             onClick: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return About();
+                              }));
+                            },
+                          ),
+                          _buildButton()(
+                            text: "App Tutorial",
+                            color: accentYellow,
+                            onClick: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return TutorialSlider("Tutorial");
                               }));
                             },
                           ),
