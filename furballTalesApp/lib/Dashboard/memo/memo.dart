@@ -4,6 +4,7 @@ import 'memo_edit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../frontend_settings.dart';
+import '../../app_bar.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -34,6 +35,10 @@ class MemoListState extends State<MemoList> {
       return Scaffold(body: CircularProgressIndicator());
     }
     return Scaffold(
+      appBar: GradientAppBar(
+        "Memo List",
+        'back',
+      ),
       body: _buildList(),
       backgroundColor: Color(baseColor),
       floatingActionButton: NeumorphicTheme(

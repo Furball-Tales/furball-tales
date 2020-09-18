@@ -199,6 +199,16 @@ class _GridDashboardState extends State<GridDashboard> {
             baseColor,
           ),
           JumpCard(
+            Icons.note_add,
+            "Memo",
+            mildBlueGreen,
+            mildBlueGreen,
+            intensity,
+            depth,
+            surfaceIntensity,
+            baseColor,
+          ),
+          JumpCard(
             Icons.color_lens,
             "Food",
             mildBlue,
@@ -222,7 +232,8 @@ class _GridDashboardState extends State<GridDashboard> {
         staggeredTiles: [
           StaggeredTile.extent(2, 65),
           StaggeredTile.extent(2, 230),
-          StaggeredTile.extent(2, 140),
+          StaggeredTile.extent(1, 140),
+          StaggeredTile.extent(1, 140),
           StaggeredTile.extent(1, 140),
           StaggeredTile.extent(1, 140),
         ],
