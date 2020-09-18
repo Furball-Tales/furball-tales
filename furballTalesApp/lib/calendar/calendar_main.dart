@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:furballTalesApp/app_bar.dart';
 import 'package:furballTalesApp/calendar/res/firestore_service.dart';
@@ -14,15 +15,32 @@ import 'package:table_calendar/table_calendar.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
+Firestore _db = Firestore.instance;
+final databaseReference = Firestore.instance.collection('events');
+
 class Calendar extends StatefulWidget {
+  final EventModel note;
+
+  const Calendar({Key key, this.note}) : super(key: key);
   @override
   _CalendarState createState() => _CalendarState();
 }
 
 class _CalendarState extends State<Calendar> {
+  //CollectionReference collref = _db.collection(collection);
   CalendarController _controller;
   Map<DateTime, List<dynamic>> _events;
   List<dynamic> _selectedEvents;
+  String titleText = "";
+  String descriptionText = "";
+  DateTime updateDate;
+  DateTime updateTimeData;
+  String updateTitle = "";
+  String updateDesription = "";
+  DateTime _eventDate;
+  TimeOfDay _eventTime;
+  final _formKey = GlobalKey<FormState>();
+  final _key = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -30,6 +48,33 @@ class _CalendarState extends State<Calendar> {
     _controller = CalendarController();
     _events = {};
     _selectedEvents = [];
+    _eventDate = DateTime.now();
+    _eventTime = TimeOfDay.now();
+  }
+
+  addEvent() async {
+    await eventDBS.createItem(EventModel(
+        title: titleText,
+        description: descriptionText,
+        eventDate: _eventDate,
+        eventTime: formatTimeOfDaytoDateTime(_eventDate, _eventTime)));
+  }
+
+  updateEvent() async {
+    if (_formKey.currentState.validate()) {
+      // setState(() {
+      //   processing = true;
+      // });
+      if (widget.note != null) {
+        await eventDBS.updateData(widget.note.id, {
+          "title": updateTitle,
+          "description": updateDesription,
+          "event_date": _eventDate,
+          "event_time": formatTimeOfDaytoDateTime(_eventDate, _eventTime)
+        });
+      }
+      Navigator.pop(context);
+    }
   }
 
   Map<DateTime, List<dynamic>> _groupEvents(List<EventModel> allEvents) {
@@ -51,6 +96,7 @@ class _CalendarState extends State<Calendar> {
         "Furball Tales Calendar",
         'null',
       ),
+      key: _key,
       body: StreamBuilder<List<EventModel>>(
           stream: eventDBS.streamList(),
           builder: (context, snapshot) {
@@ -148,14 +194,247 @@ class _CalendarState extends State<Calendar> {
                                       FlatButton(
                                         child: Icon(Icons.update),
                                         onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AddEventPage(note: event),
-                                              ));
+                                          updateDate = event.eventDate;
+                                          updateTimeData = event.eventTime;
+                                          updateTitle = event.title;
+                                          updateDesription = event.description;
+                                          Navigator.of(context).pop();
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                // DateTime updatedate =
+                                                //     DateTime.now();
+                                                TimeOfDay updatetime =
+                                                    TimeOfDay.now();
+                                                return StatefulBuilder(builder:
+                                                    (context, setState) {
+                                                  return AlertDialog(
+                                                      actions: <Widget>[
+                                                        FlatButton(
+                                                            onPressed:
+                                                                () async {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              await eventDBS
+                                                                  .updateData(
+                                                                      event.id,
+                                                                      {
+                                                                    "title":
+                                                                        updateTitle,
+                                                                    "description":
+                                                                        updateDesription,
+                                                                    "event_date":
+                                                                        updateDate,
+                                                                    "event_time":
+                                                                        updateTimeData,
+                                                                    // formatTimeOfDaytoDateTime(
+                                                                    //     updateDate,
+                                                                    //     updatetime)
+                                                                  });
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              //update logic
+                                                            },
+                                                            child: Text(
+                                                                'Update Event'))
+
+                                                        // update here
+                                                      ],
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8)),
+                                                      title:
+                                                          Text("Update Event"),
+                                                      content: Stack(
+                                                        overflow:
+                                                            Overflow.visible,
+                                                        children: <Widget>[
+                                                          Form(
+                                                              key: _formKey,
+                                                              child:
+                                                                  SingleChildScrollView(
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              5.0),
+                                                                      child:
+                                                                          RaisedButton(
+                                                                        shape: RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(5.0)),
+                                                                        elevation:
+                                                                            4.0,
+                                                                        onPressed:
+                                                                            () async {
+                                                                          DateTime picked = await showDatePicker(
+                                                                              context: context,
+                                                                              initialDate: updateDate,
+                                                                              firstDate: DateTime(updateDate.year - 5),
+                                                                              lastDate: DateTime(updateDate.year + 5));
+                                                                          if (picked !=
+                                                                              null) {
+                                                                            setState(() {
+                                                                              updateDate = picked;
+                                                                              //_eventDate = picked;
+
+                                                                              // dateValue =
+                                                                              //     '${currentdate.year}-${currentdate.month}-${currentdate.day}';
+                                                                            });
+                                                                          }
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          alignment:
+                                                                              Alignment.center,
+                                                                          height:
+                                                                              50.0,
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: <Widget>[
+                                                                              Row(
+                                                                                children: <Widget>[
+                                                                                  Container(
+                                                                                    child: Row(
+                                                                                      children: <Widget>[
+                                                                                        Icon(
+                                                                                          Icons.date_range,
+                                                                                          size: 15.0,
+                                                                                          color: Colors.blue,
+                                                                                        ),
+                                                                                        new Text(
+                                                                                          "${updateDate.year} - ${updateDate.month} - ${updateDate.day}",
+                                                                                          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15.0),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                              Text(
+                                                                                "Change",
+                                                                                style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15.0),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              5.0),
+                                                                      child:
+                                                                          RaisedButton(
+                                                                        shape: RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(5.0)),
+                                                                        elevation:
+                                                                            4.0,
+                                                                        onPressed:
+                                                                            () async {
+                                                                          TimeOfDay
+                                                                              t =
+                                                                              await showTimePicker(context: context, initialTime: updatetime);
+                                                                          if (t !=
+                                                                              null) {
+                                                                            setState(() {
+                                                                              updateTimeData = formatTimeOfDaytoDateTime(updateDate, t);
+                                                                              //updatetime = t;
+                                                                              _eventTime = t;
+                                                                              // _eventTime = t;
+                                                                            });
+                                                                          }
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          alignment:
+                                                                              Alignment.center,
+                                                                          height:
+                                                                              50.0,
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: <Widget>[
+                                                                              Row(
+                                                                                children: <Widget>[
+                                                                                  Container(
+                                                                                    child: Row(
+                                                                                      children: <Widget>[
+                                                                                        Icon(
+                                                                                          Icons.date_range,
+                                                                                          size: 15.0,
+                                                                                          color: Colors.blue,
+                                                                                        ),
+                                                                                        new Text(
+                                                                                          "${updateTimeData.hour} : ${updateTimeData.minute}",
+                                                                                          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15.0),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                              Text(
+                                                                                "Change",
+                                                                                style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15.0),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              5.0),
+                                                                      child: TextFormField(
+                                                                          initialValue: updateTitle,
+                                                                          onChanged: (String title) {
+                                                                            updateTitle =
+                                                                                title;
+                                                                          },
+                                                                          decoration: InputDecoration(labelText: 'Title')),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              5.0),
+                                                                      child: TextFormField(
+                                                                          initialValue: updateDesription,
+                                                                          onChanged: (String description) {
+                                                                            updateDesription =
+                                                                                description;
+                                                                          },
+                                                                          decoration: InputDecoration(labelText: 'Description')),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ))
+                                                        ],
+                                                      ));
+                                                });
+                                              });
                                         },
                                       ),
+                                      // don't touch below -------------------------------
                                     ],
                                     title: Text(event.title),
                                     titleTextStyle: TextStyle(
@@ -225,11 +504,209 @@ class _CalendarState extends State<Calendar> {
               ),
             );
           }),
+
+      //---------------------------------------------------
       floatingActionButton: NeumorphicTheme(
         child: NeumorphicFloatingActionButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddEventPage()));
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  DateTime currentdate = DateTime.now();
+                  TimeOfDay currenttime = TimeOfDay.now();
+                  return StatefulBuilder(builder: (context, setState) {
+                    return AlertDialog(
+                        actions: <Widget>[
+                          NeumorphicTheme(
+                            child: NeumorphicButton(
+                              child: const Text('Add'),
+                              onPressed: () {
+                                addEvent();
+                                Navigator.of(context).pop();
+                                // dateValue = "Not Set";
+                              },
+                              style: NeumorphicStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        title: Text("Add Event"),
+                        content: Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Form(
+                                key: _formKey,
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: RaisedButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0)),
+                                          elevation: 4.0,
+                                          onPressed: () async {
+                                            DateTime picked =
+                                                await showDatePicker(
+                                                    context: context,
+                                                    initialDate: currentdate,
+                                                    firstDate: DateTime(
+                                                        currentdate.year - 5),
+                                                    lastDate: DateTime(
+                                                        currentdate.year + 5));
+                                            if (picked != null) {
+                                              setState(() {
+                                                currentdate = picked;
+                                                _eventDate = picked;
+
+                                                // dateValue =
+                                                //     '${currentdate.year}-${currentdate.month}-${currentdate.day}';
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            height: 50.0,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Icon(
+                                                            Icons.date_range,
+                                                            size: 15.0,
+                                                            color: Colors.blue,
+                                                          ),
+                                                          new Text(
+                                                            "${currentdate.year} - ${currentdate.month} - ${currentdate.day}",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 15.0),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  "Change",
+                                                  style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15.0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: RaisedButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0)),
+                                          elevation: 4.0,
+                                          onPressed: () async {
+                                            TimeOfDay t = await showTimePicker(
+                                                context: context,
+                                                initialTime: currenttime);
+                                            if (t != null) {
+                                              setState(() {
+                                                currenttime = t;
+                                                _eventTime = t;
+                                                // _eventTime = t;
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            height: 50.0,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Icon(
+                                                            Icons.date_range,
+                                                            size: 15.0,
+                                                            color: Colors.blue,
+                                                          ),
+                                                          new Text(
+                                                            "${currenttime.hour} : ${currenttime.minute}",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 15.0),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  "Change",
+                                                  style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15.0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(5.0),
+                                        child: TextFormField(
+                                            onChanged: (String title) {
+                                              titleText = title;
+                                            },
+                                            decoration: InputDecoration(
+                                                labelText: 'Title')),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(5.0),
+                                        child: TextFormField(
+                                            onChanged: (String description) {
+                                              descriptionText = description;
+                                            },
+                                            decoration: InputDecoration(
+                                                labelText: 'Description')),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ));
+                  });
+                });
           },
           child: Container(
             color: Color(baseColor),
