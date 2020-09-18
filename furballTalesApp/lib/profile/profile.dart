@@ -127,12 +127,22 @@ class Profile extends StatelessWidget {
                       child: Column(
                         children: [
                           _buildButton()(
-                            text: "About Us",
+                            text: "About",
                             color: accentBlue,
                             onClick: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return About();
+                              }));
+                            },
+                          ),
+                          _buildButton()(
+                            text: "App Tutorial",
+                            color: accentYellow,
+                            onClick: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return TutorialSlider("Tutorial");
                               }));
                             },
                           ),

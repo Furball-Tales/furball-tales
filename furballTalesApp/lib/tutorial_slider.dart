@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'app_bar.dart';
+import 'homepage.dart';
 
 class TutorialSlider extends StatefulWidget {
+  String __nextView;
+
+  TutorialSlider(String nextView) {
+    this.__nextView = nextView;
+  }
+
   @override
   State<StatefulWidget> createState() {
     return _TutorialSlider();
@@ -21,66 +29,138 @@ class _TutorialSlider extends State<TutorialSlider> {
   void initState() {
     super.initState();
 
+    slides.add(new Slide(
+      title: "Welcome to Furball Tales",
+      styleTitle: TextStyle(
+          color: Colors.black87,
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'RobotoMono'),
+      description:
+          "Here's a quick tutorial so you can navigate through the App with ease...",
+      styleDescription: TextStyle(
+          color: Color(0xff3da4ab),
+          fontSize: 20.0,
+          fontStyle: FontStyle.italic,
+          fontFamily: 'Raleway'),
+      pathImage: "assets/logo.png",
+      backgroundImage: "assets/profile_background.png",
+      backgroundOpacity: 0.0,
+    ));
     slides.add(
       new Slide(
-        title: "Welcome to Furball Tales",
+        title: "Dashboard/Home page",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Colors.black87,
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description:
-            "Here's a quick tutorial so you can navigate through the App with ease...",
+            "Here, you can see your registered pets. To add more of your pets, click the plus in the top right corner.\nYou can also navigate through the app via the bottom Navigation Bar.",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Color(0xff3da4ab),
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        pathImage: "assets/logo.png",
+        pathImage: "assets/dashboard_1.png",
+        heightImage: 400.0,
+        backgroundImage: "assets/profile_background.png",
+        backgroundOpacity: 0.0,
       ),
     );
     slides.add(
       new Slide(
-        title: "MUSEUM",
+        title: "Albums/Photos page",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Colors.black87,
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description:
-            "Ye indulgence unreserved connection alteration appearance",
+            "Here, you can see albums and pictures. You can create a new album/photo by clicking the plus button.\nIn this part of the app, if you long press an album/picture, you can delete it",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Color(0xff3da4ab),
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        pathImage: "images/photo_museum.png",
+        pathImage: "assets/albums_1.png",
+        heightImage: 400.0,
+        backgroundImage: "assets/profile_background.png",
+        backgroundOpacity: 0.0,
       ),
     );
     slides.add(
       new Slide(
-        title: "COFFEE SHOP",
+        title: "Calendar page",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Colors.black87,
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description:
-            "Much evil soon high in hope do view. Out may few northward believing attempted. Yet timed being songs marry one defer men our. Although finished blessing do of",
+            "Here, can create/update/delete calendar events for your pet's needs. Good luck exploring!",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Color(0xff3da4ab),
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        pathImage: "images/photo_coffee_shop.png",
+        pathImage: "assets/calendar_1.png",
+        heightImage: 400.0,
+        backgroundImage: "assets/profile_background.png",
+        backgroundOpacity: 0.0,
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "Medical/Vet page",
+        styleTitle: TextStyle(
+            color: Colors.black87,
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono'),
+        description:
+            "This is where you can add all your pets medical info after visiting the vet.\nIt's a great way to keep track of all your visits!",
+        styleDescription: TextStyle(
+            color: Color(0xff3da4ab),
+            fontSize: 20.0,
+            fontStyle: FontStyle.italic,
+            fontFamily: 'Raleway'),
+        pathImage: "assets/medical_1.png",
+        heightImage: 400.0,
+        backgroundImage: "assets/profile_background.png",
+        backgroundOpacity: 0.0,
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "Profile page",
+        styleTitle: TextStyle(
+            color: Colors.black87,
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono'),
+        description:
+            "This is where you can see all about the app, the developers and an option to logout.\nWe hope you enjoy using our one stop app for your pets!",
+        styleDescription: TextStyle(
+            color: Color(0xff3da4ab),
+            fontSize: 20.0,
+            fontStyle: FontStyle.italic,
+            fontFamily: 'Raleway'),
+        pathImage: "assets/profile_1.png",
+        heightImage: 400.0,
+        backgroundImage: "assets/profile_background.png",
+        backgroundOpacity: 0.0,
       ),
     );
   }
 
   // 4 Step: Create Other functions
   void onDonePress() {
-    // Back to the first tab
-    this.goToTab(0);
+    if (widget.__nextView == "Tutorial") {
+      Navigator.pop(context);
+    } else {
+      Homepage();
+    }
   }
 
   void onTabChangeCompleted(index) {
@@ -126,7 +206,7 @@ class _TutorialSlider extends State<TutorialSlider> {
                   child: Image.asset(
                 currentSlide.pathImage,
                 width: 200.0,
-                height: 200.0,
+                height: 700.0,
                 fit: BoxFit.contain,
               )),
               Container(
@@ -157,43 +237,45 @@ class _TutorialSlider extends State<TutorialSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: IntroSlider(
-          // List slides
-          slides: this.slides,
+    return Scaffold(
+      appBar: GradientAppBar(
+        "Donation",
+        'back',
+      ),
+      body: IntroSlider(
+        // List slides
+        slides: this.slides,
 
-          // Skip button
-          renderSkipBtn: this.renderSkipBtn(),
-          colorSkipBtn: Color(0x33ffcc5c),
-          highlightColorSkipBtn: Color(0xffffcc5c),
+        // Skip button
+        renderSkipBtn: this.renderSkipBtn(),
+        colorSkipBtn: Color(0x33ffcc5c),
+        highlightColorSkipBtn: Color(0xffffcc5c),
 
-          // Next button
-          renderNextBtn: this.renderNextBtn(),
+        // Next button
+        renderNextBtn: this.renderNextBtn(),
 
-          // Done button
-          renderDoneBtn: this.renderDoneBtn(),
-          onDonePress: this.onDonePress,
-          colorDoneBtn: Color(0x33ffcc5c),
-          highlightColorDoneBtn: Color(0xffffcc5c),
+        // Done button
+        renderDoneBtn: this.renderDoneBtn(),
+        onDonePress: this.onDonePress,
+        colorDoneBtn: Color(0x33ffcc5c),
+        highlightColorDoneBtn: Color(0xffffcc5c),
 
-          // Dot indicator
-          colorDot: Color(0xffffcc5c),
-          sizeDot: 13.0,
+        // Dot indicator
+        colorDot: Color(0xffffcc5c),
+        sizeDot: 13.0,
 
-          // Tabs
-          listCustomTabs: this.renderListCustomTabs(),
-          backgroundColorAllSlides: Colors.white,
-          refFuncGoToTab: (refFunc) {
-            this.goToTab = refFunc;
-          },
+        // Tabs
+        // listCustomTabs: this.renderListCustomTabs(),
+        backgroundColorAllSlides: Colors.white,
+        refFuncGoToTab: (refFunc) {
+          this.goToTab = refFunc;
+        },
 
-          // Show or hide status bar
-          shouldHideStatusBar: true,
+        // Show or hide status bar
+        shouldHideStatusBar: true,
 
-          // On tab change completed
-          onTabChangeCompleted: this.onTabChangeCompleted,
-        ),
+        // On tab change completed
+        onTabChangeCompleted: this.onTabChangeCompleted,
       ),
     );
   }
