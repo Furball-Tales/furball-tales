@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
-import 'package:filter_list/filter_list.dart';
 import '../../sign_in.dart';
 import '../../get_allPetsData.dart';
+
 
 void main() {
 
@@ -13,7 +13,13 @@ void main() {
 }
 
 
+class ListItem {
+  int value;
+  String name;
 
+  ListItem(this.value, this.name);
+}
+  
 class WalkHistory extends StatefulWidget {
   const WalkHistory({Key key}): super(key:key);
 
@@ -24,49 +30,84 @@ class WalkHistory extends StatefulWidget {
 
   class _WalkHistoryState extends State<WalkHistory> {
 
+  var stream;
   var date;
   var formattedDate;
   String currentDate;
+  Object poopQuality = ["dry like a desert", "rainbow colored", "sweet like candy", "like a waterfall", "Same as Mine! Poop Buddies!"];
+  Object walk = [Icons.sentiment_very_dissatisfied, Icons.sentiment_dissatisfied, Icons.sentiment_neutral, Icons.sentiment_satisfied, Icons.sentiment_very_satisfied];
+
+  void initState() {
+    super.initState();
+    makePetsList();
+    _dropdownMenuItems = buildDropDownMenuItems(petNames);
+    _selectedItem = _dropdownMenuItems[0].value;
+  }
+
+List<ListItem> petNames = List();
+  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
+  ListItem _selectedItem;
+
+  makePetsList() {
+    for (var i = 0; i < allPetsData.length; i++) {
+      ListItem newListItem = ListItem(i + 1, allPetsData[i]['data']['petName']);
+      petNames.add(newListItem);
+    }
+  }
+
+  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<ListItem>> items = List();
+    for (ListItem listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem.name),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
     String selectedKey = allPetsData[0]['key'];
     final databaseReference =FirebaseDatabase.instance.reference().child('$id').child('pets').child('$selectedKey').child('walk');
-
-    List<String> countList = [];
-    List<String> selectedCountList = [];
-      for (var i = 0; i < allPetsData.length; i++) {
-        countList.add(allPetsData[i]['key']);
-      }
-
-    void _openFilterList() async{
-      // print(selectedCountList[index]);
-      var list = await FilterList.showFilterList(
-        context,
-        allTextList: countList,
-        height: 450,
-        borderRadius: 20,
-        headlineText: "Select Count",
-        searchFieldHintText: "Search Here",
-        selectedTextList: selectedCountList,
-        );
-                      
-      if (list != null) {
-        setState(() {
-        selectedCountList = List.from(list);
-        });
+    
+    for (var i = 0; i < allPetsData.length; i++) {
+      if (i + 1 == _selectedItem.value) {
+        selectedKey = allPetsData[i]['key'];
       }
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-      child: Icon(Icons.add),
-      onPressed:_openFilterList,
+    appBar: AppBar(
+    backgroundColor: Colors.white,
+    automaticallyImplyLeading: false,
+    title: Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text("Please select your Furball    ", style:TextStyle(color: Colors.blue, fontSize:16.0)  ),
+        DropdownButton(
+          value: _selectedItem,
+          items: _dropdownMenuItems,
+          underline: SizedBox(height: 0,),
+          //underline: SizedBox(),
+          onChanged:(value){
+            setState((){
+            _selectedItem = value;
+            print(selectedKey);
+            });
+          }
+        ),
+      ],
       ),
+    ),
 
       body: StreamBuilder(
-          stream: databaseReference.onValue,
+          stream: FirebaseDatabase.instance.reference().child('$id').child('pets').child('$selectedKey').child('walk').onValue,
           builder: (context, snap) {
             if (snap.hasData &&
                 !snap.hasError &&
@@ -75,7 +116,7 @@ class WalkHistory extends StatefulWidget {
               List item = [];
               data.forEach(
                   (index, value) => item.add({"key": index, ...value}));
-              return ListView.builder(
+                  return ListView.builder(
                 
                   itemCount: item.length,
                   itemBuilder: (context, index) {
@@ -126,7 +167,7 @@ class WalkHistory extends StatefulWidget {
                                               Container(
                                                 margin: EdgeInsets.fromLTRB(
                                                     20, 0, 0, 0),
-                                                child: Text("Enjoyment Rating:",
+                                                child: Text("Enjoyment:",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -141,8 +182,6 @@ class WalkHistory extends StatefulWidget {
                                                   child: Text(
                                                       item[index]["Dog Enjoyment"],
                                                       style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
                                                         color: Colors.grey,
                                                         fontSize: 18.0,
                                                       )),
@@ -173,8 +212,6 @@ class WalkHistory extends StatefulWidget {
                                                           item[index]
                                                               ["Number of Poops"],
                                                           style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
                                                             color: Colors.grey,
                                                             fontSize: 18.0,
                                                           )),
@@ -205,8 +242,6 @@ class WalkHistory extends StatefulWidget {
                                                           item[index]
                                                               ["Poop Quality"],
                                                           style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
                                                             color: Colors.grey,
                                                             fontSize: 18.0,
                                                           )),
@@ -236,8 +271,35 @@ class WalkHistory extends StatefulWidget {
                                                       child: Text(
                                                           item[index]["Walk"],
                                                           style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            color: Colors.grey,
+                                                            fontSize: 18.0,
+                                                          )),
+                                                    ),
+                                                  ),
+                                                ]),
+                                                Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.fromLTRB(
+                                                        20, 0, 0, 0),
+                                                    child: Text("Notes:",
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.grey,
+                                                          fontSize: 18.0,
+                                                        )),
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      margin:
+                                                          EdgeInsets.fromLTRB(
+                                                              20, 0, 0, 0),
+                                                      child: Text(
+                                                          item[index]["Comments"],
+                                                          style: TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: 18.0,
                                                           )),
@@ -255,7 +317,6 @@ class WalkHistory extends StatefulWidget {
               return Center(child: CircularProgressIndicator());
             }
           }),
-          
     );
   }
 }

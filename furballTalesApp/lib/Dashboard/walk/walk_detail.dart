@@ -7,31 +7,19 @@ import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
 import 'walkHistory.dart';
 
-class WalkDetail extends StatelessWidget {
+
+
+class Walk extends StatefulWidget {
   IconData icon;
   String heading;
   int color;
 
-  WalkDetail(IconData icon, String heading, int color) {
+  Walk(IconData icon, String heading, int color) {
     this.icon = icon;
     this.heading = heading;
     this.color = color;
   }
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Time",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Walk(),
-    );
-  }
-}
 
-class Walk extends StatefulWidget {
-  Walk({Key key}) : super(key: key);
   @override
   _WalkState createState() => _WalkState();
 }
@@ -60,10 +48,12 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin {
     _tabController.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar("Walk History", "null"),
+      appBar: GradientAppBar("Walk History","back"),
       bottomNavigationBar: MotionTabBar(
         labels: ["Walk", "History", "Statistics"],
         initialSelectedTab: "Walk",
