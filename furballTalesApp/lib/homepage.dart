@@ -7,6 +7,7 @@ import 'albums/albums.dart';
 import './frontend_settings.dart';
 import './calendar/calendar_main.dart';
 import 'frontend_settings.dart';
+import 'navBar.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
@@ -41,6 +42,8 @@ class Homepage extends StatefulWidget {
 }
 
 class _MyAppState extends State<Homepage> {
+  double get w => MediaQuery.of(context).size.width;
+  double get h => MediaQuery.of(context).size.height;
   int _currentIndex = 0;
   final List<Widget> _children = [
     Dashboard(),

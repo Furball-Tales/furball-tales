@@ -97,6 +97,7 @@ class ListCardView {
                 child: PetCard(
                   allPetsData[i]['key'],
                   '${allPetsData[i]["data"]["birthday"]}',
+                  '',
                   '${allPetsData[i]['data']['petName']}',
                   '${allPetsData[i]['data']['petProfilePicUrl']}',
                   '${allPetsData[i]['data']['sex']}',

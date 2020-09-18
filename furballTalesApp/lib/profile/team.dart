@@ -78,12 +78,13 @@ class Ayumi extends StatelessWidget {
               InkWell(
                   child: Row(
                     children: <Widget>[
-                      CircleAvatar(
-                          radius: 20.0,
-                          backgroundImage: AssetImage('assets/github.png')),
+                      Image(
+                        image: AssetImage('assets/github.png'),
+                        width: 40.0,
+                      ),
                       SizedBox(width: 10.0),
                       Text(
-                        'Ayumi426',
+                        '@Ayumi426',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20.0,
@@ -174,12 +175,13 @@ class Yuta extends StatelessWidget {
             InkWell(
               child: Row(
                 children: <Widget>[
-                  CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: AssetImage('assets/github.png')),
+                  Image(
+                    image: AssetImage('assets/github.png'),
+                    width: 40.0,
+                  ),
                   SizedBox(width: 10.0),
                   Text(
-                    'namitry',
+                    '@namitry',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.0,
@@ -270,12 +272,13 @@ class Ryohei extends StatelessWidget {
             InkWell(
               child: Row(
                 children: <Widget>[
-                  CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: AssetImage('assets/github.png')),
+                  Image(
+                    image: AssetImage('assets/github.png'),
+                    width: 40.0,
+                  ),
                   SizedBox(width: 10.0),
                   Text(
-                    'Ryohei03',
+                    '@Ryohei03',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.0,
@@ -366,12 +369,13 @@ class Jimmy extends StatelessWidget {
             InkWell(
               child: Row(
                 children: <Widget>[
-                  CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: AssetImage('assets/github.png')),
+                  Image(
+                    image: AssetImage('assets/github.png'),
+                    width: 40.0,
+                  ),
                   SizedBox(width: 10.0),
                   Text(
-                    'jimmytwilson',
+                    '@jimmytwilson',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.0,
@@ -462,12 +466,13 @@ class Mukhtar extends StatelessWidget {
             InkWell(
               child: Row(
                 children: <Widget>[
-                  CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: AssetImage('assets/github.png')),
+                  Image(
+                    image: AssetImage('assets/github.png'),
+                    width: 40.0,
+                  ),
                   SizedBox(width: 10.0),
                   Text(
-                    'MukhtarKaz',
+                    '@MukhtarKaz',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.0,

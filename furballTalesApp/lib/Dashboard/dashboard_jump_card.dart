@@ -4,7 +4,10 @@ import 'walk/walk_detail.dart';
 import 'weight/weight_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
-import 'chart_dammy_data.dart';
+// import 'chart_dammy_data.dart';
+import '../get_allPetsData.dart';
+import 'dart:developer';
+import '../Dashboard/memo/memo.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
@@ -12,10 +15,10 @@ var accentYellow = NeumorphicCardSettings.accentYellow;
 var intensity = NeumorphicCardSettings.intensity;
 var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
-var baseColor = NeumorphicCardSettings.baseColor;
-dynamic allChartData = ChartDammyData().allChartData;
+List<dynamic> allChartData = allPetsData;
 
 _nextPage(icon, heading, textColor) {
+  if (heading == 'Memo') return MemoList();
   if (heading == 'Walk') return Walk(icon, heading, textColor);
   if (heading == 'Food')
     return FoodDetail(icon, heading, textColor, allChartData);
@@ -107,6 +110,7 @@ class CustomCardState extends State<JumpCard> {
           });
         },
         onTap: () {
+          log('data: $allChartData');
           print('Card tapped.');
           setState(() {
             _hasPadding = false;

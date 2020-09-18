@@ -61,6 +61,7 @@ class _PhotosState extends State<Photos> {
   }
 
   File _image;
+  File _takenImage;
   final picker = ImagePicker();
 
   Future<List> uploadImage(var imageFile) async {
@@ -93,6 +94,14 @@ class _PhotosState extends State<Photos> {
     createUrl(uploadUrl[0], uploadUrl[1]);
   }
 
+  void openCamera() async {
+    final takenPhoto = await picker.getImage(source: ImageSource.camera);
+    _takenImage = File(takenPhoto.path);
+
+    var uploadUrl = await uploadImage(_takenImage);
+    createUrl(uploadUrl[0], uploadUrl[1]);
+  }
+
   List<String> photoList = List<String>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -122,7 +131,42 @@ class _PhotosState extends State<Photos> {
             ),
           ),
           onPressed: () {
-            selectImage();
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  actions: <Widget>[
+                    NeumorphicTheme(
+                      child: NeumorphicButton(
+                        child: const Text('Camera'),
+                        onPressed: () {
+                          openCamera();
+                          Navigator.of(context).pop();
+                        },
+                        style: NeumorphicStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    NeumorphicTheme(
+                      child: NeumorphicButton(
+                        child: const Text('Device'),
+                        onPressed: () {
+                          selectImage();
+                          Navigator.of(context).pop();
+                        },
+                        style: NeumorphicStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  title: Text("Choose"),
+                );
+              },
+            );
           },
           tooltip: 'New Photo',
         ),
