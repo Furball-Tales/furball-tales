@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'food/food_detail.dart';
-import 'walk/walk_detail.dart';
-import 'weight/weight_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
 import 'chart.dart';
+import '../get_allPetsData.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
@@ -30,7 +28,7 @@ class EachJumpCard extends StatefulWidget {
   double depth;
   double surfaceIntensity;
   int baseColor;
-  List<Map<String, Object>> allChartData;
+  List<dynamic> allChartData;
 
   EachJumpCard(
     IconData icon,
@@ -42,7 +40,7 @@ class EachJumpCard extends StatefulWidget {
     double depth,
     double surfaceIntensity,
     int baseColor,
-    List<Map<String, Object>> allChartData,
+    List<dynamic> allChartData,
   ) {
     this.icon = icon;
     this.heading = heading;
@@ -84,7 +82,7 @@ class CustomCardState extends State<EachJumpCard> {
   double depth;
   double surfaceIntensity;
   int baseColor;
-  List<Map<String, Object>> allChartData;
+  List<dynamic> allChartData;
 
   var _hasPadding = false;
 
@@ -98,7 +96,7 @@ class CustomCardState extends State<EachJumpCard> {
     double depth,
     double surfaceIntensity,
     int baseColor,
-    List<Map<String, Object>> allChartData,
+    List<dynamic> allChartData,
   ) {
     this.icon = icon;
     this.heading = heading;
@@ -136,6 +134,7 @@ class CustomCardState extends State<EachJumpCard> {
         },
         onTap: () {
           print(heading);
+          readAllPetsData();
           // print(petName);
           setState(() {
             _hasPadding = false;

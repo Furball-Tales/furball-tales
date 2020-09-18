@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Chart extends StatefulWidget {
   String heading;
   String petName;
-  dynamic allChartData;
+  List<dynamic> allChartData;
 
   Chart(heading, petName, allChartData) {
     this.heading = heading;
@@ -23,7 +23,7 @@ class _ChartState extends State<Chart> {
   DateTime toDate;
   String heading;
   String petName;
-  dynamic allChartData;
+  List<dynamic> allChartData;
 
   @override
   void initState() {
@@ -33,23 +33,36 @@ class _ChartState extends State<Chart> {
     heading = widget.heading;
     petName = widget.petName;
     allChartData = widget.allChartData;
+    DateTime parseDateString(String str) {
+      final splitted = str.split("-").map(int.parse).toList();
+      return DateTime(splitted[0], splitted[1], splitted[2]);
+    }
 
     for (int i = 0; i < allChartData.length; i++) {
-      if (allChartData[i]['name'] != widget.petName) break;
+      if (allChartData[i]['data']['petName'] != petName) continue;
 
-      final weightData =
-          (allChartData[i]['data'] as Map<String, List>)['weight'];
-      for (int j = 0; j < weightData.length; j++) {
+      print(allChartData[i]['data']['weight']);
+      // headingはすべて小文字にする
+      // headingに応じて、取ってくるvalueの位置を変更する
+      // またｈは、もう諦めて別ファイルを作ってしまう
+      // 値が0のときの挙動
+      // 最新までずっと同じ描画にしておく
+
+      final headingData =
+          Map<String, dynamic>.from(allChartData[i]['data']['weight']);
+
+      // if (heading == 'weight') var indicator = 'Weight';
+      // if (heading == 'food') var indicator = 'BowlPercent';
+
+      for (var value in headingData.values) {
         data.add(
           DataPoint<DateTime>(
-            value: weightData[j]['value'],
-            xAxis: DateTime(2020, 8, 24),
+            value: double.parse(value['Weight']),
+            xAxis: parseDateString(value['Date']),
           ),
         );
       }
     }
-    print(data);
-    data.forEach(print);
   }
 
   @override
@@ -62,15 +75,8 @@ class _ChartState extends State<Chart> {
     heading = widget.heading;
     petName = widget.petName;
     allChartData = widget.allChartData;
-    final date1 = toDate.subtract(Duration(days: 2));
-    final date2 = toDate.subtract(Duration(days: 3));
-
-    // for (var i = 0; i < allChartData.length; i++) {
-    //   if (allChartData[i]['petName'] == petName) {
-    //     for (var j = 0; j < allChartData[i]['data']['weight'].length; j++) {
-    //       dynamic eachWeight = allChartData[i]['data']['weight'][j]['value'];
-    //       print(eachWeight);
-    //       print(allChartData[i]['data']['weight'][j].length);
+    // final date1 = toDate.subtract(Duration(days: 2));
+    // final date2 = toDate.subtract(Duration(days: 3));
 
     return Scaffold(
       appBar: AppBar(
@@ -128,9 +134,7 @@ class _ChartState extends State<Chart> {
               bezierChartScale: BezierChartScale.WEEKLY,
               toDate: toDate,
               onIndicatorVisible: (val) {
-                // print(allChartData);
                 print("Indicator Visible :$val");
-                print('${data[0].value}');
               },
               onDateTimeSelected: (datetime) {
                 print("selected datetime: $datetime");
@@ -149,7 +153,7 @@ class _ChartState extends State<Chart> {
               },
               series: [
                 BezierLine(
-                  label: "grams",
+                  label: "Kg",
                   data: data,
                   onMissingValue: (DateTime dateTime) {
                     double lastValue = 0;
