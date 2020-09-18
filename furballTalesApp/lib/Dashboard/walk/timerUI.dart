@@ -112,6 +112,7 @@ List<ListItem> petNames = List();
     _dropdownMenuItems = buildDropDownMenuItems(petNames);
     _selectedItem = _dropdownMenuItems[0].value;
   }
+  
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
     List<DropdownMenuItem<ListItem>> items = List();
     for (ListItem listItem in listItems) {
