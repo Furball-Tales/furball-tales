@@ -112,12 +112,12 @@ class PetCardState extends State<PetCard> {
             _hasPadding = true;
           });
         },
-        onTap: () {
+        onTap: () async {
           print('Card tapped.');
           setState(() {
             _hasPadding = false;
           });
-          Navigator.push(
+          await Navigator.push(
               context,
               PageRouteBuilder(
                 transitionDuration: Duration(milliseconds: 500),
@@ -130,6 +130,15 @@ class PetCardState extends State<PetCard> {
                   sex,
                 ),
               ));
+          var data = await databaseReference.child(this.heroTag).once();
+
+          setState(() {
+            birthday = data.value['birthday'];
+            age = calculateAge(birthday);
+            name = data.value['petName'];
+            photo = data.value['petProfilePicUrl'];
+            sex = data.value['sex'];
+          });
         },
         onTapCancel: () {
           setState(() {
@@ -149,12 +158,12 @@ class PetCardState extends State<PetCard> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     // selectImage();
                     setState(() {
                       _hasPadding = false;
                     });
-                    Navigator.push(
+                    await Navigator.push(
                         context,
                         PageRouteBuilder(
                           transitionDuration: Duration(milliseconds: 500),
@@ -167,6 +176,16 @@ class PetCardState extends State<PetCard> {
                             sex,
                           ),
                         ));
+                    var data =
+                        await databaseReference.child(this.heroTag).once();
+
+                    setState(() {
+                      birthday = data.value['birthday'];
+                      age = calculateAge(birthday);
+                      name = data.value['petName'];
+                      photo = data.value['petProfilePicUrl'];
+                      sex = data.value['sex'];
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(
