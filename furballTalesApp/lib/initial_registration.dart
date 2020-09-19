@@ -12,6 +12,7 @@ import './dashboard/grid_dashboard.dart';
 import 'frontend_settings.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'get_allPetsData.dart';
+import 'tutorial_slider.dart';
 
 var textBaseColor = NeumorphicCardSettings.textBaseColor;
 var baseColor = NeumorphicCardSettings.baseColor;
@@ -450,7 +451,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
     if (funcIndex == "initialRegistrationScreen") {
       func = initialRegistrationScreen();
     } else {
-      func = Homepage();
+      func = TutorialSlider("Home");
     }
     return func;
   }

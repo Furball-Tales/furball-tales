@@ -225,7 +225,7 @@ class ProjectDet extends StatelessWidget {
                             width: c_width,
                             child: Text(
                               "Our app FurBallTales manages all of the medical information for your pet.That includes medication reminders, food tracking, grooming, ear and teeth cleaning, various measurements like weight and height, and, of course, vaccinations. You can also get reminders for upcoming vet appointments. It keeps track of this stuff so you don’t have to. The app is also completely free with no in-app purchases or ads.",
-                              textAlign: TextAlign.left,
+                              textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Color(textBaseColor),

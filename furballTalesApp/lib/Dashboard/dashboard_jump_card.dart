@@ -7,6 +7,7 @@ import '../frontend_settings.dart';
 // import 'chart_dammy_data.dart';
 import '../get_allPetsData.dart';
 import 'dart:developer';
+import '../Dashboard/memo/memo.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
@@ -17,7 +18,8 @@ var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 List<dynamic> allChartData = allPetsData;
 
 _nextPage(icon, heading, textColor) {
-  if (heading == 'Walk') return WalkDetail(icon, heading, textColor);
+  if (heading == 'Memo') return MemoList();
+  if (heading == 'Walk') return Walk(icon, heading, textColor);
   if (heading == 'Food')
     return FoodDetail(icon, heading, textColor, allChartData);
   if (heading == 'Weight')

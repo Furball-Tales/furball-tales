@@ -24,6 +24,7 @@ var textBaseColor = NeumorphicCardSettings.textBaseColor;
 class PetCard extends StatefulWidget {
   String heroTag;
   String birthday;
+  String age;
   String name;
   String photo;
   String sex;
@@ -31,12 +32,14 @@ class PetCard extends StatefulWidget {
   PetCard(
     String heroTag,
     String birthday,
+    String age,
     String name,
     String photo,
     String sex,
   ) {
     this.heroTag = heroTag;
     this.birthday = birthday;
+    this.age = age;
     this.name = name;
     this.photo = photo;
     this.sex = sex;
@@ -47,6 +50,7 @@ class PetCard extends StatefulWidget {
     return PetCardState(
       heroTag,
       birthday,
+      age,
       name,
       photo,
       sex,
@@ -57,29 +61,12 @@ class PetCard extends StatefulWidget {
 class PetCardState extends State<PetCard> {
   String heroTag;
   String birthday;
+  String age;
   String name;
   String photo;
   String sex;
 
   var _hasPadding = false;
-
-  File _image;
-  final picker = ImagePicker();
-
-  Future selectImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    _image = File(pickedFile.path);
-
-    var uploadUrl = await uploadImage(_image, this.heroTag);
-    updateUrl(uploadUrl, this.heroTag);
-    // await readUrl();
-    this.photo = uploadUrl;
-    readAllPetsData();
-
-    setState(() {
-      _image = File(pickedFile.path);
-    });
-  }
 
   String calculateAge(String stringBirthday) {
     DateTime dataBirthday = DateTime.parse(stringBirthday);
@@ -91,12 +78,14 @@ class PetCardState extends State<PetCard> {
   PetCardState(
     String heroTag,
     String birthday,
+    String age,
     String name,
     String photo,
     String sex,
   ) {
     this.heroTag = heroTag;
-    this.birthday = calculateAge(birthday);
+    this.birthday = birthday;
+    this.age = calculateAge(birthday);
     this.name = name;
     this.photo = photo;
     this.sex = sex;
@@ -123,23 +112,33 @@ class PetCardState extends State<PetCard> {
             _hasPadding = true;
           });
         },
-        onTap: () {
+        onTap: () async {
           print('Card tapped.');
           setState(() {
             _hasPadding = false;
           });
-          Navigator.push(
+          await Navigator.push(
               context,
               PageRouteBuilder(
                 transitionDuration: Duration(milliseconds: 500),
                 pageBuilder: (_, __, ___) => PetDetail(
                   heroTag,
                   birthday,
+                  age,
                   name,
                   photo,
                   sex,
                 ),
               ));
+          var data = await databaseReference.child(this.heroTag).once();
+
+          setState(() {
+            birthday = data.value['birthday'];
+            age = calculateAge(birthday);
+            name = data.value['petName'];
+            photo = data.value['petProfilePicUrl'];
+            sex = data.value['sex'];
+          });
         },
         onTapCancel: () {
           setState(() {
@@ -159,8 +158,34 @@ class PetCardState extends State<PetCard> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    selectImage();
+                  onTap: () async {
+                    // selectImage();
+                    setState(() {
+                      _hasPadding = false;
+                    });
+                    await Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          transitionDuration: Duration(milliseconds: 500),
+                          pageBuilder: (_, __, ___) => PetDetail(
+                            heroTag,
+                            birthday,
+                            age,
+                            name,
+                            photo,
+                            sex,
+                          ),
+                        ));
+                    var data =
+                        await databaseReference.child(this.heroTag).once();
+
+                    setState(() {
+                      birthday = data.value['birthday'];
+                      age = calculateAge(birthday);
+                      name = data.value['petName'];
+                      photo = data.value['petProfilePicUrl'];
+                      sex = data.value['sex'];
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -244,7 +269,7 @@ class PetCardState extends State<PetCard> {
                                                 ),
                                               ),
                                               Text(
-                                                birthday + ' yrs',
+                                                age + ' yrs',
                                                 style: TextStyle(
                                                   color: Color(textBaseColor),
                                                   fontSize: 12,
