@@ -22,16 +22,26 @@ class _ChartState extends State<Chart> {
   DateTime fromDate;
   DateTime toDate;
   String heading;
+  String lowerHeading;
   String petName;
+  String category;
   List<dynamic> allChartData;
 
   @override
   void initState() {
     super.initState();
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    // set the chart duration
     fromDate = DateTime(2020, 09, 1);
-    toDate = DateTime(2020, 09, 24);
-    heading = widget.heading;
+    toDate = today;
+
+    heading = widget.heading; // 'Weight'
+    lowerHeading =
+        '${heading[0].toLowerCase()}${heading.substring(1)}'; // 'weight'
     petName = widget.petName;
+    category = lowerHeading;
     allChartData = widget.allChartData;
     DateTime parseDateString(String str) {
       final splitted = str.split("-").map(int.parse).toList();
@@ -41,31 +51,43 @@ class _ChartState extends State<Chart> {
     for (int i = 0; i < allChartData.length; i++) {
       if (allChartData[i]['data']['petName'] != petName) continue;
 
-      print(allChartData[i]['data']['weight']);
-      // headingはすべて小文字にする
-      // headingに応じて、取ってくるvalueの位置を変更する
-      // またｈは、もう諦めて別ファイルを作ってしまう
-      // 値が0のときの挙動
-      // 最新までずっと同じ描画にしておく
-
-      final headingData =
-          Map<String, dynamic>.from(allChartData[i]['data']['weight']);
-
-      // if (heading == 'weight') var indicator = 'Weight';
-      // if (heading == 'food') var indicator = 'BowlPercent';
-
-      for (var value in headingData.values) {
-        if (value['Weight'] == '' || value['Date'] == 'Not set') continue;
-
+      // handling the edge case where no such category is provided
+      if ((allChartData[i]['data'][lowerHeading]) == null) {
+        Map<String, dynamic> dammyData = {
+          'key': {
+            'Date': today,
+            'Weight': 0.0,
+          },
+        };
         data.add(
           DataPoint<DateTime>(
-            value: double.parse(value['Weight']),
-            xAxis: parseDateString(value['Date']),
+            value: dammyData['key'][heading],
+            xAxis: dammyData['key']['Date'],
           ),
         );
+      } else {
+        final headingData =
+            Map<String, dynamic>.from((allChartData[i]['data'][lowerHeading]));
+
+        for (var value in headingData.values) {
+          if (value[heading] == '' || value['Date'] == 'Not set') continue;
+
+          data.add(
+            DataPoint<DateTime>(
+              value: double.parse(value[heading]),
+              xAxis: parseDateString(value['Date']),
+            ),
+          );
+        }
       }
     }
   }
+
+  // headingはすべて小文字にする
+  // headingに応じて、取ってくるvalueの位置を変更する
+  // またｈは、もう諦めて別ファイルを作ってしまう
+  // 値が0のときの挙動
+  // 最新までずっと同じ描画にしておく
 
   @override
   void dispose() {
