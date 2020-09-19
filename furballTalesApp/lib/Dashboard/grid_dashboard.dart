@@ -4,12 +4,10 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
 import 'pet/list_card_view.dart';
 import 'dashboard_jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
-// import '../initial_registration.dart';
 
 void main() => runApp(MyApp());
 
@@ -115,6 +113,8 @@ Future<String> uploadImage(var imageFile, petId) async {
 }
 
 class _GridDashboardState extends State<GridDashboard> {
+  double get w => MediaQuery.of(context).size.width;
+  double get h => MediaQuery.of(context).size.height;
   // File _image;
   final picker = ImagePicker();
 
@@ -122,7 +122,7 @@ class _GridDashboardState extends State<GridDashboard> {
 
   String greeting() {
     var hour = DateTime.now().hour;
-    if (hour < 12) {
+    if (hour < 12 && hour > 4) {
       frontGreeting = 'Morning';
     } else if (hour < 17) {
       frontGreeting = 'Afternoon';

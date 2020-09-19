@@ -28,8 +28,8 @@ class _ChartState extends State<Chart> {
   @override
   void initState() {
     super.initState();
-    fromDate = DateTime(2020, 08, 1);
-    toDate = DateTime(2020, 09, 30);
+    fromDate = DateTime(2020, 09, 1);
+    toDate = DateTime(2020, 09, 24);
     heading = widget.heading;
     petName = widget.petName;
     allChartData = widget.allChartData;
@@ -55,6 +55,8 @@ class _ChartState extends State<Chart> {
       // if (heading == 'food') var indicator = 'BowlPercent';
 
       for (var value in headingData.values) {
+        if (value['Weight'] == '' || value['Date'] == 'Not set') continue;
+
         data.add(
           DataPoint<DateTime>(
             value: double.parse(value['Weight']),
