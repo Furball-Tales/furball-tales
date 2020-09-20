@@ -243,13 +243,15 @@ class PetCardState extends State<PetCard> {
                                       stream: databaseReference.onValue,
                                       builder: (context, snap) {
                                         return Container(
-                                          padding:
-                                              EdgeInsets.only(top: 12, left: 2),
+                                          padding: EdgeInsets.only(
+                                            top: 12,
+                                            right: 8,
+                                          ),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
                                                 name,
