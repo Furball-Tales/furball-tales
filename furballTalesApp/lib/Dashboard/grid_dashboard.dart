@@ -4,17 +4,14 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
 import 'pet/list_card_view.dart';
 import 'dashboard_jump_card.dart';
 import '../sign_in.dart';
 import '../frontend_settings.dart';
-// import '../initial_registration.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return NeumorphicApp(
@@ -42,6 +39,11 @@ var mildBlueGreen = NeumorphicCardSettings.mildBlueGreen;
 var mildBlue = NeumorphicCardSettings.mildBlue;
 var mildDarkBlue = NeumorphicCardSettings.mildDarkBlue;
 
+var mediumSkyBlue = NeumorphicCardSettings.mediumSkyBlue;
+var mediumSlateBlue = NeumorphicCardSettings.mediumSlateBlue;
+var brightLavender = NeumorphicCardSettings.brightLavender;
+var apricot = NeumorphicCardSettings.apricot;
+
 var intensity = NeumorphicCardSettings.intensity;
 var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
@@ -53,41 +55,7 @@ var caveColor = NeumorphicCaveSettings.caveColor;
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
 
-// var _url;
-// var _name;
-// var _sex;
-// var _age;
-// var _petId;
-
-// Future readPetdata() async {
-//   var readData;
-//   await databaseReference.once().then((DataSnapshot snapshot) {
-//     snapshot.value.forEach((index, data) => {_petId = index, readData = data});
-//   });
-//   _name = await readData["petName"];
-//   _sex = await readData["sex"];
-//   var readBirthday = await readData["birthday"];
-//   DateTime birthday = DateTime.parse(readBirthday);
-//   Duration differenceDays = DateTime.now().difference(birthday);
-//   _age = (differenceDays.inDays / 365).floor().toString();
-//   // _weight = await readData["weight"];
-// }
-
-// Future readUrl() async {
-//   var readData;
-//   await databaseReference.once().then((DataSnapshot snapshot) {
-//     snapshot.value.forEach((index, data) => {readData = data});
-//   });
-//   _url = await readData["petProfilePicUrl"];
-// }
-
 Future updateUrl(petProfilePicUrl, petId) async {
-  // var key = allPetsData[0]['key'];
-  // print("======key: $key");
-  // var readIndex;
-  // await databaseReference.once().then((DataSnapshot snapshot) {
-  //   snapshot.value.forEach((index, data) => {readIndex = index});
-  // });
   databaseReference.child(petId).update({'petProfilePicUrl': petProfilePicUrl});
 }
 
@@ -115,6 +83,8 @@ Future<String> uploadImage(var imageFile, petId) async {
 }
 
 class _GridDashboardState extends State<GridDashboard> {
+  double get w => MediaQuery.of(context).size.width;
+  double get h => MediaQuery.of(context).size.height;
   // File _image;
   final picker = ImagePicker();
 
@@ -122,7 +92,7 @@ class _GridDashboardState extends State<GridDashboard> {
 
   String greeting() {
     var hour = DateTime.now().hour;
-    if (hour < 12) {
+    if (hour < 12 && hour > 4) {
       frontGreeting = 'Morning';
     } else if (hour < 17) {
       frontGreeting = 'Afternoon';
@@ -137,24 +107,8 @@ class _GridDashboardState extends State<GridDashboard> {
     this.greeting();
   }
 
-  // Future selectImage() async {
-  //   final pickedFile = await picker.getImage(source: ImageSource.gallery);
-  //   _image = File(pickedFile.path);
-
-  //   var uploadUrl = await uploadImage(_image, _petId);
-  //   updateUrl(uploadUrl);
-  //   await readUrl();
-
-  //   setState(() {
-  //     _image = File(pickedFile.path);
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // readAllPetsData();
-    // readPetdata();
-    // readUrl();
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: StaggeredGridView.count(
@@ -175,14 +129,11 @@ class _GridDashboardState extends State<GridDashboard> {
                 child: NeumorphicText(
                   "Good ${this.frontGreeting}\n$name!",
                   style: NeumorphicStyle(
-                    depth: 4, //customize depth here
-                    color: Colors.black87, //customize color here
+                    depth: 4,
+                    color: Colors.black87,
                   ),
                   textStyle: NeumorphicTextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold //customize size here
-                      // AND others usual text style properties (fontFamily, fontWeight, ...)
-                      ),
+                      fontSize: 25, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -191,8 +142,8 @@ class _GridDashboardState extends State<GridDashboard> {
           JumpCard(
             Icons.directions_run,
             "Walk",
-            mildBlueGreen,
-            mildBlueGreen,
+            mediumSkyBlue,
+            mediumSkyBlue,
             intensity,
             depth,
             surfaceIntensity,
@@ -201,28 +152,28 @@ class _GridDashboardState extends State<GridDashboard> {
           JumpCard(
             Icons.note_add,
             "Memo",
-            mildBlueGreen,
-            mildBlueGreen,
+            mediumSlateBlue,
+            mediumSlateBlue,
             intensity,
             depth,
             surfaceIntensity,
             baseColor,
           ),
           JumpCard(
-            Icons.color_lens,
+            Icons.fastfood,
             "Food",
-            mildBlue,
-            mildBlue,
+            brightLavender,
+            brightLavender,
             intensity,
             depth,
             surfaceIntensity,
             baseColor,
           ),
           JumpCard(
-            Icons.wb_sunny,
+            Icons.pets,
             "Weight",
-            mildDarkBlue,
-            mildDarkBlue,
+            apricot,
+            apricot,
             intensity,
             depth,
             surfaceIntensity,
@@ -240,114 +191,4 @@ class _GridDashboardState extends State<GridDashboard> {
       ),
     );
   }
-
-  // Material Top() {
-  //   return Material(
-  //     color: Colors.transparent,
-  //     child: Neumorphic(
-  //       style: NeumorphicStyle(
-  //         shape: NeumorphicShape.concave,
-  //         surfaceIntensity: surfaceIntensity,
-  //         depth: depth,
-  //         intensity: intensity,
-  //         lightSource: LightSource.topLeft,
-  //         color: Color(baseColor),
-  //       ),
-  //       child: Row(
-  //         children: <Widget>[
-  //           GestureDetector(
-  //             onTap: () {
-  //               selectImage();
-  //             },
-  //             child: Padding(
-  //                 padding: const EdgeInsets.all(40.40),
-  //                 child: StreamBuilder(
-  //                     stream: databaseReference.onValue,
-  //                     builder: (context, snap) {
-  //                       return (_url != null)
-  //                           ? Container(
-  //                               width: 115.0,
-  //                               height: 115.0,
-  //                               decoration: BoxDecoration(
-  //                                   shape: BoxShape.circle,
-  //                                   image: DecorationImage(
-  //                                     fit: BoxFit.fill,
-  //                                     image: NetworkImage(_url),
-  //                                   )))
-  //                           : Container(
-  //                               width: 115.0,
-  //                               height: 115.0,
-  //                               decoration: BoxDecoration(
-  //                                   shape: BoxShape.circle,
-  //                                   image: DecorationImage(
-  //                                     fit: BoxFit.fill,
-  //                                     image: NetworkImage(
-  //                                         "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
-  //                                   )));
-  //                     })),
-  //           ),
-  //           Flexible(
-  //             child: Column(
-  //               children: [
-  //                 Padding(
-  //                   padding: const EdgeInsets.all(10.10),
-  //                   child: Padding(
-  //                     padding: EdgeInsets.only(left: 8),
-  //                     child: NeumorphicText(
-  //                       "Good Morning",
-  //                       style: NeumorphicStyle(
-  //                         depth: 4, //customize depth here
-  //                         color: Colors.white, //customize color here
-  //                       ),
-  //                       textStyle: NeumorphicTextStyle(
-  //                           fontSize: 27,
-  //                           fontWeight: FontWeight.bold //customize size here
-  //                           // AND others usual text style properties (fontFamily, fontWeight, ...)
-  //                           ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 Neumorphic(
-  //                   style: NeumorphicStyle(
-  //                       shape: NeumorphicShape.concave,
-  //                       // boxShape: NeumorphicBoxShape.roundRect(
-  //                       //     borderRadius: BorderRadius.circular(12)),
-  //                       depth: caveDepth,
-  //                       intensity: caveIntensity,
-  //                       lightSource: LightSource.topLeft,
-  //                       color: Color(caveColor)),
-  //                   child: Container(
-  //                     color: Colors.transparent,
-  //                     height: 100,
-  //                     width: 130,
-  //                     child: Padding(
-  //                       padding: EdgeInsets.only(left: 12, bottom: 12),
-  //                       child: StreamBuilder(
-  //                           stream: databaseReference.onValue,
-  //                           builder: (context, snap) {
-  //                             return Column(
-  //                               mainAxisAlignment:
-  //                                   MainAxisAlignment.spaceBetween,
-  //                               crossAxisAlignment: CrossAxisAlignment.start,
-  //                               children: <Widget>[
-  //                                 SizedBox(
-  //                                   height: 4,
-  //                                 ),
-  //                                 Text('Name: $_name'),
-  //                                 Text('Sex: $_sex'),
-  //                                 Text('Age: $_age'),
-  //                                 // Text('Weight: $_weight'),
-  //                               ],
-  //                             );
-  //                           }),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
 }
