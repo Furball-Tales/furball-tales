@@ -15,7 +15,7 @@ class FourthNav extends StatefulWidget {
 
 class FourthNavState extends State<FourthNav> {
   List<Nav4ItemClass> items4 = List<Nav4ItemClass>();
-  int pos = 0;
+  int pos = 3;
 
   @override
   void initState() {
@@ -134,12 +134,13 @@ class FourthNavState extends State<FourthNav> {
                 children: items4.map((i) {
                   return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        items4.forEach((item) => item.isOpen = false);
-                        i.isOpen = !i.isOpen;
-                        pos = i.pos;
-                        print(pos);
-                      });
+                      setState(
+                        () {
+                          items4.forEach((item) => item.isOpen = false);
+                          i.isOpen = !i.isOpen;
+                          pos = i.pos;
+                        },
+                      );
                     },
                     child: Nav4Item(
                       w: widget.w,
