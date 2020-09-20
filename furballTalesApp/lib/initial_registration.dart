@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
-import 'homepage.dart';
 import 'package:intl/intl.dart';
-import './app_bar.dart';
+import 'app_bar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import './sign_in.dart';
+import 'sign_in.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import './dashboard/grid_dashboard.dart';
+import 'dashboard/grid_dashboard.dart';
 import 'frontend_settings.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'get_allPetsData.dart';
@@ -24,21 +23,6 @@ var buttonSurfaceIntensity = NeumorphicButtonSettings.buttonSurfaceIntensity;
 _buildButton({String text, int color, VoidCallback onClick}) =>
     BuildButton().buildButton;
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return NeumorphicApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      title: 'Flutter Neumorphic',
-      home: InitialRegistration(),
-    );
-  }
-}
-
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
 
@@ -47,21 +31,7 @@ class InitialRegistration extends StatefulWidget {
   _InitialRegistrationState createState() => _InitialRegistrationState();
 }
 
-// var _url;
-// var allPetsData = [];
 bool existData;
-
-// Future readAllPetsData() async {
-//   await databaseReference.orderByKey().once().then((DataSnapshot snapshot) {
-//     snapshot.value.forEach((key, data) => {
-//           allPetsData.add({"key": key, "data": data})
-//         });
-//     allPetsData.sort((a, b) => b['key'].compareTo(a['key']));
-//   });
-//   print("Out allPetsData: $allPetsData");
-//   print("Out allPetsData[0]: ${allPetsData[0]}");
-//   print("allPetsData[0]['key']: ${allPetsData[0]['key']}");
-// }
 
 Future createPetdata(birthday, petName, petProfilePicUrl, sex) async {
   String nowDateText =
@@ -207,42 +177,6 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                       controller: _petSexController,
                     ),
                   ),
-                  // TextFormField(
-                  //   controller: _petNameController,
-                  //   decoration: InputDecoration(
-                  //       hintText: 'Pet Name',
-                  //       hintStyle: TextStyle(
-                  //         fontSize: 14,
-                  //       )),
-                  //   textInputAction: TextInputAction.next,
-                  //   autofocus: true,
-                  //   autovalidate: true,
-                  //   validator: (String value) {
-                  //     if (value.isEmpty) {
-                  //       return 'Required';
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
-                  // Row(
-                  //   children: <Widget>[
-                  //     Expanded(
-                  //       flex: 7,
-                  //       child: TextFormField(
-                  //         controller: _petSexController,
-                  //         decoration: InputDecoration(labelText: 'Pet Sex'),
-                  //         textInputAction: TextInputAction.next,
-                  //         autovalidate: true,
-                  //         validator: (String value) {
-                  //           if (value.isEmpty) {
-                  //             return 'Please input a Pet Sex.';
-                  //           }
-                  //           return null;
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   Container(
                     padding: const EdgeInsets.only(
                       left: 20,
@@ -317,21 +251,24 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                             },
                             child: (_url != null)
                                 ? Container(
-                                    width: 115.0,
-                                    height: 115.0,
+                                    width: 70.0,
+                                    height: 70.0,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.contain,
                                           image: NetworkImage(_url),
                                         )))
                                 : Container(
-                                    width: 80.0,
-                                    height: 80.0,
+                                    width: 70.0,
+                                    height: 70.0,
+                                    margin: EdgeInsets.only(
+                                      right: 6,
+                                    ),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.contain,
                                         image: NetworkImage(
                                             "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347"),
                                       ),
@@ -343,97 +280,62 @@ class _InitialRegistrationState extends State<InitialRegistration> {
                     ),
                   ),
                   Container(
-                      child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          right: 40,
-                          left: 40,
-                        ),
-                        child: _buildButton()(
-                          text: "Complete!",
-                          color: accentBlue,
-                          onClick: () => {
-                            if ((_dateText !=
-                                    'Please select a Pet Birthday.') &&
-                                (_petNameController.text != "") &&
-                                (_url != null) &&
-                                (_petSexController.text != ""))
-                              {
-                                createPetdata(
-                                    _dateText,
-                                    _petNameController.text,
-                                    _url,
-                                    _petSexController.text),
-                                updatePetImage(imageData).whenComplete(
-                                  () => setState(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            right: 40,
+                            left: 40,
+                          ),
+                          child: _buildButton()(
+                            text: "Complete!",
+                            color: accentBlue,
+                            onClick: () => {
+                              if ((_dateText !=
+                                      'Please select a Pet Birthday.') &&
+                                  (_petNameController.text != "") &&
+                                  (_url != null) &&
+                                  (_petSexController.text != ""))
+                                {
+                                  createPetdata(
+                                      _dateText,
+                                      _petNameController.text,
+                                      _url,
+                                      _petSexController.text),
+                                  updatePetImage(imageData).whenComplete(
+                                    () => setState(
+                                      () {
+                                        funcIndex = "Homepage";
+                                      },
+                                    ),
+                                  ),
+                                }
+                              else
+                                {
+                                  setState(
                                     () {
-                                      funcIndex = "Homepage";
+                                      _text = "Please fill in all fields.";
                                     },
                                   ),
-                                ),
-                              }
-                            else
-                              {
-                                setState(
-                                  () {
-                                    _text = "Please fill in all fields.";
-                                  },
-                                ),
-                              }
-                          },
-                          bottom: 14.0,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          _text,
-                          style: TextStyle(
-                            color: Colors.red[600],
+                                }
+                            },
+                            bottom: 14.0,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      )
-                    ],
-                  )
-
-                      // Container(
-                      //   padding: EdgeInsets.all(16.0),
-                      //   child: RaisedButton(
-                      //       child: Text('Submit'),
-                      //       onPressed: () => {
-                      // if ((_dateText !=
-                      //         'Please select a Pet Birthday.') &&
-                      //     (_petNameController.text != "") &&
-                      //     (_url != null) &&
-                      //     (_petSexController.text != ""))
-                      //   {
-                      //     createPetdata(
-                      //         _dateText,
-                      //         _petNameController.text,
-                      //         _url,
-                      //         _petSexController.text),
-                      //     updatePetImage(imageData),
-                      //     setState(
-                      //       () {
-                      //         funcIndex = "Homepage";
-                      //       },
-                      //     ),
-                      //   }
-                      // else
-                      //   {
-                      //     setState(
-                      //       () {
-                      //         _text = "Please fill out all items.";
-                      //       },
-                      //     ),
-                      //   }
-                      //           }),
-                      // ),
-
-                      ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            _text,
+                            style: TextStyle(
+                              color: Colors.red[600],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -475,14 +377,6 @@ class _TextField extends StatefulWidget {
 }
 
 class __TextFieldState extends State<_TextField> {
-  // TextEditingController _controller;
-
-  // @override
-  // void initState() {
-  //   _controller = TextEditingController(text: widget.hint);
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Column(

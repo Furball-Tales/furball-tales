@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'pet_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../frontend_settings.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import '../grid_dashboard.dart';
-import '../../get_allPetsData.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
