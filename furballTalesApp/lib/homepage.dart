@@ -96,31 +96,31 @@ class FourthNavState extends State<FourthNav> {
 
     items4.add(Nav4ItemClass(
       true,
-      'assets/svg/home4.svg',
-      'Home',
+      'assets/svg/home.svg',
+      'Dashboard',
       0,
     ));
     items4.add(Nav4ItemClass(
       false,
-      'assets/svg/codepen.svg',
-      'Codepen',
+      'assets/svg/picture-2.svg',
+      'Picture',
       1,
     ));
     items4.add(Nav4ItemClass(
       false,
-      'assets/svg/edit.svg',
-      'Edit',
+      'assets/svg/calendar-6.svg',
+      'Calendar',
       2,
     ));
     items4.add(Nav4ItemClass(
       false,
-      'assets/svg/folder.svg',
-      'Folder',
+      'assets/svg/medical-result.svg',
+      'Medical',
       3,
     ));
     items4.add(Nav4ItemClass(
       false,
-      'assets/svg/man.svg',
+      'assets/svg/users-1.svg',
       'Profile',
       4,
     ));
@@ -256,12 +256,12 @@ class Nav4Item extends StatelessWidget {
         children: <Widget>[
           AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            width: item.isOpen ? 30 : 24,
-            height: item.isOpen ? 30 : 24,
+            width: item.isOpen ? 32 : 27,
+            height: item.isOpen ? 32 : 27,
             child: SvgPicture.asset(
               item.icon,
               fit: BoxFit.cover,
-              color: item.isOpen ? Colors.white : Colors.grey[400],
+              color: item.isOpen ? Colors.white : Colors.grey[600],
             ),
           ),
           item.isOpen
@@ -269,8 +269,8 @@ class Nav4Item extends StatelessWidget {
                   item.title,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 11,
-                    height: 1.8,
+                    fontSize: 10,
+                    height: 1.7,
                   ),
                 )
               : Container(),
