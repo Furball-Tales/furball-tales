@@ -168,7 +168,7 @@ class CustomCardState extends State<JumpCard> {
                               heading,
                               style: TextStyle(
                                 color: Color(textColor),
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -181,9 +181,9 @@ class CustomCardState extends State<JumpCard> {
                             ),
                             child: Material(
                               color: Color(materialColor),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(16),
                               child: Padding(
-                                padding: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(12),
                                 child: Stack(
                                   children: <Widget>[
                                     // Positioned(
@@ -194,7 +194,7 @@ class CustomCardState extends State<JumpCard> {
                                     Icon(
                                       icon,
                                       color: Colors.grey[100],
-                                      size: 25,
+                                      size: 23.3,
                                     ),
                                   ],
                                 ),

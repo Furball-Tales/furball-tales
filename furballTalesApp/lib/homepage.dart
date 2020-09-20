@@ -4,9 +4,8 @@ import 'profile/profile.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'medical/medical.dart';
 import 'albums/albums.dart';
-import './frontend_settings.dart';
-import './calendar/calendar_main.dart';
 import 'frontend_settings.dart';
+import 'calendar/calendar_main.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -67,12 +66,12 @@ class _MyAppState extends State<Homepage> {
       create: (_) => IndexController(),
       child: Scaffold(
         backgroundColor: Color(baseColor),
-        bottomNavigationBar: FourthNav(w: w),
         body: Consumer<IndexController>(
           builder: (context, controller, child) {
             return _children[controller.index];
           },
         ),
+        bottomNavigationBar: FourthNav(w: w),
       ),
     );
   }
@@ -133,8 +132,8 @@ class FourthNavState extends State<FourthNav> {
       children: [
         Container(
           width: widget.w - 48,
-          height: 84,
-          padding: EdgeInsets.only(left: 6, right: 6, top: 12),
+          height: 72,
+          padding: EdgeInsets.only(left: 6, right: 6, top: 1),
           // decoration: BoxDecoration(
           //   color: Colors.white,
           //   borderRadius: BorderRadius.circular(12),

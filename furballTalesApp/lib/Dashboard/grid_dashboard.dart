@@ -44,6 +44,8 @@ var mediumSlateBlue = NeumorphicCardSettings.mediumSlateBlue;
 var brightLavender = NeumorphicCardSettings.brightLavender;
 var apricot = NeumorphicCardSettings.apricot;
 
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
+
 var intensity = NeumorphicCardSettings.intensity;
 var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
@@ -111,83 +113,106 @@ class _GridDashboardState extends State<GridDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: StaggeredGridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12.0,
-        mainAxisSpacing: 12.0,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        children: <Widget>[
-          // Top(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image(
-                image: AssetImage('assets/logo.png'),
-                width: 100.0,
-              ),
-              Center(
-                child: NeumorphicText(
-                  "Good ${this.frontGreeting}\n$name!",
-                  style: NeumorphicStyle(
-                    depth: 4,
-                    color: Colors.black87,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 310,
+              child: StaggeredGridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 25.0,
+                mainAxisSpacing: 0.0,
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                children: <Widget>[
+                  // Top(),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: 21, top: 18, right: 15, bottom: 0),
+                        child: NeumorphicText(
+                          "Good ${this.frontGreeting}\n$name!",
+                          style: NeumorphicStyle(
+                            depth: 4,
+                            color: Color(textBaseColor),
+                          ),
+                          textStyle: NeumorphicTextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  textStyle: NeumorphicTextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold),
-                ),
+                  ListCardView().listCardView(),
+                ],
+                staggeredTiles: [
+                  StaggeredTile.extent(2, 90),
+                  StaggeredTile.extent(2, 210),
+                ],
               ),
-            ],
-          ),
-          ListCardView().listCardView(),
-          JumpCard(
-            Icons.directions_run,
-            "Walk",
-            mediumSkyBlue,
-            mediumSkyBlue,
-            intensity,
-            depth,
-            surfaceIntensity,
-            baseColor,
-          ),
-          JumpCard(
-            Icons.note_add,
-            "Memo",
-            mediumSlateBlue,
-            mediumSlateBlue,
-            intensity,
-            depth,
-            surfaceIntensity,
-            baseColor,
-          ),
-          JumpCard(
-            Icons.fastfood,
-            "Food",
-            brightLavender,
-            brightLavender,
-            intensity,
-            depth,
-            surfaceIntensity,
-            baseColor,
-          ),
-          JumpCard(
-            Icons.pets,
-            "Weight",
-            apricot,
-            apricot,
-            intensity,
-            depth,
-            surfaceIntensity,
-            baseColor,
-          ),
-        ],
-        staggeredTiles: [
-          StaggeredTile.extent(2, 65),
-          StaggeredTile.extent(2, 230),
-          StaggeredTile.extent(1, 140),
-          StaggeredTile.extent(1, 140),
-          StaggeredTile.extent(1, 140),
-          StaggeredTile.extent(1, 140),
-        ],
+            ),
+            SizedBox(
+              height: 320,
+              child: StaggeredGridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 26.0,
+                mainAxisSpacing: 28.0,
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                children: <Widget>[
+                  // Top(),
+                  JumpCard(
+                    Icons.directions_run,
+                    "Walk",
+                    mediumSkyBlue,
+                    mediumSkyBlue,
+                    intensity,
+                    depth,
+                    surfaceIntensity,
+                    baseColor,
+                  ),
+                  JumpCard(
+                    Icons.note_add,
+                    "Memo",
+                    mediumSlateBlue,
+                    mediumSlateBlue,
+                    intensity,
+                    depth,
+                    surfaceIntensity,
+                    baseColor,
+                  ),
+                  JumpCard(
+                    Icons.fastfood,
+                    "Food",
+                    brightLavender,
+                    brightLavender,
+                    intensity,
+                    depth,
+                    surfaceIntensity,
+                    baseColor,
+                  ),
+                  JumpCard(
+                    Icons.pets,
+                    "Weight",
+                    apricot,
+                    apricot,
+                    intensity,
+                    depth,
+                    surfaceIntensity,
+                    baseColor,
+                  ),
+                ],
+                staggeredTiles: [
+                  StaggeredTile.extent(1, 120),
+                  StaggeredTile.extent(1, 120),
+                  StaggeredTile.extent(1, 120),
+                  StaggeredTile.extent(1, 120),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

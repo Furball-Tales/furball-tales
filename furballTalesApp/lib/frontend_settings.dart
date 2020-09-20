@@ -17,8 +17,8 @@ class NeumorphicCardSettings {
   static int brightLavender = 0xffB290EB;
   static int apricot = 0xffFF9FBB;
 
-  static double intensity = 0.7;
-  static double depth = 8.0;
+  static double intensity = 0.6;
+  static double depth = 5.0;
   static double surfaceIntensity = 0.1;
   static int baseColor = 0xFFEEEEEE;
 
