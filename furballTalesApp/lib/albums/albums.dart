@@ -153,6 +153,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
 
                   data.forEach(
                       (index, data) => item.add({"key": index, ...data}));
+                  print(pictureView(data[item[1]["key"]]['pictures']));
 
                   return GridView.builder(
                     itemCount: item.length,
@@ -175,6 +176,7 @@ class _ImageGridItemState extends State<ImageGridItem> {
                           depth,
                           surfaceIntensity,
                           baseColor,
+                          data[item[index]["key"]]['pictures'],
                         ),
                         onTap: () => {
                           Navigator.push(
@@ -239,6 +241,20 @@ class _ImageGridItemState extends State<ImageGridItem> {
   }
 }
 
+List<Map<String, dynamic>> albumPictures;
+
+pictureView(picObj) {
+  if (picObj != null) {
+    List<Map<String, dynamic>> newList = new List();
+    picObj.forEach((key, mapValue) {
+      newList.add(Map<String, dynamic>.from(mapValue));
+    });
+    return newList;
+  } else {
+    return null;
+  }
+}
+
 Widget MyItems(
   IconData icon,
   String heading,
@@ -248,7 +264,9 @@ Widget MyItems(
   double depth,
   double surfaceIntensity,
   int baseColor,
+  Map<dynamic, dynamic> picMap,
 ) {
+  albumPictures = pictureView(picMap);
   return Neumorphic(
     style: NeumorphicStyle(
       shape: NeumorphicShape.concave,
@@ -261,54 +279,141 @@ Widget MyItems(
     child: Center(
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Flexible(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: (albumPictures != null)
+            ? Stack(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      heading,
-                      style: TextStyle(
-                        color: Color(textColor),
-                        fontSize: 15,
-                      ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Image.network(
+                      albumPictures[0]["link"],
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Material(
-                      color: Color(materialColor),
-                      borderRadius: BorderRadius.circular(24),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned(
-                              right: -2.5,
-                              top: 7.0,
-                              child: Icon(icon, color: Colors.grey[600]),
+                      padding: EdgeInsets.all(5),
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        heading,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                            shadows: [
+                              Shadow(
+                                  // bottomLeft
+                                  offset: Offset(-1, -1),
+                                  color: Colors.black),
+                              Shadow(
+                                  // bottomRight
+                                  offset: Offset(1, -1),
+                                  color: Colors.black),
+                              Shadow(
+                                  // topRight
+                                  offset: Offset(1, 1),
+                                  color: Colors.black),
+                              Shadow(
+                                  // topLeft
+                                  offset: Offset(-1, 1),
+                                  color: Colors.black),
+                            ]),
+                      )),
+                  Container(
+                      padding: EdgeInsets.all(5),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        albumPictures.length.toString(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                            shadows: [
+                              Shadow(
+                                  // bottomLeft
+                                  offset: Offset(-1, -1),
+                                  color: Colors.black),
+                              Shadow(
+                                  // bottomRight
+                                  offset: Offset(1, -1),
+                                  color: Colors.black),
+                              Shadow(
+                                  // topRight
+                                  offset: Offset(1, 1),
+                                  color: Colors.black),
+                              Shadow(
+                                  // topLeft
+                                  offset: Offset(-1, 1),
+                                  color: Colors.black),
+                            ]),
+                      )),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              heading,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0,
+                                  shadows: [
+                                    Shadow(
+                                        // bottomLeft
+                                        offset: Offset(-1, -1),
+                                        color: Colors.black),
+                                    Shadow(
+                                        // bottomRight
+                                        offset: Offset(1, -1),
+                                        color: Colors.black),
+                                    Shadow(
+                                        // topRight
+                                        offset: Offset(1, 1),
+                                        color: Colors.black),
+                                    Shadow(
+                                        // topLeft
+                                        offset: Offset(-1, 1),
+                                        color: Colors.black),
+                                  ]),
+                            )),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Material(
+                            color: Color(materialColor),
+                            borderRadius: BorderRadius.circular(24),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    right: -2.5,
+                                    top: 7.0,
+                                    child: Icon(icon, color: Colors.grey[600]),
+                                  ),
+                                  Icon(
+                                    icon,
+                                    color: Colors.grey[100],
+                                    size: 30,
+                                  ),
+                                ],
+                              ),
                             ),
-                            Icon(
-                              icon,
-                              color: Colors.grey[100],
-                              size: 30,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        )
+                      ],
                     ),
-                  ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
       ),
     ),
   );
