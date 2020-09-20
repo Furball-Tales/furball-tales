@@ -134,7 +134,7 @@ class FourthNavState extends State<FourthNav> {
         Container(
           width: widget.w - 48,
           height: 84,
-          padding: EdgeInsets.all(6),
+          padding: EdgeInsets.only(left: 6, right: 6, top: 12),
           // decoration: BoxDecoration(
           //   color: Colors.white,
           //   borderRadius: BorderRadius.circular(12),
@@ -167,7 +167,8 @@ class FourthNavState extends State<FourthNav> {
                             Color(0xffccffb3),
                           ],
                           begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
+                          end: Alignment.topRight,
+                          stops: [0.1, 1],
                         ),
                         borderRadius: BorderRadius.circular(72),
                       ),
@@ -196,6 +197,7 @@ class FourthNavState extends State<FourthNav> {
                           ],
                           begin: Alignment.centerLeft,
                           end: Alignment.topRight,
+                          stops: [0.1, 1],
                         ),
                         borderRadius: BorderRadius.circular(72),
                       ),
