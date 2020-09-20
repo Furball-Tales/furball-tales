@@ -12,10 +12,10 @@ class NeumorphicCardSettings {
   static int mildBlue = 0xff198df8;
   static int mildDarkBlue = 0xff0f4ffb;
 
-  static int mediumSkyBlue = 0xff85E7F7;
-  static int mediumSlateBlue = 0xffFFC8AE;
-  static int brightLavender = 0xffB290EB;
-  static int apricot = 0xffFF9FBB;
+  static int mediumSkyBlue = 0xffBDD8FF;
+  static int apricot = 0xffFFC8AE;
+  static int brightLavender = 0xffC6AEFF;
+  static int pastelMagenta = 0xffFF9FBB;
 
   static double intensity = 0.6;
   static double depth = 5.0;

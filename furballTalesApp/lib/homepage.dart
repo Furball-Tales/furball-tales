@@ -102,7 +102,7 @@ class FourthNavState extends State<FourthNav> {
     items4.add(Nav4ItemClass(
       false,
       'assets/svg/picture-2.svg',
-      'Picture',
+      'Albums',
       1,
     ));
     items4.add(Nav4ItemClass(
@@ -257,8 +257,8 @@ class Nav4Item extends StatelessWidget {
         children: <Widget>[
           AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            width: item.isOpen ? 32 : 27,
-            height: item.isOpen ? 32 : 27,
+            width: item.isOpen ? 30 : 25,
+            height: item.isOpen ? 30 : 25,
             child: SvgPicture.asset(
               item.icon,
               fit: BoxFit.cover,

@@ -93,7 +93,7 @@ class _CalendarState extends State<Calendar> {
     return Scaffold(
       backgroundColor: Color(baseColor),
       appBar: GradientAppBar(
-        "Furball Tales Calendar",
+        "Calendar",
         'null',
       ),
       key: _key,

@@ -201,20 +201,20 @@ class CustomCardState extends State<EachJumpCard> {
                         ),
                         child: Material(
                           color: Color(materialColor),
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(16),
                           child: Padding(
-                            padding: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(12),
                             child: Stack(
                               children: <Widget>[
-                                Positioned(
-                                  right: 0.5,
-                                  top: 8.0,
-                                  child: Icon(icon, color: Colors.grey[600]),
-                                ),
+                                // Positioned(
+                                //   right: 0.5,
+                                //   top: 8.0,
+                                //   child: Icon(icon, color: Colors.grey[600]),
+                                // ),
                                 Icon(
                                   icon,
                                   color: Colors.grey[100],
-                                  size: 30,
+                                  size: 23.3,
                                 ),
                               ],
                             ),

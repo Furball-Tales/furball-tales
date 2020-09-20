@@ -40,9 +40,9 @@ var mildBlue = NeumorphicCardSettings.mildBlue;
 var mildDarkBlue = NeumorphicCardSettings.mildDarkBlue;
 
 var mediumSkyBlue = NeumorphicCardSettings.mediumSkyBlue;
-var mediumSlateBlue = NeumorphicCardSettings.mediumSlateBlue;
-var brightLavender = NeumorphicCardSettings.brightLavender;
 var apricot = NeumorphicCardSettings.apricot;
+var brightLavender = NeumorphicCardSettings.brightLavender;
+var pastelMagenta = NeumorphicCardSettings.pastelMagenta;
 
 var textBaseColor = NeumorphicCardSettings.textBaseColor;
 
@@ -103,6 +103,10 @@ class _GridDashboardState extends State<GridDashboard> {
     }
   }
 
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(brightLavender), Color(pastelMagenta)],
+  ).createShader(new Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   @override
   void initState() {
     super.initState();
@@ -129,19 +133,22 @@ class _GridDashboardState extends State<GridDashboard> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(
-                            left: 21, top: 18, right: 15, bottom: 0),
-                        child: NeumorphicText(
+                            left: 21, top: 18, right: 15, bottom: 10),
+                        child: Text(
                           "Good ${this.frontGreeting}\n$name!",
-                          style: NeumorphicStyle(
-                            depth: 4,
-                            color: Color(textBaseColor),
-                          ),
-                          textStyle: NeumorphicTextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            height: 1.4,
-                          ),
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              height: 1.4,
+                              foreground: Paint()..shader = linearGradient),
+                          // depth: 4,
+                          // color: Color(textBaseColor),
                         ),
+                        // textStyle: NeumorphicTextStyle(
+                        //   fontSize: 20,
+                        //   fontWeight: FontWeight.bold,
+                        //   height: 1.4,
+                        // ),
                       ),
                     ],
                   ),
@@ -165,8 +172,8 @@ class _GridDashboardState extends State<GridDashboard> {
                   JumpCard(
                     Icons.directions_run,
                     "Walk",
-                    mediumSkyBlue,
-                    mediumSkyBlue,
+                    pastelMagenta,
+                    pastelMagenta,
                     intensity,
                     depth,
                     surfaceIntensity,
@@ -175,8 +182,8 @@ class _GridDashboardState extends State<GridDashboard> {
                   JumpCard(
                     Icons.note_add,
                     "Memo",
-                    mediumSlateBlue,
-                    mediumSlateBlue,
+                    brightLavender,
+                    brightLavender,
                     intensity,
                     depth,
                     surfaceIntensity,
@@ -195,8 +202,8 @@ class _GridDashboardState extends State<GridDashboard> {
                   JumpCard(
                     Icons.pets,
                     "Weight",
-                    apricot,
-                    apricot,
+                    pastelMagenta,
+                    pastelMagenta,
                     intensity,
                     depth,
                     surfaceIntensity,
