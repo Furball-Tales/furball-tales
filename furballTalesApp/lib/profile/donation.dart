@@ -3,6 +3,7 @@ import '../app_bar.dart';
 import '../frontend_settings.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
 
 class Donation extends StatelessWidget {
   @override
@@ -14,30 +15,28 @@ class Donation extends StatelessWidget {
         'back',
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 0),
+        padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 30.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Center(
-              child: CircleAvatar(
-                radius: 120.0,
-                backgroundImage: AssetImage('assets/don_img.jpg'),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Center(
+                child: CircleAvatar(
+                  radius: 80.0,
+                  backgroundImage: AssetImage('assets/don_img.jpg'),
+                ),
               ),
             ),
-            Divider(
-              height: 40,
-              color: Colors.orange[900],
-              thickness: 2,
-            ),
             Container(
-              padding: EdgeInsets.all(5),
+              padding:
+                  EdgeInsets.only(top: 20, left: 25, right: 25, bottom: 24),
               child: Text(
                 "Let's improve the life quality of our pets. Support us to make this application better.  You can reach us by contacting any team member of the project.   ",
-                textAlign: TextAlign.justify,
+                textAlign: TextAlign.left,
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Color(textBaseColor),
                 ),
               ),
             ),

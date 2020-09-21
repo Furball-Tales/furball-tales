@@ -14,6 +14,7 @@ var intensity = NeumorphicCardSettings.intensity;
 var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
+var pastelMagenta = NeumorphicCardSettings.pastelMagenta;
 
 class Albums extends StatelessWidget {
   @override
@@ -156,8 +157,8 @@ class _ImageGridItemState extends State<ImageGridItem> {
                         child: MyItems(
                           Icons.photo_library,
                           item[index]["albumNames"],
-                          accentPink,
-                          accentPink,
+                          pastelMagenta,
+                          pastelMagenta,
                           intensity,
                           depth,
                           surfaceIntensity,
@@ -381,11 +382,6 @@ Widget MyItems(
                               padding: const EdgeInsets.all(16),
                               child: Stack(
                                 children: <Widget>[
-                                  Positioned(
-                                    right: -2.5,
-                                    top: 7.0,
-                                    child: Icon(icon, color: Colors.grey[600]),
-                                  ),
                                   Icon(
                                     icon,
                                     color: Colors.grey[100],

@@ -133,32 +133,6 @@ class About extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                       _buildButton()(
-                        text: "☺Yuta Nomoto",
-                        color: textBaseColor,
-                        onClick: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return Yuta();
-                          }));
-                        },
-                        bottom: 20.0,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      _buildButton()(
-                        text: "☺Ryohei Mizuho",
-                        color: textBaseColor,
-                        onClick: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return Ryohei();
-                          }));
-                        },
-                        bottom: 20.0,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      _buildButton()(
                         text: "☺Jimmy Wilson",
                         color: textBaseColor,
                         onClick: () {
@@ -182,6 +156,32 @@ class About extends StatelessWidget {
                         },
                         bottom: 20.0,
                         fontSize: 14.6,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      _buildButton()(
+                        text: "☺Ryohei Mizuho",
+                        color: textBaseColor,
+                        onClick: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return Ryohei();
+                          }));
+                        },
+                        bottom: 20.0,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      _buildButton()(
+                        text: "☺Yuta Nomoto",
+                        color: textBaseColor,
+                        onClick: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return Yuta();
+                          }));
+                        },
+                        bottom: 20.0,
+                        fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ],
