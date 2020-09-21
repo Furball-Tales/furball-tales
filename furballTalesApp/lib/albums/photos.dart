@@ -17,9 +17,11 @@ var baseColor = NeumorphicCardSettings.baseColor;
 
 class Photos extends StatefulWidget {
   String _albumName;
+  String _navbarAlbumTitle;
 
-  Photos(String albumName) {
+  Photos(String albumName, String navbarAlbumTitle) {
     this._albumName = albumName;
+    this._navbarAlbumTitle = navbarAlbumTitle;
   }
 
   @override
@@ -117,7 +119,7 @@ class _PhotosState extends State<Photos> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: GradientAppBar(
-        "Photos",
+        widget._navbarAlbumTitle,
         'back',
       ),
       backgroundColor: Color(baseColor),
