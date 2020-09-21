@@ -16,6 +16,8 @@ var intensity = NeumorphicCardSettings.intensity;
 var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
+var logoutRed = NeumorphicCardSettings.logoutRed;
 
 var buttonIntensity = NeumorphicButtonSettings.buttonIntensity;
 var buttonDepth = NeumorphicButtonSettings.buttonDepth;
@@ -33,7 +35,6 @@ class MyApp extends StatelessWidget {
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      title: 'Flutter Neumorphic',
       home: Profile(),
     );
   }
@@ -103,21 +104,6 @@ class Profile extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Center(
-                      child: CircleAvatar(
-                        radius: 80,
-                        backgroundImage: AssetImage('assets/logo.png'),
-                        backgroundColor: Color(baseColor),
-                      ),
-                    ),
-                    // SizedBox(
-                    //   height: 50.0,
-                    //   width: 200,
-                    //   child: Divider(
-                    //     color: Colors.teal[200],
-                    //   ),
-                    // ),
-                    //   this is about page-----------------------------------------
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 40,
@@ -128,48 +114,94 @@ class Profile extends StatelessWidget {
                         children: [
                           _buildButton()(
                             text: "About",
-                            color: accentBlue,
+                            color: textBaseColor,
                             onClick: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
-                                return About();
-                              }));
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return About();
+                                  },
+                                ),
+                              );
                             },
+                            fontWeight: FontWeight.bold,
                           ),
                           _buildButton()(
                             text: "App Tutorial",
-                            color: accentYellow,
+                            color: textBaseColor,
                             onClick: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
-                                return TutorialSlider("Tutorial");
-                              }));
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return TutorialSlider("Tutorial");
+                                  },
+                                ),
+                              );
                             },
+                            fontWeight: FontWeight.bold,
                           ),
                           _buildButton()(
                             text: "Donation",
-                            color: accentGold,
+                            color: textBaseColor,
                             onClick: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
-                                return Donation();
-                              }));
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return Donation();
+                                  },
+                                ),
+                              );
                             },
+                            fontWeight: FontWeight.bold,
                           ),
                           _buildButton()(
                             text: "Logout",
-                            color: accentPink,
+                            color: logoutRed,
                             onClick: () {
                               signOutGoogle();
                               Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(builder: (context) {
-                                return LoginPage();
-                              }), ModalRoute.withName('/'));
+                                  MaterialPageRoute(
+                                builder: (context) {
+                                  return LoginPage();
+                                },
+                              ), ModalRoute.withName('/'));
                             },
+                            fontWeight: FontWeight.bold,
                           ),
                         ],
                       ),
                     ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Text(
+                              '©2020',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Color(textBaseColor),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Furball Tales',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(textBaseColor),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Center(
+                    //   child: CircleAvatar(
+                    //     radius: 20,
+                    //     backgroundImage: AssetImage('assets/logo.png'),
+                    //     backgroundColor: Color(baseColor),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

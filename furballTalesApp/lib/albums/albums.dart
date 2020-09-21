@@ -15,20 +15,6 @@ var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
 
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return NeumorphicApp(
-//       debugShowCheckedModeBanner: false,
-//       themeMode: ThemeMode.light,
-//       title: 'Flutter Neumorphic',
-//       home: Albums(),
-//     );
-//   }
-// }
-
 class Albums extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

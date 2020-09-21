@@ -263,7 +263,7 @@ class PetDetailState extends State<PetDetail> {
     DateTime nextBirthday =
         DateTime(now.year + 1, dataBirthday.month, dataBirthday.day);
 
-    if (thisBirthday.difference(today).inDays > 0) {
+    if (thisBirthday.difference(today).inDays > 1) {
       return thisBirthday.difference(today).inDays;
     } else {
       return nextBirthday.difference(today).inDays;

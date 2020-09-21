@@ -16,6 +16,7 @@ class NeumorphicCardSettings {
   static int apricot = 0xffFFC8AE;
   static int brightLavender = 0xffC6AEFF;
   static int pastelMagenta = 0xffFF9FBB;
+  static int logoutRed = 0xffD3453F;
 
   static double intensity = 0.6;
   static double depth = 5.0;
@@ -49,7 +50,7 @@ class BuildButton {
     return NeumorphicButton(
       margin: EdgeInsets.only(bottom: bottom),
       padding: EdgeInsets.symmetric(
-        vertical: 7,
+        vertical: 16,
         horizontal: 24,
       ),
       style: NeumorphicStyle(
