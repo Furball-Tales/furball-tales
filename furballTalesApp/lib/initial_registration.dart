@@ -25,6 +25,8 @@ _buildButton({String text, int color, VoidCallback onClick}) =>
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
+final databaseReferencePetinfo =
+    FirebaseDatabase.instance.reference().child('$id').child('petinfo');
 
 class InitialRegistration extends StatefulWidget {
   @override
@@ -43,11 +45,19 @@ Future createPetdata(birthday, petName, petProfilePicUrl, sex) async {
     "petProfilePicUrl": petProfilePicUrl,
     "sex": sex, // ♂,♀
   });
+  databaseReferencePetinfo.child(nowDateText).set({
+    "birthday": birthday,
+    "petName": petName,
+    "petProfilePicUrl": petProfilePicUrl,
+    "sex": sex, // ♂,♀
+  });
 }
 
 Future updatePetImage(var imageFile) async {
-  await readAllPetsData();
-  var petId = allPetsData[0]['key'];
+  // await readAllPetsData();
+  await readAllPetsDataPetinfo();
+  // var petId = allPetsData[0]['key'];
+  var petId = allPetsDataPetinfo[0]['key'];
   var uploadUrl = await uploadImage(imageFile, petId);
 
   updateUrl(uploadUrl, petId);
@@ -55,7 +65,8 @@ Future updatePetImage(var imageFile) async {
 
 Future checkPetData() async {
   var readData;
-  await databaseReference.once().then((DataSnapshot snapshot) {
+  // await databaseReference.once().then((DataSnapshot snapshot) {
+  await databaseReferencePetinfo.once().then((DataSnapshot snapshot) {
     readData = snapshot.value;
   });
   if (readData != null) {

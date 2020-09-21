@@ -127,7 +127,8 @@ class PetCardState extends State<PetCard> {
                   sex,
                 ),
               ));
-          var data = await databaseReference.child(this.heroTag).once();
+          // var data = await databaseReference.child(this.heroTag).once();
+          var data = await databaseReferencePetinfo.child(this.heroTag).once();
 
           setState(() {
             birthday = data.value['birthday'];
@@ -173,8 +174,10 @@ class PetCardState extends State<PetCard> {
                             sex,
                           ),
                         ));
-                    var data =
-                        await databaseReference.child(this.heroTag).once();
+                    // var data = await databaseReference.child(this.heroTag).once();
+                    var data = await databaseReferencePetinfo
+                        .child(this.heroTag)
+                        .once();
 
                     setState(() {
                       birthday = data.value['birthday'];
@@ -190,7 +193,8 @@ class PetCardState extends State<PetCard> {
                       bottom: 15,
                     ),
                     child: StreamBuilder(
-                      stream: databaseReference.onValue,
+                      // stream: databaseReference.onValue,
+                      stream: databaseReferencePetinfo.onValue,
                       builder: (context, snap) {
                         return Container(
                           width: 70.0,
@@ -240,7 +244,8 @@ class PetCardState extends State<PetCard> {
                                     bottom: 12,
                                   ),
                                   child: StreamBuilder(
-                                      stream: databaseReference.onValue,
+                                      // stream: databaseReference.onValue,
+                                      stream: databaseReferencePetinfo.onValue,
                                       builder: (context, snap) {
                                         return Container(
                                           padding: EdgeInsets.only(
