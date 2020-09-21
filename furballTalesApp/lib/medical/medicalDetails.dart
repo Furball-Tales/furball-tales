@@ -36,15 +36,26 @@ class _MedicalState extends State<Medical> {
   final databaseReference =
       FirebaseDatabase.instance.reference().child('$id').child('pets');
 
+
+  @override
+  void initState() {
+    super.initState();
+    medicalDate = DateTime.now();
+    makePetsList();
+    _dropdownMenuItems = buildDropDownMenuItems(petNames);
+    _selectedItem = _dropdownMenuItems[0].value;
+    dateValue = '${medicalDate.year}-${medicalDate.month}-${medicalDate.day}';
+  }
+
   List<ListItem> petNames = List();
   List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
   ListItem _selectedItem;
+
   makePetsList() {
     for (var i = 0; i < allPetsData.length; i++) {
       ListItem newListItem = ListItem(i + 1, allPetsData[i]['data']['petName']);
       petNames.add(newListItem);
     }
-    print(petNames);
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
@@ -58,16 +69,6 @@ class _MedicalState extends State<Medical> {
       );
     }
     return items;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    medicalDate = DateTime.now();
-    makePetsList();
-    _dropdownMenuItems = buildDropDownMenuItems(petNames);
-    _selectedItem = _dropdownMenuItems[0].value;
-    dateValue = '${medicalDate.year}-${medicalDate.month}-${medicalDate.day}';
   }
 
   List history = List();
@@ -86,14 +87,13 @@ class _MedicalState extends State<Medical> {
   String updateMedications = "";
   String updateWeight = "";
   String updateNotes = "";
-  String petName = allPetsData[0]['data']['petName'];
+  // String petName = allPetsData[0]['data']['petName'];
   String selectedKey = allPetsData[0]['key'];
 
   addHistory() {
     //Map
     Map<String, String> history = {
       "Date": '$dateValue',
-      "Name": '$petName',
       "Hospital": '$hospital',
       "Veterinarian": '$veterinarian',
       "Vaccinations": '$vaccinations',
@@ -101,13 +101,11 @@ class _MedicalState extends State<Medical> {
       "Weight": '$weight',
       "Notes": '$notes'
     };
-
     for (var i = 0; i < allPetsData.length; i++) {
       if (i + 1 == _selectedItem.value) {
         selectedKey = allPetsData[i]['key'];
       }
     }
-
     databaseReference
         .child('$selectedKey')
         .child('vetinfos')
@@ -123,13 +121,11 @@ class _MedicalState extends State<Medical> {
       "Date": '$dateValue',
       "Weight": '$weight'
     };
-
     for (var i = 0; i < allPetsData.length; i++) {
       if (i + 1 == _selectedItem.value) {
         selectedKey = allPetsData[i]['key'];
       }
     }
-
     databaseReference
         .child('$selectedKey')
         .child('weight')
@@ -160,7 +156,11 @@ class _MedicalState extends State<Medical> {
           onChanged:(value){
             setState((){
             _selectedItem = value;
-            print(selectedKey);
+            for (var i = 0; i < allPetsData.length; i++) {
+              if (i + 1 == _selectedItem.value) {
+                selectedKey = allPetsData[i]['key'];
+                  }
+              }
             });
           }
         ),
@@ -213,9 +213,13 @@ class _MedicalState extends State<Medical> {
                                         onChanged: (value) {
                                           setState(() {
                                             _selectedItem = value;
+                                            for (var i = 0; i < allPetsData.length; i++) {
+                                              if (i + 1 == _selectedItem.value) {
+                                                selectedKey = allPetsData[i]['key'];
+                                              }
+                                            }
+                                            print(selectedKey);
                                           });
-                                          print(
-                                              'this is the allPetsData $allPetsData');
                                         }),
                                   ),
                                   Padding(
@@ -385,6 +389,8 @@ class _MedicalState extends State<Medical> {
                                             setState(() {
                                               String key = item[index]['key'];
                                               databaseReference
+                                                  .child('$selectedKey')
+                                                  .child('vetinfos')
                                                   .child('$key')
                                                   .remove();
                                               Navigator.of(context).pop();
@@ -400,7 +406,7 @@ class _MedicalState extends State<Medical> {
                                             updateHospital =
                                                 item[index]["Hospital"];
                                             updateVeterinarian =
-                                                item[index]["Hospital"];
+                                                item[index]["Veterinarian"];
                                             updateVaccinations =
                                                 item[index]["Vaccinations"];
                                             updateMedications =
@@ -419,10 +425,11 @@ class _MedicalState extends State<Medical> {
                                                       actions: <Widget>[
                                                         FlatButton(
                                                             onPressed: () {
-                                                              Navigator.of(
-                                                                      context)
+                                                              Navigator.of(context)
                                                                   .pop();
                                                               databaseReference
+                                                                  .child('$selectedKey')
+                                                                  .child('vetinfos')
                                                                   .child('$key')
                                                                   .update({
                                                                 "Key": '$key',
@@ -638,33 +645,6 @@ class _MedicalState extends State<Medical> {
                                       content: IntrinsicHeight(
                                         child: Column(
                                           children: <Widget>[
-                                            Row(children: [
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    20, 0, 0, 0),
-                                                child: Text("Name:",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.grey,
-                                                      fontSize: 18.0,
-                                                    )),
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  margin: EdgeInsets.fromLTRB(
-                                                      20, 0, 0, 0),
-                                                  child:
-                                                      Text(item[index]["Name"],
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.grey,
-                                                            fontSize: 18.0,
-                                                          )),
-                                                ),
-                                              ),
-                                            ]),
                                             Row(children: [
                                               Container(
                                                 margin: EdgeInsets.fromLTRB(
