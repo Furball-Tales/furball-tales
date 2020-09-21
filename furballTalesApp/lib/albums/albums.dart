@@ -168,8 +168,9 @@ class _ImageGridItemState extends State<ImageGridItem> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      Photos(item[index]['key'])))
+                                  builder: (context) => Photos(
+                                      item[index]['key'],
+                                      item[index]["albumNames"])))
                         },
                         onLongPress: () {
                           showDialog(

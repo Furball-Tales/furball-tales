@@ -56,7 +56,8 @@ class _MyAppState extends State<Homepage> {
     Dashboard(),
     Albums(),
     Calendar(),
-    Medical(),
+    MedicalDetail(),
+    //Medical(),
     Profile(),
   ];
 
