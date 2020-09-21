@@ -15,17 +15,24 @@ class ListCardView {
           initialPage: 1,
         ),
         children: <Widget>[
-          for (var i = 0; i < allPetsData.length; i++)
+          // for (var i = 0; i < allPetsData.length; i++)
+          for (var i = 0; i < allPetsDataPetinfo.length; i++)
             Container(
                 // giving some mergin
                 margin: EdgeInsets.only(top: 15, right: 14, bottom: 20),
                 child: PetCard(
-                  allPetsData[i]['key'],
-                  '${allPetsData[i]["data"]["birthday"]}',
+                  // allPetsData[i]['key'],
+                  // '${allPetsData[i]["data"]["birthday"]}',
+                  // '',
+                  // '${allPetsData[i]['data']['petName']}',
+                  // '${allPetsData[i]['data']['petProfilePicUrl']}',
+                  // '${allPetsData[i]['data']['sex']}',
+                  allPetsDataPetinfo[i]['key'],
+                  '${allPetsDataPetinfo[i]["data"]["birthday"]}',
                   '',
-                  '${allPetsData[i]['data']['petName']}',
-                  '${allPetsData[i]['data']['petProfilePicUrl']}',
-                  '${allPetsData[i]['data']['sex']}',
+                  '${allPetsDataPetinfo[i]['data']['petName']}',
+                  '${allPetsDataPetinfo[i]['data']['petProfilePicUrl']}',
+                  '${allPetsDataPetinfo[i]['data']['sex']}',
                 ))
         ],
       ),

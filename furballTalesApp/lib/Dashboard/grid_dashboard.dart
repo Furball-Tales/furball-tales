@@ -55,9 +55,14 @@ var caveColor = NeumorphicCaveSettings.caveColor;
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child('$id').child('pets');
+final databaseReferencePetinfo =
+    FirebaseDatabase.instance.reference().child('$id').child('petinfo');
 
 Future updateUrl(petProfilePicUrl, petId) async {
   databaseReference.child(petId).update({'petProfilePicUrl': petProfilePicUrl});
+  databaseReferencePetinfo
+      .child(petId)
+      .update({'petProfilePicUrl': petProfilePicUrl});
 }
 
 Future<String> uploadImage(var imageFile, petId) async {
