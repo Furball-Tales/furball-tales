@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 var baseColor = NeumorphicCardSettings.baseColor;
 var textBaseColor = NeumorphicCardSettings.textBaseColor;
 var brightLavender = NeumorphicCardSettings.brightLavender;
+var accentGold = NeumorphicCardSettings.accentGold;
 
 class PetDetail extends StatefulWidget {
   String heroTag;
@@ -244,9 +245,30 @@ class PetDetailState extends State<PetDetail> {
     );
   }
 
-  final Shader linearGradient = LinearGradient(
+  final Shader linearGradientPurple = LinearGradient(
     colors: <Color>[Color(brightLavender), Color(pastelMagenta)],
   ).createShader(new Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+  final Shader linearGradientBlue = LinearGradient(
+    colors: <Color>[Color(0xff00e6ff), Color(0xffccffb3)],
+  ).createShader(new Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+  CalculateDaysUntilNextBirthday(stringBirthday) {
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+    DateTime dataBirthday = DateTime.parse(stringBirthday);
+
+    DateTime thisBirthday =
+        DateTime(now.year, dataBirthday.month, dataBirthday.day);
+    DateTime nextBirthday =
+        DateTime(now.year + 1, dataBirthday.month, dataBirthday.day);
+
+    if (thisBirthday.difference(today).inDays > 0) {
+      return thisBirthday.difference(today).inDays;
+    } else {
+      return nextBirthday.difference(today).inDays;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -340,76 +362,70 @@ class PetDetailState extends State<PetDetail> {
                     },
                     child: Container(
                       height: 500,
+                      width: 500,
                       child: Padding(
                         padding: const EdgeInsets.only(
                           top: 40.0,
-                          left: 8.0,
-                          right: 8.0,
                           bottom: 16.0,
                         ),
                         child: SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 30),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Neumorphic(
-                                  style: NeumorphicStyle(
-                                      shape: NeumorphicShape.convex,
-                                      depth: 6,
-                                      intensity: 0.8,
-                                      surfaceIntensity: 0.1,
-                                      lightSource: LightSource.topLeft,
-                                      color: Color(baseColor)),
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    height: 250,
-                                    width: 300,
-                                    child: NeumorphicTheme(
-                                      child: SingleChildScrollView(
-                                        child: Center(
-                                          child: StreamBuilder(
-                                            stream: databaseReference.onValue,
-                                            builder: (context, snap) {
-                                              return Container(
-                                                // padding: EdgeInsets.symmetric(
-                                                //     horizontal: 25,
-                                                //     vertical: 40),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    SingleChildScrollView(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          right: 10,
-                                                          left: 10,
-                                                          bottom: 50,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Neumorphic(
+                                style: NeumorphicStyle(
+                                    shape: NeumorphicShape.convex,
+                                    depth: 6,
+                                    intensity: 0.8,
+                                    surfaceIntensity: 0.1,
+                                    lightSource: LightSource.topLeft,
+                                    color: Color(baseColor)),
+                                child: Container(
+                                  color: Colors.transparent,
+                                  height: 300,
+                                  width: 300,
+                                  child: NeumorphicTheme(
+                                    child: SingleChildScrollView(
+                                      child: Center(
+                                        child: StreamBuilder(
+                                          stream: databaseReference.onValue,
+                                          builder: (context, snap) {
+                                            return Container(
+                                              // padding: EdgeInsets.symmetric(
+                                              //     horizontal: 25,
+                                              //     vertical: 40),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  SingleChildScrollView(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        top: 15,
+                                                        bottom: 20,
+                                                      ),
+                                                      child: NeumorphicText(
+                                                        name,
+                                                        style: NeumorphicStyle(
+                                                          depth: 2,
+                                                          color: Colors.white,
+                                                          intensity: 1,
                                                         ),
-                                                        child: NeumorphicText(
-                                                          name,
-                                                          style:
-                                                              NeumorphicStyle(
-                                                            depth: 2,
-                                                            color: Colors.white,
-                                                            intensity: 1,
-                                                          ),
-                                                          textStyle:
-                                                              NeumorphicTextStyle(
-                                                                  fontSize: 50,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                        ),
+                                                        textStyle:
+                                                            NeumorphicTextStyle(
+                                                                fontSize: 50,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
                                                       ),
                                                     ),
-                                                    Row(
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      top: 15,
+                                                      bottom: 20,
+                                                    ),
+                                                    child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceAround,
@@ -422,7 +438,7 @@ class PetDetailState extends State<PetDetail> {
                                                                 FontWeight.bold,
                                                             foreground: Paint()
                                                               ..shader =
-                                                                  linearGradient,
+                                                                  linearGradientPurple,
                                                           ),
                                                         ),
                                                         Text(
@@ -433,23 +449,58 @@ class PetDetailState extends State<PetDetail> {
                                                                 FontWeight.bold,
                                                             foreground: Paint()
                                                               ..shader =
-                                                                  linearGradient,
+                                                                  linearGradientPurple,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.cake,
+                                                        color:
+                                                            Color(accentGold),
+                                                        size: 23.3,
+                                                      ),
+                                                      Text(
+                                                        CalculateDaysUntilNextBirthday(
+                                                                birthday)
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 40,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Color(accentGold),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ' days until next birthday!',
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Color(accentGold),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
