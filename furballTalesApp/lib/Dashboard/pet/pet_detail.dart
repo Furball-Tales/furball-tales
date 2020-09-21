@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 var textBaseColor = NeumorphicCardSettings.textBaseColor;
+var brightLavender = NeumorphicCardSettings.brightLavender;
 
 class PetDetail extends StatefulWidget {
   String heroTag;
@@ -243,6 +244,10 @@ class PetDetailState extends State<PetDetail> {
     );
   }
 
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(brightLavender), Color(pastelMagenta)],
+  ).createShader(new Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -343,106 +348,108 @@ class PetDetailState extends State<PetDetail> {
                           bottom: 16.0,
                         ),
                         child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Neumorphic(
-                                style: NeumorphicStyle(
-                                    shape: NeumorphicShape.concave,
-                                    depth: caveDepth,
-                                    intensity: caveIntensity,
-                                    lightSource: LightSource.topLeft,
-                                    color: Color(caveColor)),
-                                child: Container(
-                                  color: Colors.transparent,
-                                  height: 120,
-                                  width: 240,
-                                  child: SingleChildScrollView(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        top: 5,
-                                        left: 20,
-                                        right: 20,
-                                        bottom: 5,
-                                      ),
-                                      child: StreamBuilder(
-                                        stream: databaseReference.onValue,
-                                        builder: (context, snap) {
-                                          return Container(
-                                            padding: EdgeInsets.only(
-                                                top: 12, left: 2),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                    top: 3,
-                                                    bottom: 20,
-                                                  ),
-                                                  child: Text(
-                                                    name,
-                                                    style: TextStyle(
-                                                      color:
-                                                          Color(textBaseColor),
-                                                      fontSize: 24,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Padding(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 30),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Neumorphic(
+                                  style: NeumorphicStyle(
+                                      shape: NeumorphicShape.convex,
+                                      depth: 6,
+                                      intensity: 0.8,
+                                      surfaceIntensity: 0.1,
+                                      lightSource: LightSource.topLeft,
+                                      color: Color(baseColor)),
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    height: 250,
+                                    width: 300,
+                                    child: NeumorphicTheme(
+                                      child: SingleChildScrollView(
+                                        child: Center(
+                                          child: StreamBuilder(
+                                            stream: databaseReference.onValue,
+                                            builder: (context, snap) {
+                                              return Container(
+                                                // padding: EdgeInsets.symmetric(
+                                                //     horizontal: 25,
+                                                //     vertical: 40),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    SingleChildScrollView(
+                                                      child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
-                                                                left: 4,
-                                                                right: 8),
-                                                        child: Text(
+                                                                .only(
+                                                          right: 10,
+                                                          left: 10,
+                                                          bottom: 50,
+                                                        ),
+                                                        child: NeumorphicText(
+                                                          name,
+                                                          style:
+                                                              NeumorphicStyle(
+                                                            depth: 2,
+                                                            color: Colors.white,
+                                                            intensity: 1,
+                                                          ),
+                                                          textStyle:
+                                                              NeumorphicTextStyle(
+                                                                  fontSize: 50,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Text(
                                                           sex,
                                                           style: TextStyle(
-                                                            color: Color(
-                                                                textBaseColor),
-                                                            fontSize: 16,
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            foreground: Paint()
+                                                              ..shader =
+                                                                  linearGradient,
                                                           ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 8,
-                                                                right: 4),
-                                                        child: Text(
+                                                        Text(
                                                           age + ' yrs',
                                                           style: TextStyle(
-                                                            color: Color(
-                                                                textBaseColor),
-                                                            fontSize: 16,
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            foreground: Paint()
+                                                              ..shader =
+                                                                  linearGradient,
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                          );
-                                        },
+                                              );
+                                            },
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -487,7 +494,7 @@ class PetDetailState extends State<PetDetail> {
                               Icons.close,
                               color: Colors.white,
                             ),
-                            color: Color(0xff00b8d4),
+                            color: Color(brightLavender),
                             shape: CircleBorder(),
                             onPressed: () {
                               Navigator.pop(

@@ -148,7 +148,7 @@ class FourthNavState extends State<FourthNav> {
           child: Stack(
             children: <Widget>[
               AnimatedPositioned(
-                duration: Duration(milliseconds: 600),
+                duration: Duration(milliseconds: 650),
                 curve: Curves.bounceOut,
                 top: 0,
                 left: ((widget.w - 60) / 5) * pos,
@@ -176,7 +176,7 @@ class FourthNavState extends State<FourthNav> {
                 ),
               ),
               AnimatedPositioned(
-                duration: Duration(milliseconds: 300),
+                duration: Duration(milliseconds: 1),
                 curve: Curves.bounceOut,
                 top: 0,
                 left: ((widget.w - 60) / 5) * pos,
@@ -185,7 +185,7 @@ class FourthNavState extends State<FourthNav> {
                   height: ((widget.w - 60) / 5),
                   child: Center(
                     child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: Duration(milliseconds: 1),
                       width: ((widget.w - 60) / 5),
                       height: ((widget.w - 60) / 5),
                       decoration: BoxDecoration(
