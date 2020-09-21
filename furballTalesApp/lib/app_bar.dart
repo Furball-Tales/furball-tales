@@ -33,9 +33,9 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.all(14.0),
             child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute<void>(
+                  Navigator.of(context).pushReplacement(MaterialPageRoute<void>(
                     builder: (BuildContext context) {
-                      return InitialRegistration();
+                      return InitialRegistration("ADD");
                     },
                   ));
                 },

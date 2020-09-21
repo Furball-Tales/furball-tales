@@ -13,12 +13,6 @@ var depth = NeumorphicCardSettings.depth;
 var surfaceIntensity = NeumorphicCardSettings.surfaceIntensity;
 var baseColor = NeumorphicCardSettings.baseColor;
 
-// var allChartData = List<Map<String, Object>> allChartData;
-
-// _nextPage(icon, heading, textColor) {
-//   if (heading == 'Weight') return Chart(allChartData);
-// }
-
 class EachJumpCard extends StatefulWidget {
   IconData icon;
   String heading;
@@ -57,7 +51,6 @@ class EachJumpCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return CustomCardState(
       icon,
       heading,
@@ -113,7 +106,6 @@ class CustomCardState extends State<EachJumpCard> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Hero(
       tag: petName,
       child: Material(
@@ -175,7 +167,10 @@ class CustomCardState extends State<EachJumpCard> {
               color: Color(baseColor)),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.only(
+                top: 16,
+                bottom: 20,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -184,7 +179,7 @@ class CustomCardState extends State<EachJumpCard> {
                     children: <Widget>[
                       //text
                       Padding(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
                           petName,
                           style: TextStyle(
@@ -201,20 +196,15 @@ class CustomCardState extends State<EachJumpCard> {
                         ),
                         child: Material(
                           color: Color(materialColor),
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(16),
                           child: Padding(
-                            padding: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(12),
                             child: Stack(
                               children: <Widget>[
-                                Positioned(
-                                  right: 0.5,
-                                  top: 8.0,
-                                  child: Icon(icon, color: Colors.grey[600]),
-                                ),
                                 Icon(
                                   icon,
                                   color: Colors.grey[100],
-                                  size: 30,
+                                  size: 23.3,
                                 ),
                               ],
                             ),
@@ -232,13 +222,3 @@ class CustomCardState extends State<EachJumpCard> {
     );
   }
 }
-
-//  Material MyItems(IconData icon, String heading, int color) {
-//     return Material(
-//       color: Colors.white,
-//       elevation: 14.0,
-//       shadowColor: Colors.grey[200],
-//       borderRadius: BorderRadius.circular(60),
-
-//     );
-//   }

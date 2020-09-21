@@ -42,9 +42,11 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          readAllPetsData().whenComplete(() => {
+          // readAllPetsData().whenComplete(() => {
+          readAllPetsDataPetinfo().whenComplete(() => {
                 print("existData: $existData"),
-                if (allPetsData.length > 0)
+                // if (allPetsData.length > 0)
+                if (allPetsDataPetinfo.length > 0)
                   {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -59,11 +61,12 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return InitialRegistration();
+                          return InitialRegistration("INIT");
                         },
                       ),
                     )
-                  }
+                  },
+                readAllPetsData(),
               });
         });
       },

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'pet_detail.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../frontend_settings.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import '../grid_dashboard.dart';
-import '../../get_allPetsData.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
 var accentPink = NeumorphicCardSettings.accentPink;
@@ -130,7 +127,8 @@ class PetCardState extends State<PetCard> {
                   sex,
                 ),
               ));
-          var data = await databaseReference.child(this.heroTag).once();
+          // var data = await databaseReference.child(this.heroTag).once();
+          var data = await databaseReferencePetinfo.child(this.heroTag).once();
 
           setState(() {
             birthday = data.value['birthday'];
@@ -176,8 +174,10 @@ class PetCardState extends State<PetCard> {
                             sex,
                           ),
                         ));
-                    var data =
-                        await databaseReference.child(this.heroTag).once();
+                    // var data = await databaseReference.child(this.heroTag).once();
+                    var data = await databaseReferencePetinfo
+                        .child(this.heroTag)
+                        .once();
 
                     setState(() {
                       birthday = data.value['birthday'];
@@ -193,7 +193,8 @@ class PetCardState extends State<PetCard> {
                       bottom: 15,
                     ),
                     child: StreamBuilder(
-                      stream: databaseReference.onValue,
+                      // stream: databaseReference.onValue,
+                      stream: databaseReferencePetinfo.onValue,
                       builder: (context, snap) {
                         return Container(
                           width: 70.0,
@@ -243,16 +244,19 @@ class PetCardState extends State<PetCard> {
                                     bottom: 12,
                                   ),
                                   child: StreamBuilder(
-                                      stream: databaseReference.onValue,
+                                      // stream: databaseReference.onValue,
+                                      stream: databaseReferencePetinfo.onValue,
                                       builder: (context, snap) {
                                         return Container(
-                                          padding:
-                                              EdgeInsets.only(top: 12, left: 2),
+                                          padding: EdgeInsets.only(
+                                            top: 12,
+                                            right: 8,
+                                          ),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
                                                 name,
