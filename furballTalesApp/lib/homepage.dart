@@ -4,9 +4,8 @@ import 'profile/profile.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'medical/medical.dart';
 import 'albums/albums.dart';
-import './frontend_settings.dart';
-import './calendar/calendar_main.dart';
 import 'frontend_settings.dart';
+import 'calendar/calendar_main.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -68,12 +67,12 @@ class _MyAppState extends State<Homepage> {
       create: (_) => IndexController(),
       child: Scaffold(
         backgroundColor: Color(baseColor),
-        bottomNavigationBar: FourthNav(w: w),
         body: Consumer<IndexController>(
           builder: (context, controller, child) {
             return _children[controller.index];
           },
         ),
+        bottomNavigationBar: FourthNav(w: w),
       ),
     );
   }
@@ -104,7 +103,7 @@ class FourthNavState extends State<FourthNav> {
     items4.add(Nav4ItemClass(
       false,
       'assets/svg/picture-2.svg',
-      'Picture',
+      'Albums',
       1,
     ));
     items4.add(Nav4ItemClass(
@@ -134,8 +133,8 @@ class FourthNavState extends State<FourthNav> {
       children: [
         Container(
           width: widget.w - 48,
-          height: 84,
-          padding: EdgeInsets.only(left: 6, right: 6, top: 12),
+          height: 72,
+          padding: EdgeInsets.only(left: 6, right: 6, top: 1),
           // decoration: BoxDecoration(
           //   color: Colors.white,
           //   borderRadius: BorderRadius.circular(12),
@@ -150,7 +149,7 @@ class FourthNavState extends State<FourthNav> {
           child: Stack(
             children: <Widget>[
               AnimatedPositioned(
-                duration: Duration(milliseconds: 600),
+                duration: Duration(milliseconds: 650),
                 curve: Curves.bounceOut,
                 top: 0,
                 left: ((widget.w - 60) / 5) * pos,
@@ -178,7 +177,7 @@ class FourthNavState extends State<FourthNav> {
                 ),
               ),
               AnimatedPositioned(
-                duration: Duration(milliseconds: 300),
+                duration: Duration(milliseconds: 1),
                 curve: Curves.bounceOut,
                 top: 0,
                 left: ((widget.w - 60) / 5) * pos,
@@ -187,7 +186,7 @@ class FourthNavState extends State<FourthNav> {
                   height: ((widget.w - 60) / 5),
                   child: Center(
                     child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: Duration(milliseconds: 1),
                       width: ((widget.w - 60) / 5),
                       height: ((widget.w - 60) / 5),
                       decoration: BoxDecoration(
@@ -259,8 +258,8 @@ class Nav4Item extends StatelessWidget {
         children: <Widget>[
           AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            width: item.isOpen ? 32 : 27,
-            height: item.isOpen ? 32 : 27,
+            width: item.isOpen ? 30 : 25,
+            height: item.isOpen ? 30 : 25,
             child: SvgPicture.asset(
               item.icon,
               fit: BoxFit.cover,
