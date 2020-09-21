@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../frontend_settings.dart';
-import 'chart.dart';
+import 'weight/weight_chart.dart';
+import 'food/food_chart.dart';
 import '../get_allPetsData.dart';
 
 var accentBlue = NeumorphicCardSettings.accentBlue;
@@ -139,14 +140,25 @@ class CustomCardState extends State<EachJumpCard> {
           setState(() {
             _hasPadding = false;
           });
-          Navigator.push(
-              context,
-              PageRouteBuilder(
-                transitionDuration: Duration(milliseconds: 500),
-                pageBuilder: (_, __, ___) =>
-                    // _nextPage(icon, heading, textColor),
-                    Chart(heading, petName, allChartData),
-              ));
+          if (heading == 'Food') {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500),
+                  pageBuilder: (_, __, ___) =>
+                      // _nextPage(icon, heading, textColor),
+                      FoodChart(heading, petName, allChartData),
+                ));
+          } else if (heading == 'Weight') {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500),
+                  pageBuilder: (_, __, ___) =>
+                      // _nextPage(icon, heading, textColor),
+                      WeightChart(heading, petName, allChartData),
+                ));
+          }
         },
         onTapCancel: () {
           setState(() {

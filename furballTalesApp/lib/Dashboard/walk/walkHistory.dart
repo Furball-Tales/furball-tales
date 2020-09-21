@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +12,8 @@ void main() {
     home: WalkHistory(),
   ));
 }
+
+List walks = [];
 
 
 class ListItem {
@@ -322,7 +325,7 @@ List<ListItem> petNames = List();
                     );
                   });
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Text("add Walk History"));
             }
           }),
     );

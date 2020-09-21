@@ -2,35 +2,43 @@ import 'package:intl/intl.dart' as intl;
 import 'package:bezier_chart/bezier_chart.dart';
 import 'package:flutter/material.dart';
 
-class Chart extends StatefulWidget {
+class WeightChart extends StatefulWidget {
   String heading;
-  String petName;
+  String petName; 
   List<dynamic> allChartData;
 
-  Chart(heading, petName, allChartData) {
+  WeightChart(heading, petName, allChartData) {
     this.heading = heading;
     this.petName = petName;
     this.allChartData = allChartData;
   }
 
   @override
-  _ChartState createState() => _ChartState();
+  _WeightChartState createState() => _WeightChartState();
 }
 
-class _ChartState extends State<Chart> {
+class _WeightChartState extends State<WeightChart> {
   final List<DataPoint<DateTime>> data = [];
   DateTime fromDate;
   DateTime toDate;
   String heading;
+  String lowerHeading;
   String petName;
   List<dynamic> allChartData;
 
   @override
   void initState() {
     super.initState();
-    fromDate = DateTime(2020, 08, 1);
-    toDate = DateTime(2020, 09, 30);
-    heading = widget.heading;
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    // set the chart duration
+    fromDate = DateTime(2020, 09, 1);
+    toDate = today;
+
+    heading = widget.heading; // 'Weight'
+    lowerHeading =
+        '${heading[0].toLowerCase()}${heading.substring(1)}'; // 'weight'
     petName = widget.petName;
     allChartData = widget.allChartData;
     DateTime parseDateString(String str) {
@@ -41,26 +49,34 @@ class _ChartState extends State<Chart> {
     for (int i = 0; i < allChartData.length; i++) {
       if (allChartData[i]['data']['petName'] != petName) continue;
 
-      print(allChartData[i]['data']['weight']);
-      // headingはすべて小文字にする
-      // headingに応じて、取ってくるvalueの位置を変更する
-      // またｈは、もう諦めて別ファイルを作ってしまう
-      // 値が0のときの挙動
-      // 最新までずっと同じ描画にしておく
-
-      final headingData =
-          Map<String, dynamic>.from(allChartData[i]['data']['weight']);
-
-      // if (heading == 'weight') var indicator = 'Weight';
-      // if (heading == 'food') var indicator = 'BowlPercent';
-
-      for (var value in headingData.values) {
+      // handling the edge case where no such category is provided
+      if ((allChartData[i]['data'][lowerHeading]) == null) {
+        Map<String, dynamic> dummyData = {
+          'key': {
+            'Date': today,
+            heading: 0.0,
+          },
+        };
         data.add(
           DataPoint<DateTime>(
-            value: double.parse(value['Weight']),
-            xAxis: parseDateString(value['Date']),
+            value: dummyData['key'][heading],
+            xAxis: dummyData['key']['Date'],
           ),
         );
+        // handling normal case
+      } else {
+        final headingData =
+            Map<String, dynamic>.from((allChartData[i]['data'][lowerHeading]));
+
+        for (var value in headingData.values) {
+          if (value[heading] == '' || value['Date'] == 'Not set') continue;
+          data.add(
+            DataPoint<DateTime>(
+              value: double.parse(value[heading]),
+              xAxis: parseDateString(value['Date']),
+            ),
+          );
+        }
       }
     }
   }

@@ -806,7 +806,7 @@ class _MedicalState extends State<Medical> {
                     );
                   });
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Text('Add Medical History'));
             }
           }),
     );
