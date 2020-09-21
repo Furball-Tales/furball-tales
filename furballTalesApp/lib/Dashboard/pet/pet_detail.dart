@@ -375,7 +375,7 @@ class PetDetailState extends State<PetDetail> {
                               Neumorphic(
                                 style: NeumorphicStyle(
                                     shape: NeumorphicShape.convex,
-                                    depth: 6,
+                                    depth: -6,
                                     intensity: 0.8,
                                     surfaceIntensity: 0.1,
                                     lightSource: LightSource.topLeft,
@@ -395,19 +395,22 @@ class PetDetailState extends State<PetDetail> {
                                               //     horizontal: 25,
                                               //     vertical: 40),
                                               child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   SingleChildScrollView(
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                        top: 15,
+                                                        top: 40,
                                                         bottom: 20,
                                                       ),
                                                       child: NeumorphicText(
                                                         name,
                                                         style: NeumorphicStyle(
                                                           depth: 2,
-                                                          color: Colors.white,
+                                                          color:
+                                                              Colors.grey[600],
                                                           intensity: 1,
                                                         ),
                                                         textStyle:
@@ -423,7 +426,7 @@ class PetDetailState extends State<PetDetail> {
                                                     padding:
                                                         const EdgeInsets.only(
                                                       top: 15,
-                                                      bottom: 20,
+                                                      bottom: 30,
                                                     ),
                                                     child: Row(
                                                       mainAxisAlignment:
@@ -545,7 +548,7 @@ class PetDetailState extends State<PetDetail> {
                               Icons.close,
                               color: Colors.white,
                             ),
-                            color: Color(brightLavender),
+                            color: Colors.grey[400],
                             shape: CircleBorder(),
                             onPressed: () {
                               Navigator.pop(
