@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
+import 'homepage.dart';
 import 'package:intl/intl.dart';
 import 'app_bar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'sign_in.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dashboard/grid_dashboard.dart';
 import 'frontend_settings.dart';
@@ -29,8 +29,14 @@ final databaseReferencePetinfo =
     FirebaseDatabase.instance.reference().child('$id').child('petinfo');
 
 class InitialRegistration extends StatefulWidget {
+  String state;
+  InitialRegistration(String state) {
+    this.state = state;
+  }
   @override
-  _InitialRegistrationState createState() => _InitialRegistrationState();
+  _InitialRegistrationState createState() {
+    return _InitialRegistrationState(state);
+  }
 }
 
 bool existData;
@@ -98,6 +104,11 @@ Future<String> uploadTemporaryImage(var imageFile) async {
 }
 
 class _InitialRegistrationState extends State<InitialRegistration> {
+  String state;
+  _InitialRegistrationState(String state) {
+    this.state = state;
+  }
+
   var _petNameController = TextEditingController();
   var _petSexController = TextEditingController();
   var _text = '';
@@ -358,13 +369,14 @@ class _InitialRegistrationState extends State<InitialRegistration> {
 
   var func;
   var funcIndex = "initialRegistrationScreen";
-
   @override
   Widget build(BuildContext context) {
     if (funcIndex == "initialRegistrationScreen") {
       func = initialRegistrationScreen();
-    } else {
+    } else if (this.state == "INIT") {
       func = TutorialSlider("Home");
+    } else {
+      func = Homepage();
     }
     return func;
   }
