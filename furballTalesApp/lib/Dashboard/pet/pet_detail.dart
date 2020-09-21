@@ -52,14 +52,21 @@ class PetDetail extends StatefulWidget {
 
 Future deleteUrl(petId, petProfilePicUrl) async {
   databaseReference.child(petId).update({'petProfilePicUrl': petProfilePicUrl});
+  databaseReferencePetinfo
+      .child(petId)
+      .update({'petProfilePicUrl': petProfilePicUrl});
 }
 
 Future deletePetInfo(petId) async {
   databaseReference.child(petId).remove();
+  databaseReferencePetinfo.child(petId).remove();
 }
 
 Future updatePetInfo(petId, birthday, petName, sex) async {
   databaseReference
+      .child(petId)
+      .update({'birthday': birthday, 'petName': petName, 'sex': sex});
+  databaseReferencePetinfo
       .child(petId)
       .update({'birthday': birthday, 'petName': petName, 'sex': sex});
 }
@@ -109,6 +116,7 @@ class PetDetailState extends State<PetDetail> {
     updateUrl(uploadUrl, this.heroTag);
     // await readUrl();
     this.photo = uploadUrl;
+    readAllPetsDataPetinfo();
     readAllPetsData();
 
     setState(() {
@@ -134,6 +142,7 @@ class PetDetailState extends State<PetDetail> {
                           "Update Info: $updateBirthday, $updateName, $updateSex");
                       updatePetInfo(
                           this.heroTag, updateBirthday, updateName, updateSex);
+                      readAllPetsDataPetinfo();
                       readAllPetsData();
                       setState(() {
                         this.name = updateName;
@@ -302,6 +311,7 @@ class PetDetailState extends State<PetDetail> {
                                           "https://firebasestorage.googleapis.com/v0/b/furballtales-d0eb8.appspot.com/o/logo%2Flogo.png?alt=media&token=b41579cc-b641-4e26-9059-6648a752e347";
 
                                       deleteUrl(this.heroTag, this.photo);
+                                      readAllPetsDataPetinfo();
                                       readAllPetsData();
                                       this.photo = this.photo;
                                       Navigator.of(context).pop();
@@ -342,6 +352,7 @@ class PetDetailState extends State<PetDetail> {
                                     print(
                                         "Delete Info this.heroTag: ${this.heroTag}");
                                     deletePetInfo(this.heroTag);
+                                    readAllPetsDataPetinfo();
                                     readAllPetsData();
                                     Navigator.of(context).pop();
                                     Navigator.of(context).pop();
