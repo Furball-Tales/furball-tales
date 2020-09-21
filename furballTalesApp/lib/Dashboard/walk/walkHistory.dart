@@ -98,7 +98,11 @@ List<ListItem> petNames = List();
           onChanged:(value){
             setState((){
             _selectedItem = value;
-            print(selectedKey);
+                for (var i = 0; i < allPetsData.length; i++) {
+                  if (i + 1 == _selectedItem.value) {
+                    selectedKey = allPetsData[i]['key'];
+                  }
+                }
             });
           }
         ),
@@ -127,7 +131,6 @@ List<ListItem> petNames = List();
 
                     return Card(
                       child: ListTile(
-                          
                           title: Text('$formattedDate'),
                           subtitle: Text(item[index]["Dog Enjoyment"]),
                           shape: RoundedRectangleBorder(
@@ -145,7 +148,12 @@ List<ListItem> petNames = List();
                                             setState(() {
                                               String key = item[index]['key'];
                                               print(key);
-                                              databaseReference
+                                              FirebaseDatabase.instance
+                                                  .reference()
+                                                  .child('$id')
+                                                  .child('pets')
+                                                  .child('$selectedKey')
+                                                  .child('walk')
                                                   .child('$key')
                                                   .remove();
                                               Navigator.of(context).pop();

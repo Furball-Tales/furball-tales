@@ -149,7 +149,6 @@ List<ListItem> petNames = List();
                         poopRating = 0;
                         poopTimes = 0;
                         walkRating = 1.0;
-                        print(allPetsData);
                         dependencies.stopwatch.reset();
                       },
                       style: NeumorphicStyle(
@@ -187,7 +186,13 @@ List<ListItem> petNames = List();
                                   onChanged:(value){
                                     setState((){
                                       _selectedItem = value;
+                                          for (var i = 0; i < allPetsData.length; i++) {
+                                            if (i + 1 == _selectedItem.value) {
+                                              selectedKey = allPetsData[i]['key'];
+                                            }
+                                          }
                                     });
+                                    print(selectedKey);
                                   }
                                 ),
                               ),
