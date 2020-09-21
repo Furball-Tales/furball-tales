@@ -37,8 +37,16 @@ class JumpCard extends StatefulWidget {
   double surfaceIntensity;
   int baseColor;
 
-  JumpCard(IconData icon, String heading, int textColor, int materialColor,
-      double intensity, double depth, double surfaceIntensity, int baseColor) {
+  JumpCard(
+    IconData icon,
+    String heading,
+    int textColor,
+    int materialColor,
+    double intensity,
+    double depth,
+    double surfaceIntensity,
+    int baseColor,
+  ) {
     this.icon = icon;
     this.heading = heading;
     this.textColor = textColor;
@@ -51,9 +59,16 @@ class JumpCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return CustomCardState(icon, heading, textColor, materialColor, intensity,
-        depth, surfaceIntensity, baseColor);
+    return CustomCardState(
+      icon,
+      heading,
+      textColor,
+      materialColor,
+      intensity,
+      depth,
+      surfaceIntensity,
+      baseColor,
+    );
   }
 }
 
@@ -90,7 +105,6 @@ class CustomCardState extends State<JumpCard> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Hero(
       tag: heading,
       child: Material(
@@ -156,6 +170,7 @@ class CustomCardState extends State<JumpCard> {
                               style: TextStyle(
                                 color: Color(textColor),
                                 fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -167,21 +182,20 @@ class CustomCardState extends State<JumpCard> {
                             ),
                             child: Material(
                               color: Color(materialColor),
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius: BorderRadius.circular(20),
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
                                 child: Stack(
                                   children: <Widget>[
-                                    Positioned(
-                                      right: 0.5,
-                                      top: 8.0,
-                                      child:
-                                          Icon(icon, color: Colors.grey[600]),
-                                    ),
+                                    // Positioned(
+                                    //   right: 0.5,
+                                    //   top: 8.0,
+                                    //   child: Icon(icon, color: Colors.grey),
+                                    // ),
                                     Icon(
                                       icon,
                                       color: Colors.grey[100],
-                                      size: 30,
+                                      size: 25,
                                     ),
                                   ],
                                 ),
@@ -201,13 +215,3 @@ class CustomCardState extends State<JumpCard> {
     );
   }
 }
-
-//  Material MyItems(IconData icon, String heading, int color) {
-//     return Material(
-//       color: Colors.white,
-//       elevation: 14.0,
-//       shadowColor: Colors.grey[200],
-//       borderRadius: BorderRadius.circular(60),
-
-//     );
-//   }
