@@ -19,7 +19,7 @@ class ProjectDet extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color(baseColor),
         appBar: GradientAppBar(
-          "Furball Tales Way",
+          "Our Project",
           'back',
         ),
         body: SingleChildScrollView(
@@ -52,7 +52,7 @@ class ProjectDet extends StatelessWidget {
                           "Our Vision",
                           style: NeumorphicStyle(
                             depth: 4, //customize depth here
-                            color: Colors.white, //customize color here
+                            color: Color(accentGold), //customize color here
                           ),
                           textStyle: NeumorphicTextStyle(
                               fontSize: 27,
@@ -93,7 +93,7 @@ class ProjectDet extends StatelessWidget {
                           "Our Mission",
                           style: NeumorphicStyle(
                             depth: 4, //customize depth here
-                            color: Colors.white, //customize color here
+                            color: Color(accentGold), //customize color here
                           ),
                           textStyle: NeumorphicTextStyle(
                               fontSize: 27,
@@ -134,7 +134,7 @@ class ProjectDet extends StatelessWidget {
                           "Our Value",
                           style: NeumorphicStyle(
                             depth: 4, //customize depth here
-                            color: Colors.white, //customize color here
+                            color: Color(accentGold), //customize color here
                           ),
                           textStyle: NeumorphicTextStyle(
                               fontSize: 27,
@@ -190,13 +190,12 @@ class ProjectDet extends StatelessWidget {
                       Column(
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.only(top: 24, bottom: 8.0),
+                            padding: const EdgeInsets.only(top: 6, bottom: 2.0),
                             child: NeumorphicText(
                               "Our Product",
                               style: NeumorphicStyle(
                                 depth: 4, //customize depth here
-                                color: Colors.white, //customize color here
+                                color: Color(accentGold), //customize color here
                               ),
                               textStyle: NeumorphicTextStyle(
                                   fontSize: 27,
@@ -208,7 +207,7 @@ class ProjectDet extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20, left: 25, right: 25, bottom: 24),
+                                top: 10, left: 25, right: 25, bottom: 12),
                             child: Container(
                               height: 180,
                               decoration: BoxDecoration(
@@ -224,8 +223,8 @@ class ProjectDet extends StatelessWidget {
                                 left: 24.0, right: 16.0, bottom: 16.0),
                             width: c_width,
                             child: Text(
-                              "Our app FurBallTales manages all of the medical information for your pet.That includes medication reminders, food tracking, grooming, ear and teeth cleaning, various measurements like weight and height, and, of course, vaccinations. You can also get reminders for upcoming vet appointments. It keeps track of this stuff so you don’t have to. The app is also completely free with no in-app purchases or ads.",
-                              textAlign: TextAlign.justify,
+                              "Our app Furball Tales manages all of the medical information for your pet. That includes Calendar events, food tracking, various measurements like weight, walk details, and of course, vaccinations. You can also leave memos and get reminders for upcoming vet appointments. It keeps track of this stuff so you don’t have to. The app is also completely free with no in-app purchases or ads.",
+                              textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Color(textBaseColor),
