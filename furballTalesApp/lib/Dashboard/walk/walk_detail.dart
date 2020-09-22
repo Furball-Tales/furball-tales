@@ -1,14 +1,12 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter/material.dart';
-import 'package:furballTalesApp/Dashboard/walk/walkchart.dart';
 import 'timerUI.dart';
 import '../../app_bar.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
 import 'walkHistory.dart';
-// import 'chart.dart';
-
+import 'walkchart.dart';
 
 
 class Walk extends StatefulWidget {
@@ -75,9 +73,8 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin {
         children: <Widget>[
           Container(child: TimerPage()),
           Container(child: WalkHistory()),
-          Container(child:
-            // child: WalkChart()),
-            Text("hello"))
+          // Container(child: Text('hello')),
+          Container(child:WalkChart()),
         ],
       ),
     );

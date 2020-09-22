@@ -12,6 +12,7 @@ void main() {
   ));
 }
 
+List walks = [];
 
 class ListItem {
   int value;
@@ -34,8 +35,8 @@ class WalkHistory extends StatefulWidget {
   var date;
   var formattedDate;
   String currentDate;
-  Object poopQuality = ["dry like a desert", "rainbow colored", "sweet like candy", "like a waterfall", "Same as Mine! Poop Buddies!"];
-  Object walk = [Icons.sentiment_very_dissatisfied, Icons.sentiment_dissatisfied, Icons.sentiment_neutral, Icons.sentiment_satisfied, Icons.sentiment_very_satisfied];
+  List poopQuality = ["dry like a desert", "rainbow colored", "sweet like candy", "like a waterfall", "Same as Mine! Poop Buddies!"];
+  List walk = [Icons.sentiment_very_dissatisfied, Icons.sentiment_dissatisfied, Icons.sentiment_neutral, Icons.sentiment_satisfied, Icons.sentiment_very_satisfied];
 
   void initState() {
     super.initState();
@@ -128,6 +129,7 @@ List<ListItem> petNames = List();
                   currentDate = item[index]["Date"];
                   date = DateFormat('yyyy-MM-dd').parse(currentDate);
                   formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                  walks = item;
 
                     return Card(
                       child: ListTile(
@@ -137,6 +139,8 @@ List<ListItem> petNames = List();
                               borderRadius: BorderRadius.circular(8.0)),
                           onTap: () {
                             currentDate = item[index]["Date"];
+                            String poop = item[index]["Poop Quality"];
+                            int poopIndex = int.parse(poop);
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -246,9 +250,7 @@ List<ListItem> petNames = List();
                                                       margin:
                                                           EdgeInsets.fromLTRB(
                                                               20, 0, 0, 0),
-                                                      child: Text(
-                                                          item[index]
-                                                              ["Poop Quality"],
+                                                      child: Text('${poopQuality[poopIndex]}',
                                                           style: TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: 18.0,
@@ -322,7 +324,7 @@ List<ListItem> petNames = List();
                     );
                   });
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Text("Add Walk History"));
             }
           }),
     );

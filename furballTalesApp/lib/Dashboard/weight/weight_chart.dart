@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class WeightChart extends StatefulWidget {
   String heading;
-  String petName;
+  String petName; 
   List<dynamic> allChartData;
 
   WeightChart(heading, petName, allChartData) {
@@ -51,7 +51,7 @@ class _WeightChartState extends State<WeightChart> {
 
       // handling the edge case where no such category is provided
       if ((allChartData[i]['data'][lowerHeading]) == null) {
-        Map<String, dynamic> dammyData = {
+        Map<String, dynamic> dummyData = {
           'key': {
             'Date': today,
             heading: 0.0,
@@ -59,8 +59,8 @@ class _WeightChartState extends State<WeightChart> {
         };
         data.add(
           DataPoint<DateTime>(
-            value: dammyData['key'][heading],
-            xAxis: dammyData['key']['Date'],
+            value: dummyData['key'][heading],
+            xAxis: dummyData['key']['Date'],
           ),
         );
         // handling normal case
