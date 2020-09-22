@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'homepage.dart';
 import 'initial_registration.dart';
 
 class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -56,6 +57,43 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                )),
+          ),
+          Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Container(),
+          ),
+        ],
+      );
+    } else if (appBarButton == 'RegiBack') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Homepage();
+                      },
+                    ),
+                  );
                 },
                 child: Icon(
                   Icons.arrow_back,
