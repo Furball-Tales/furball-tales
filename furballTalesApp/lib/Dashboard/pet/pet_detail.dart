@@ -272,7 +272,7 @@ class PetDetailState extends State<PetDetail> {
     DateTime nextBirthday =
         DateTime(now.year + 1, dataBirthday.month, dataBirthday.day);
 
-    if (thisBirthday.difference(today).inDays > 0) {
+    if (thisBirthday.difference(today).inDays > 1) {
       return thisBirthday.difference(today).inDays;
     } else {
       return nextBirthday.difference(today).inDays;
@@ -402,9 +402,6 @@ class PetDetailState extends State<PetDetail> {
                                           stream: databaseReference.onValue,
                                           builder: (context, snap) {
                                             return Container(
-                                              // padding: EdgeInsets.symmetric(
-                                              //     horizontal: 25,
-                                              //     vertical: 40),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -413,13 +410,13 @@ class PetDetailState extends State<PetDetail> {
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                        top: 40,
-                                                        bottom: 20,
+                                                        top: 35,
+                                                        bottom: 10,
                                                       ),
                                                       child: NeumorphicText(
                                                         name,
                                                         style: NeumorphicStyle(
-                                                          depth: 2,
+                                                          depth: 3,
                                                           color:
                                                               Colors.grey[600],
                                                           intensity: 1,
@@ -439,34 +436,39 @@ class PetDetailState extends State<PetDetail> {
                                                       top: 15,
                                                       bottom: 30,
                                                     ),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Text(
-                                                          sex,
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            foreground: Paint()
-                                                              ..shader =
-                                                                  linearGradientPurple,
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Text(
+                                                            sex,
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              foreground: Paint()
+                                                                ..shader =
+                                                                    linearGradientPurple,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          age + ' yrs',
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            foreground: Paint()
-                                                              ..shader =
-                                                                  linearGradientPurple,
+                                                          Text(
+                                                            age + ' yrs',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              foreground: Paint()
+                                                                ..shader =
+                                                                    linearGradientPurple,
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                   Column(
