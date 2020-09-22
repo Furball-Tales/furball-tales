@@ -9,7 +9,6 @@ import 'walkHistory.dart';
 import 'walkchart.dart';
 
 
-
 class Walk extends StatefulWidget {
   IconData icon;
   String heading;

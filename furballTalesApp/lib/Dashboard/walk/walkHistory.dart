@@ -129,6 +129,7 @@ List<ListItem> petNames = List();
                   currentDate = item[index]["Date"];
                   date = DateFormat('yyyy-MM-dd').parse(currentDate);
                   formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                  walks = item;
 
                     return Card(
                       child: ListTile(
@@ -323,7 +324,7 @@ List<ListItem> petNames = List();
                     );
                   });
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Text("Add Walk History"));
             }
           }),
     );

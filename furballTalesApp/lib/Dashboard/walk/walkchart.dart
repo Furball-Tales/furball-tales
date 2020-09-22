@@ -287,10 +287,9 @@ class _WalkChartState extends State<WalkChart> {
   final List<DataPoint<DateTime>> walkData = [];
   DateTime fromDate;
   DateTime toDate;
-  String heading = "Walk";
-  String lowerHeading = "walk";
-  String petName = "Bella";
-  String selectedKey = allPetsData[0]['key'];
+  // String heading = "Walk";
+  // String lowerHeading = "walk";
+  String selectedKey = allPetsData[1]['key'];
   // List<dynamic> allChartData;
 
   List<ListItem> petNames = List();
