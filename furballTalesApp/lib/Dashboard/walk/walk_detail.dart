@@ -8,7 +8,6 @@ import 'package:motion_tab_bar/MotionTabController.dart';
 import 'walkHistory.dart';
 import 'walkchart.dart';
 
-
 class Walk extends StatefulWidget {
   IconData icon;
   String heading;
@@ -48,12 +47,10 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin {
     _tabController.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar("Walk History","back"),
+      appBar: GradientAppBar("Walk History", "back"),
       bottomNavigationBar: MotionTabBar(
         labels: ["Walk", "History", "Statistics"],
         initialSelectedTab: "Walk",
@@ -73,8 +70,8 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin {
         children: <Widget>[
           Container(child: TimerPage()),
           Container(child: WalkHistory()),
-          // Container(child: Text('hello')),
-          Container(child:WalkChart()),
+          Container(child: Center(child: Text('Add History'))),
+          // Container(child:WalkChart()),
         ],
       ),
     );

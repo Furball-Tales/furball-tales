@@ -148,7 +148,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
     return Scaffold(
       appBar: GradientAppBar(
         "Pet Registration",
-        'back',
+        'RegiBack',
       ),
       backgroundColor: Color(baseColor),
       body: Neumorphic(
