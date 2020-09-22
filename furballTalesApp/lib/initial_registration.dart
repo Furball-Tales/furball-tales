@@ -155,7 +155,7 @@ class _InitialRegistrationState extends State<InitialRegistration> {
   Widget initialRegistrationScreen() {
     return Scaffold(
       appBar: GradientAppBar(
-        "Pet Registeration",
+        "Pet Registration",
         'back',
       ),
       backgroundColor: Color(baseColor),

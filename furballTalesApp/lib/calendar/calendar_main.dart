@@ -15,9 +15,6 @@ import 'package:table_calendar/table_calendar.dart';
 
 var baseColor = NeumorphicCardSettings.baseColor;
 
-Firestore _db = Firestore.instance;
-final databaseReference = Firestore.instance.collection('events');
-
 class Calendar extends StatefulWidget {
   final EventModel note;
 
