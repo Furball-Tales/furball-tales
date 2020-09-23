@@ -60,7 +60,7 @@ Future createPetdata(birthday, petName, petProfilePicUrl, sex) async {
 }
 
 Future updatePetImage(var imageFile) async {
-  // await readAllPetsData();
+  await readAllPetsData();
   await readAllPetsDataPetinfo();
   // var petId = allPetsData[0]['key'];
   var petId = allPetsDataPetinfo[0]['key'];
