@@ -140,7 +140,6 @@ class _ImageGridItemState extends State<ImageGridItem> {
 
                   data.forEach(
                       (index, data) => item.add({"key": index, ...data}));
-                  print(pictureView(data[item[1]["key"]]['pictures']));
 
                   return GridView.builder(
                     itemCount: item.length,

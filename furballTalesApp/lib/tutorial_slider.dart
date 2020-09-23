@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'app_bar.dart';
 import 'homepage.dart';
+import 'frontend_settings.dart';
+
+var textBaseColor = NeumorphicCardSettings.textBaseColor;
+var baseColor = NeumorphicCardSettings.baseColor;
 
 class TutorialSlider extends StatefulWidget {
   String __nextView;
@@ -32,37 +35,55 @@ class _TutorialSlider extends State<TutorialSlider> {
     slides.add(new Slide(
       title: "Welcome to Furball Tales",
       styleTitle: TextStyle(
-          color: Colors.black87,
-          fontSize: 30.0,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'RobotoMono'),
+        color: Colors.white,
+        fontSize: 25.0,
+        fontWeight: FontWeight.bold,
+      ),
       description:
           "Here's a quick tutorial so you can navigate through the App with ease...",
       styleDescription: TextStyle(
-          color: Color(0xff3da4ab),
-          fontSize: 20.0,
-          fontStyle: FontStyle.italic,
-          fontFamily: 'Raleway'),
+        color: Color(textBaseColor),
+        fontSize: 16.0,
+      ),
+      marginTitle: EdgeInsets.only(
+        top: 18,
+        bottom: 70,
+      ),
+      marginDescription: EdgeInsets.only(
+        top: 30,
+        bottom: 10,
+        right: 25,
+        left: 25,
+      ),
       pathImage: "assets/logo.png",
       backgroundImage: "assets/profile_background.png",
       backgroundOpacity: 0.0,
     ));
     slides.add(
       new Slide(
-        title: "Dashboard/Home page",
+        title: "Dashboard",
         styleTitle: TextStyle(
-            color: Colors.black87,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Colors.white,
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold,
+        ),
         description:
-            "Here, you can see your registered pets. To add more of your pets, click the plus in the top right corner.\nYou can also navigate through the app via the bottom Navigation Bar.",
+            "Here, you can see your registered pets. To add more, click the plus in the top right corner.\nYou can also navigate through the app via the bottom Navigation Bar.",
         styleDescription: TextStyle(
-            color: Color(0xff3da4ab),
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        pathImage: "assets/dashboard_1.png",
+          color: Color(textBaseColor),
+          fontSize: 16.0,
+        ),
+        marginTitle: EdgeInsets.only(
+          top: 18,
+          bottom: 70,
+        ),
+        marginDescription: EdgeInsets.only(
+          top: 18,
+          bottom: 10,
+          right: 25,
+          left: 25,
+        ),
+        pathImage: "assets/dashboard.png",
         heightImage: 400.0,
         backgroundImage: "assets/profile_background.png",
         backgroundOpacity: 0.0,
@@ -70,20 +91,29 @@ class _TutorialSlider extends State<TutorialSlider> {
     );
     slides.add(
       new Slide(
-        title: "Albums/Photos page",
+        title: "Albums / Photos",
         styleTitle: TextStyle(
-            color: Colors.black87,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Colors.white,
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold,
+        ),
         description:
-            "Here, you can see albums and pictures. You can create a new album/photo by clicking the plus button.\nIn this part of the app, if you long press an album/picture, you can delete it",
+            "Here, you can see and create an album / photo by clicking the plus button.\nIn this part of the app, if you long press an album / picture, you can delete it.",
         styleDescription: TextStyle(
-            color: Color(0xff3da4ab),
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        pathImage: "assets/albums_1.png",
+          color: Color(textBaseColor),
+          fontSize: 16.0,
+        ),
+        marginTitle: EdgeInsets.only(
+          top: 18,
+          bottom: 70,
+        ),
+        marginDescription: EdgeInsets.only(
+          top: 18,
+          bottom: 10,
+          right: 25,
+          left: 25,
+        ),
+        pathImage: "assets/album.jpg",
         heightImage: 400.0,
         backgroundImage: "assets/profile_background.png",
         backgroundOpacity: 0.0,
@@ -91,20 +121,29 @@ class _TutorialSlider extends State<TutorialSlider> {
     );
     slides.add(
       new Slide(
-        title: "Calendar page",
+        title: "Calendar",
         styleTitle: TextStyle(
-            color: Colors.black87,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Colors.white,
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold,
+        ),
         description:
             "Here, can create/update/delete calendar events for your pet's needs. Good luck exploring!",
         styleDescription: TextStyle(
-            color: Color(0xff3da4ab),
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        pathImage: "assets/calendar_1.png",
+          color: Color(textBaseColor),
+          fontSize: 16.0,
+        ),
+        marginTitle: EdgeInsets.only(
+          top: 18,
+          bottom: 70,
+        ),
+        marginDescription: EdgeInsets.only(
+          top: 18,
+          bottom: 10,
+          right: 25,
+          left: 25,
+        ),
+        pathImage: "assets/calendar.jpg",
         heightImage: 400.0,
         backgroundImage: "assets/profile_background.png",
         backgroundOpacity: 0.0,
@@ -112,20 +151,29 @@ class _TutorialSlider extends State<TutorialSlider> {
     );
     slides.add(
       new Slide(
-        title: "Medical/Vet page",
+        title: "Medical / Vet",
         styleTitle: TextStyle(
-            color: Colors.black87,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Colors.white,
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold,
+        ),
         description:
             "This is where you can add all your pets medical info after visiting the vet.\nIt's a great way to keep track of all your visits!",
         styleDescription: TextStyle(
-            color: Color(0xff3da4ab),
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        pathImage: "assets/medical_1.png",
+          color: Color(textBaseColor),
+          fontSize: 16.0,
+        ),
+        marginTitle: EdgeInsets.only(
+          top: 18,
+          bottom: 70,
+        ),
+        marginDescription: EdgeInsets.only(
+          top: 18,
+          bottom: 10,
+          right: 25,
+          left: 25,
+        ),
+        pathImage: "assets/medical.jpg",
         heightImage: 400.0,
         backgroundImage: "assets/profile_background.png",
         backgroundOpacity: 0.0,
@@ -135,18 +183,27 @@ class _TutorialSlider extends State<TutorialSlider> {
       new Slide(
         title: "Profile page",
         styleTitle: TextStyle(
-            color: Colors.black87,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Colors.white,
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold,
+        ),
         description:
             "This is where you can see all about the app, the developers and an option to logout.\nWe hope you enjoy using our one stop app for your pets!",
         styleDescription: TextStyle(
-            color: Color(0xff3da4ab),
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        pathImage: "assets/profile_1.png",
+          color: Color(textBaseColor),
+          fontSize: 16.0,
+        ),
+        marginTitle: EdgeInsets.only(
+          top: 18,
+          bottom: 70,
+        ),
+        marginDescription: EdgeInsets.only(
+          top: 18,
+          bottom: 10,
+          right: 25,
+          left: 25,
+        ),
+        pathImage: "assets/profile.jpg",
         heightImage: 400.0,
         backgroundImage: "assets/profile_background.png",
         backgroundOpacity: 0.0,
@@ -199,7 +256,7 @@ class _TutorialSlider extends State<TutorialSlider> {
         width: double.infinity,
         height: double.infinity,
         child: Container(
-          margin: EdgeInsets.only(bottom: 60.0, top: 60.0),
+          // margin: EdgeInsets.only(bottom: 60.0, top: 60.0),
           child: ListView(
             children: <Widget>[
               GestureDetector(
@@ -238,10 +295,21 @@ class _TutorialSlider extends State<TutorialSlider> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(
-        "Donation",
-        'back',
+      appBar: AppBar(
+        title: Text(
+          'How to use',
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 18.0,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: true,
       ),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Color(baseColor),
       body: IntroSlider(
         // List slides
         slides: this.slides,
@@ -262,7 +330,7 @@ class _TutorialSlider extends State<TutorialSlider> {
 
         // Dot indicator
         colorDot: Color(0xffffcc5c),
-        sizeDot: 13.0,
+        sizeDot: 10.0,
 
         // Tabs
         // listCustomTabs: this.renderListCustomTabs(),
@@ -272,7 +340,7 @@ class _TutorialSlider extends State<TutorialSlider> {
         },
 
         // Show or hide status bar
-        shouldHideStatusBar: true,
+        shouldHideStatusBar: false,
 
         // On tab change completed
         onTabChangeCompleted: this.onTabChangeCompleted,
