@@ -70,8 +70,8 @@ class _WalkState extends State<Walk> with TickerProviderStateMixin {
         children: <Widget>[
           Container(child: TimerPage()),
           Container(child: WalkHistory()),
-          Container(child: Center(child: Text('Add History'))),
-          // Container(child:WalkChart()),
+          // Container(child: Center(child: Text('Add History'))),
+          Container(child: WalkChart()),
         ],
       ),
     );
