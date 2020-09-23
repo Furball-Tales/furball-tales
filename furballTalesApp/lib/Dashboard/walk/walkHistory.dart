@@ -12,8 +12,6 @@ void main() {
   ));
 }
 
-List walks = [];
-
 class ListItem {
   int value;
   String name;
@@ -26,7 +24,6 @@ class WalkHistory extends StatefulWidget {
 
   @override
   _WalkHistoryState createState() => _WalkHistoryState();
-  
   }
 
   class _WalkHistoryState extends State<WalkHistory> {
@@ -129,8 +126,6 @@ List<ListItem> petNames = List();
                   currentDate = item[index]["Date"];
                   date = DateFormat('yyyy-MM-dd').parse(currentDate);
                   formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                  walks = item;
-
                     return Card(
                       child: ListTile(
                           title: Text('$formattedDate'),
